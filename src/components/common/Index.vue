@@ -17,6 +17,26 @@
                     </v-list-tile-content>
                 </v-list-tile>
                 <v-divider></v-divider>
+                <v-list v-if="userInfo.role==0">
+                    <template v-for="(item, i) in menuManage">
+                        <v-layout v-if="item.heading" :key="i" row align-center>
+                            <v-subheader v-if="item.heading">
+                                {{ item.heading }}
+                            </v-subheader>
+                        </v-layout>
+                        <v-divider v-else-if="item.divider" :key="i" dark class="my-3"></v-divider>
+                        <v-list-tile v-else :key="i" :to="item.route" ripple>
+                            <v-list-tile-action>
+                                <v-icon>{{ item.icon }}</v-icon>
+                            </v-list-tile-action>
+                            <v-list-tile-content>
+                                <v-list-tile-title>
+                                    {{ item.text }}
+                                </v-list-tile-title>
+                            </v-list-tile-content>
+                        </v-list-tile>
+                    </template>
+                </v-list>
                 <v-list>
                     <template v-for="(item, i) in menuCommon">
                         <v-layout v-if="item.heading" :key="i" row align-center>
@@ -40,26 +60,30 @@
             </v-list>
         </v-navigation-drawer>
 
-        <v-toolbar color="primary" dark app fixed flat>
+        <v-toolbar color="white" app fixed>
             <v-btn icon class="hidden-md-and-down" @click="goBack" v-if="drawer">
                 <v-icon>arrow_back</v-icon>
             </v-btn>
             <v-toolbar-side-icon class="hidden-lg-and-up" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-            <v-toolbar-title style="width: 500px" class="">
+            <v-toolbar-title class="">
                 <span class="hidden-sm-and-down">SkyHawk - 静安区</span>
             </v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn icon>
-                <v-icon>settings</v-icon>
-            </v-btn>
-
-            <v-btn icon>
-                <v-icon>help_outline</v-icon>
-            </v-btn>
-
-            <v-btn icon>
-                <v-icon>exit_to_app</v-icon>
-            </v-btn>
+            <el-tooltip class="item" effect="dark" content="设置" placement="bottom">
+                <v-btn icon>
+                    <v-icon>settings</v-icon>
+                </v-btn>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="帮助" placement="bottom">
+                <v-btn icon>
+                    <v-icon>help_outline</v-icon>
+                </v-btn>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="注销" placement="bottom">
+                <v-btn icon @click="logOut">
+                    <v-icon>exit_to_app</v-icon>
+                </v-btn>
+            </el-tooltip>
         </v-toolbar>
 
         <v-content>
@@ -72,21 +96,34 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 export default {
     data: () => ({
         drawer: true,
+        menuManage: [
+            { heading: "管理" },
+            {
+                icon: "business",
+                text: "企业管理",
+                route: "/manage/company"
+            },
+            {
+                icon: "people",
+                text: "组织管理",
+                route: "/manage/organize"
+            }
+        ],
         menuCommon: [
             { heading: "通用" },
             {
                 icon: "map",
                 text: "地图视图",
-                route: "/dashboard/manage/funddata"
+                route: "/map"
             },
             {
                 icon: "alarm",
                 text: "告警流转",
-                route: "/dashboard/manage/location"
+                route: "/alert"
             },
             {
                 icon: "camera",
@@ -101,19 +138,29 @@ export default {
             {
                 icon: "people",
                 text: "组织信息",
-                route: "/dashboard/manage/department"
+                route: "/organize"
             }
         ]
     }),
     methods: {
         goBack() {
             this.$router.go(-1);
+        },
+        logOut() {
+            this.$confirm("确认注销吗?", "提示", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                type: "warning"
+            })
+                .then(() => {
+                    this.$router.push({ path: "/" });
+                })
+                .catch(() => {});
         }
     },
     computed: {
         ...mapGetters(["userInfo"])
-    },
-    mounted() {}
+    }
 };
 </script>
 

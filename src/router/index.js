@@ -13,7 +13,7 @@ export default new VueRouter({
         },
         {
             path: '/index',
-            component: resolve => require(['@/components/user/Index'], resolve),
+            component: resolve => require(['@/components/common/Index'], resolve),
             children: [
                 {
                     path: '/company',
@@ -29,16 +29,64 @@ export default new VueRouter({
                 {
                     path: '/gallery',
                     component: resolve => require(['@/components/user/gallery/GalleryList'], resolve),
+                },
+                {
+                    path: '/organize',
+                    component: resolve => require(['@/components/user/organize/OrganizeList'], resolve),
                     children: [
                         {
-                            path: '/gallery/:id',
-                            component: resolve => require(['@/components/user/gallery/GalleryDetail'], resolve),
+                            path: '/organize/:id',
+                            component: resolve => require(['@/components/user/organize/OrganizeDetail'], resolve),
 
                         }
                     ]
-                }
+                },
+                {
+                    path: '/alert',
+                    component: resolve => require(['@/components/user/alert/AlertList'], resolve),
+                    children: [
+                        {
+                            path: '/alert/:id',
+                            component: resolve => require(['@/components/user/alert/AlertDetail'], resolve),
+
+                        }
+                    ]
+                },
+                {
+                    path: '/map',
+                    component: resolve => require(['@/components/user/map/MapView'], resolve),
+                },
 
             ]
+        },
+        {
+            path: '/manage',
+            component: resolve => require(['@/components/common/Index'], resolve),
+            children: [
+                {
+                    path: '/manage/company',
+                    component: resolve => require(['@/components/manage/company/CompanyList'], resolve),
+                    children: [
+                        {
+                            path: '/manage/company/:id',
+                            component: resolve => require(['@/components/manage/company/CompanyDetail'], resolve),
+
+                        }
+                    ]
+                },
+                {
+                    path: '/manage/organize',
+                    component: resolve => require(['@/components/manage/organize/OrganizeList'], resolve),
+                    children: [
+                        {
+                            path: '/manage/organize/:id',
+                            component: resolve => require(['@/components/manage/organize/OrganizeDetail'], resolve),
+
+                        }
+                    ]
+                },
+            ]
         }
+
     ]
 })
