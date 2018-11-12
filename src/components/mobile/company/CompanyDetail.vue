@@ -1,8 +1,11 @@
 <template>
-    <v-container>
+    <div>
         <v-card v-loading="loading">
             <v-toolbar flat color="white">
-                <v-toolbar-title style="font-size:17px">{{companyInfo.brand}}</v-toolbar-title>
+                <v-btn icon @click="goBack">
+                    <v-icon>arrow_back</v-icon>
+                </v-btn>
+                <v-toolbar-title style="font-size:17px; margin-left:5px">{{companyInfo.brand}}</v-toolbar-title>
             </v-toolbar>
             <v-tabs v-model="tab" color="white" centered>
                 <v-tabs-slider></v-tabs-slider>
@@ -18,7 +21,7 @@
             </v-tabs>
             <v-divider></v-divider>
 
-            <v-tabs-items v-model="tab" style="height:calc(100vh - 210px);overflow :auto">
+            <v-tabs-items v-model="tab" style="height:calc(100vh - 160px);overflow :auto">
                 <v-tab-item key="1">
 
                     <div id="markermap" style="width: 100%;height: 400px;z-index:1!important;"></div>
@@ -87,7 +90,7 @@
                         <v-layout wrap>
                             <v-flex v-for="(item,i) in companySupervisor" :key="i" xs6 md4>
                                 <v-card>
-                                    <v-img height="200px">
+                                    <v-img height="170px">
                                         <v-container fill-height fluid pa-2>
                                             <v-layout fill-height>
                                                 <v-flex xs12 align-end flexbox>
@@ -120,11 +123,10 @@
                             <td class="text-xs-center" v-else-if="props.item.state == 4">已完成</td>
                         </template>
                     </v-data-table>
-
                 </v-tab-item>
             </v-tabs-items>
         </v-card>
-    </v-container>
+    </div>
 </template>
 
 <script>
@@ -160,6 +162,9 @@ export default {
         ]
     }),
     methods: {
+        goBack() {
+            this.$router.go(-1);
+        },
         getCompanyInfo() {
             this.loading = true;
             this.$ajax

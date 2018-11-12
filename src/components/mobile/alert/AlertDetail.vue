@@ -1,8 +1,12 @@
 <template>
-    <v-container>
+    <div>
         <v-card v-loading="loading">
             <v-toolbar flat color="white">
-                <v-toolbar-title style="font-size:17px">{{alertInfo.title}}</v-toolbar-title>
+                <v-btn icon @click="goBack">
+                    <v-icon>arrow_back</v-icon>
+                </v-btn>
+
+                <v-toolbar-title style="font-size:17px; margin-left:5px">{{alertInfo.title}}</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <div v-if="alertInfo.state==1">
 
@@ -31,7 +35,6 @@
                             </v-menu>
                         </div>
                     </div>
-
                 </div>
 
                 <div v-else-if="alertInfo.state==2">
@@ -51,7 +54,7 @@
                 </v-tab>
             </v-tabs>
             <v-divider></v-divider>
-            <v-tabs-items v-model="tab" style="height:calc(100vh - 210px);overflow :auto">
+            <v-tabs-items v-model="tab" style="height:calc(100vh - 160px);overflow :auto">
                 <v-tab-item key="1">
                     <img :src="alertInfo.src" class="image" style="max-width: 100%;max-height: 100%;" v-viewer>
                     <v-list>
@@ -126,30 +129,30 @@
                     </v-list>
                 </v-tab-item>
                 <v-tab-item key="2">
-                    <v-container>
+                    <v-container style="padding-top:0px !important; padding-bottom:0px !important">
                         <v-layout row>
                             <v-flex xs12 md10 offset-md2>
                                 <v-timeline align-top dense>
                                     <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=1">
                                         <v-layout pt-3>
-                                            <v-flex xs5>
+                                            <v-flex xs4>
                                                 <strong>{{alertInfo.create_time | moment("YYYY-MM-DD HH:mm:ss")}}</strong>
                                             </v-flex>
-                                            <v-flex>
+                                            <v-flex xs8>
                                                 <strong>触发告警</strong>
-                                                <div class="caption">交由 监管部门 处理</div>
+                                                <div class="caption">交由 静安区市场监督管理局 处理</div>
                                             </v-flex>
                                         </v-layout>
                                     </v-timeline-item>
 
                                     <v-timeline-item color="pink" fill-dot small v-if="alertInfo.uncertain==1">
                                         <v-layout wrap pt-3>
-                                            <v-flex xs5>
+                                            <v-flex xs4>
                                                 <strong>{{alertInfo.repost_time | moment("YYYY-MM-DD HH:mm:ss")}}</strong>
                                             </v-flex>
-                                            <v-flex>
+                                            <v-flex xs8>
                                                 <strong>转发处理</strong>
-                                                <div class="caption mb-2">交由 食药监 处理</div>
+                                                <div class="caption mb-2">交由 上海市食品药品监督管理局 处理</div>
                                                 <!-- <v-avatar>
                                                     <v-img src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairFrida&accessoriesType=Kurt&hairColor=Red&facialHairType=BeardLight&facialHairColor=BrownDark&clotheType=GraphicShirt&clotheColor=Gray01&graphicType=Skull&eyeType=Wink&eyebrowType=RaisedExcitedNatural&mouthType=Disbelief&skinColor=Brown"></v-img>
                                                 </v-avatar> -->
@@ -159,10 +162,10 @@
 
                                     <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=2">
                                         <v-layout wrap pt-3>
-                                            <v-flex xs5>
+                                            <v-flex xs4>
                                                 <strong>{{alertInfo.repost_time | moment("YYYY-MM-DD HH:mm:ss")}}</strong>
                                             </v-flex>
-                                            <v-flex>
+                                            <v-flex xs8>
                                                 <strong>下发整改</strong>
                                                 <div class="caption mb-2">交由 {{station.name}}-{{group.name}} 处理</div>
                                                 <!-- <v-avatar>
@@ -174,10 +177,10 @@
 
                                     <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=3">
                                         <v-layout pt-3>
-                                            <v-flex xs5>
+                                            <v-flex xs4>
                                                 <strong>{{alertInfo.rectify_time | moment("YYYY-MM-DD HH:mm:ss")}}</strong>
                                             </v-flex>
-                                            <v-flex>
+                                            <v-flex xs8>
                                                 <strong>企业反馈</strong>
                                                 <div class="caption mb-2">交由 {{station.name}}-{{group.name}} 审核</div>
 
@@ -187,10 +190,10 @@
 
                                     <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=4">
                                         <v-layout pt-3>
-                                            <v-flex xs5>
+                                            <v-flex xs4>
                                                 <strong>{{alertInfo.finish_time | moment("YYYY-MM-DD HH:mm:ss")}}</strong>
                                             </v-flex>
-                                            <v-flex>
+                                            <v-flex xs8>
                                                 <strong>整改完成</strong>
                                             </v-flex>
                                         </v-layout>
@@ -205,7 +208,7 @@
                 </v-tab-item>
             </v-tabs-items>
         </v-card>
-    </v-container>
+    </div>
 </template>
 
 <script>
@@ -221,6 +224,9 @@ export default {
     }),
     methods: {
         ...mapActions(["updateAlert"]),
+        goBack() {
+            this.$router.go(-1);
+        },
         getAlertInfo() {
             this.loading = true;
             this.$ajax
@@ -250,7 +256,7 @@ export default {
                 });
         },
         redirect() {
-            this.$router.push({ path: "/company/" + this.company.id });
+            this.$router.push({ path: "/mobile/company/" + this.company.id });
         },
         uncertainAlert() {
             this.$confirm("本条告警将交由食药监处理", "提示", {

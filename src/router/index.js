@@ -29,6 +29,13 @@ export default new VueRouter({
                 {
                     path: '/gallery',
                     component: resolve => require(['@/components/user/gallery/GalleryList'], resolve),
+                    children: [
+                        {
+                            path: '/gallery/:id',
+                            component: resolve => require(['@/components/user/gallery/GalleryDetail'], resolve),
+
+                        }
+                    ]
                 },
                 {
                     path: '/organize',
@@ -85,6 +92,36 @@ export default new VueRouter({
                         }
                     ]
                 },
+            ]
+        },
+        {
+            path: '/mobile/index',
+            component: resolve => require(['@/components/common/IndexMobile'], resolve),
+            children: [
+                {
+                    path: '/mobile/map',
+                    component: resolve => require(['@/components/mobile/map/MapView'], resolve),
+                },
+                {
+                    path: '/mobile/company',
+                    component: resolve => require(['@/components/mobile/company/CompanyList'], resolve),
+                },
+                {
+                    path: '/mobile/company/:id',
+                    component: resolve => require(['@/components/mobile/company/CompanyDetail'], resolve),
+                },
+                {
+                    path: '/mobile/alert',
+                    component: resolve => require(['@/components/mobile/alert/AlertList'], resolve),
+                },
+                {
+                    path: '/mobile/alert/:id',
+                    component: resolve => require(['@/components/mobile/alert/AlertDetail'], resolve),
+                },
+                {
+                    path: '/mobile/profile',
+                    component: resolve => require(['@/components/mobile/user/Profile'], resolve),
+                }
             ]
         }
 

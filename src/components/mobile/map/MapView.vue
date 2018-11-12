@@ -1,106 +1,104 @@
 <template>
     <div class="row">
-        <div class="mapview" id="markermap" style="height:calc(100vh - 64px);overflow :auto" v-loading="loadingMap">
-            <v-card v-if="userInfo.role==1" class="d-inline-block elevation-12 ml-5 mt-5" width="300px" style="z-index:1">
+        <!-- <v-card v-if="userInfo.role==1" class="d-inline-block elevation-12" width="100%" style="z-index:1">
+
+            <v-toolbar flat color="white">
+                <v-btn icon @click="initTool" v-if="select">
+                    <v-icon>arrow_back</v-icon>
+                </v-btn>
+                <v-toolbar-title v-html="highlight" v-if="!select" class="subheading" style="margin-left:-8px">请选择辖区</v-toolbar-title>
+                <v-toolbar-title v-html="select" class="subheading" v-else></v-toolbar-title>
+
+            </v-toolbar>
+            <v-divider></v-divider>
+            <v-navigation-drawer floating width="100%" permanent stateless value="true" v-if="!select">
+                <v-list dense style="max-height:400px" class="pt-0 pb-0">
+                    <v-list-group>
+                        <v-list-tile slot="activator">
+                            <v-list-tile-title>查看全部</v-list-tile-title>
+                        </v-list-tile>
+
+                        <v-list-tile v-for="(item,i) in stationList" :key="i" @click="selectStation(item.id)">
+                            <v-list-tile-title v-text="item.name"></v-list-tile-title>
+                        </v-list-tile>
+
+                    </v-list-group>
+                </v-list>
+            </v-navigation-drawer>
+
+        </v-card> -->
+        <v-card class="elevation-12 " width="100%" style="z-index:1">
+            <v-toolbar flat color="white">
+                <v-toolbar-title style="font-size:17px">辖区地图</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-btn icon @click="initTool">
+                    <v-icon>refresh</v-icon>
+                </v-btn>
+            </v-toolbar>
+        </v-card>
+        <!-- <v-card class="elevation-12 " width="100%" style="z-index:1" v-if="select && !selectCompany">
+            <v-navigation-drawer width="100%" floating permanent stateless value="true" v-if="!selectCompany">
+                <v-list style="max-height:400px" class="pt-0 pb-0">
+                    <v-list-group>
+                        <v-list-tile slot="activator">
+                            <v-list-tile-title>查看全部</v-list-tile-title>
+                        </v-list-tile>
+
+                        <v-list-tile v-for="(item,i) in companyListShow" :key="i" @click="glanceCompany(item.id)">
+                            <v-list-tile-avatar size="32px">
+                                <vue-initials-img :name="item.brand" />
+                            </v-list-tile-avatar>
+                            <v-list-tile-content>
+                                <v-list-tile-title v-html="item.brand"></v-list-tile-title>
+                            </v-list-tile-content>
+
+                        </v-list-tile>
+
+                    </v-list-group>
+                </v-list>
+            </v-navigation-drawer>
+
+        </v-card> -->
+
+        <div class="mapview" id="markermap" style="height:calc(100vh - 112px);overflow :auto" v-loading="loadingMap">
+            <v-card class="elevation-12" width="100%" style="z-index:1" v-if="selectCompany" v-loading="loadingInfo">
 
                 <v-toolbar flat color="white">
-                    <v-btn icon @click="initTool" v-if="select">
-                        <v-icon>arrow_back</v-icon>
+                    <v-toolbar-title class="subheading" v-html="selectCompany"></v-toolbar-title>
+                    <v-spacer></v-spacer>
+                    <v-btn icon @click="backTool" v-if="select">
+                        <v-icon>clear</v-icon>
                     </v-btn>
-                    <v-toolbar-title v-html="highlight" v-if="!select" class="subheading" style="margin-left:-8px">请选择辖区</v-toolbar-title>
-                    <v-toolbar-title v-html="select" class="subheading" v-else></v-toolbar-title>
-
                 </v-toolbar>
-                <v-divider></v-divider>
-                <v-navigation-drawer floating permanent stateless value="true" v-if="!select">
-                    <v-list dense style="max-height:400px" class="pt-0 pb-0">
-                        <v-list-group>
-                            <v-list-tile slot="activator">
-                                <v-list-tile-title>查看全部</v-list-tile-title>
-                            </v-list-tile>
+                <v-list>
+                    <v-list-tile>
+                        <v-list-tile-action>
+                            <v-icon color="primary">assignment_ind</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{companyInfo.name}}</v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                    <v-list-tile>
+                        <v-list-tile-action>
+                            <v-icon color="primary">location_on</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{companyInfo.address}}</v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                    <v-list-tile>
+                        <v-list-tile-action>
+                            <v-icon color="info">person</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-list-tile-title class="subheading" v-html="companyInfo.legalperson"></v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
 
-                            <v-list-tile v-for="(item,i) in stationList" :key="i" @click="selectStation(item.id)">
-                                <v-list-tile-title v-text="item.name"></v-list-tile-title>
-                            </v-list-tile>
-
-                        </v-list-group>
-                    </v-list>
-                </v-navigation-drawer>
-
+                </v-list>
+                <v-btn depressed block color="primary" dark @click="redirect(companyInfo.id)">详细信息</v-btn>
             </v-card>
-            <v-card v-else class="d-inline-block elevation-12 ml-5 mt-5" width="300px" style="z-index:1">
-
-                <v-toolbar flat color="white">
-                    <v-toolbar-title class="subheading" style="margin-left:-8px">{{station.name}}</v-toolbar-title>
-                </v-toolbar>
-            </v-card>
-            <v-card class="elevation-12 ml-5 mt-2" width="300px" style="z-index:1" v-if="select && !selectCompany">
-                <v-toolbar flat color="white">
-                    <v-toolbar-title style="margin-left:-8px" class="subheading" v-html="highlightCompany">请选择企业</v-toolbar-title>
-                </v-toolbar>
-                <v-divider></v-divider>
-                <v-navigation-drawer floating permanent stateless value="true" v-if="!selectCompany">
-                    <v-list style="max-height:400px" class="pt-0 pb-0">
-                        <v-list-group>
-                            <v-list-tile slot="activator">
-                                <v-list-tile-title>查看全部</v-list-tile-title>
-                            </v-list-tile>
-
-                            <v-list-tile v-for="(item,i) in companyListShow" :key="i" @click="glanceCompany(item.id)">
-                                <v-list-tile-avatar size="32px">
-                                    <vue-initials-img :name="item.brand" />
-                                </v-list-tile-avatar>
-                                <v-list-tile-content>
-                                    <v-list-tile-title v-html="item.brand"></v-list-tile-title>
-                                </v-list-tile-content>
-
-                            </v-list-tile>
-
-                        </v-list-group>
-                    </v-list>
-                </v-navigation-drawer>
-
-            </v-card>
-            <v-scroll-y-transition >
-                <v-card class="elevation-12 ml-5 mt-2" width="300px" style="z-index:1" v-if="selectCompany" v-loading="loadingInfo">
-
-                    <v-toolbar flat color="white">
-                        <v-toolbar-title style="margin-left:-8px" class="subheading" v-html="selectCompany"></v-toolbar-title>
-                        <v-spacer></v-spacer>
-                        <v-btn icon @click="backTool">
-                            <v-icon>clear</v-icon>
-                        </v-btn>
-                    </v-toolbar>
-                    <v-list>
-                        <v-list-tile>
-                            <v-list-tile-action>
-                                <v-icon color="primary">assignment_ind</v-icon>
-                            </v-list-tile-action>
-                            <v-list-tile-content>
-                                <v-list-tile-title>{{companyInfo.name}}</v-list-tile-title>
-                            </v-list-tile-content>
-                        </v-list-tile>
-                        <v-list-tile>
-                            <v-list-tile-action>
-                                <v-icon color="primary">location_on</v-icon>
-                            </v-list-tile-action>
-                            <v-list-tile-content>
-                                <v-list-tile-title>{{companyInfo.address}}</v-list-tile-title>
-                            </v-list-tile-content>
-                        </v-list-tile>
-                        <v-list-tile>
-                            <v-list-tile-action>
-                                <v-icon color="info">person</v-icon>
-                            </v-list-tile-action>
-                            <v-list-tile-content>
-                                <v-list-tile-title class="subheading" v-html="companyInfo.legalperson"></v-list-tile-title>
-                            </v-list-tile-content>
-                        </v-list-tile>
-
-                    </v-list>
-                    <v-btn block color="primary" dark @click="redirect(companyInfo.id)">详细信息</v-btn>
-                </v-card>
-            </v-scroll-y-transition>
 
         </div>
     </div>
@@ -127,8 +125,7 @@ export default {
         companyListShow: [],
         loadingInfo: false,
         loadingMap: false,
-        companyInfo: [],
-        station: []
+        companyInfo: []
     }),
     methods: {
         ...mapActions(["getCompanyList", "getOrganizeList"]),
@@ -182,21 +179,6 @@ export default {
                                 zIndex: 10,
                                 cursor: "pointer",
                                 clickable: true
-                            });
-                            const that = this;
-                            marker.on("mouseover", function() {
-                                marker.setOptions({ fillColor: "white" });
-                            });
-                            marker.on("mouseout", function() {
-                                marker.setOptions({ fillColor: "#1E88E5" });
-                            });
-                            marker.on("click", function() {
-                                that.selectCompany = element.brand;
-                                marker.setOptions({ fillColor: "white" });
-                                // that.selectCompany = element.brand;
-                                that.map.setCenter(element.location.split(","));
-                                that.glanceCompany(element.id);
-                                // console.log(element.id);
                             });
                         }
                     });
@@ -276,7 +258,7 @@ export default {
                         this.map.setFitView();
                         this.center = this.map.getCenter();
                         this.zoom = this.map.getZoom();
-                    });
+                   });
                 });
         },
         clearMarkers() {
@@ -351,6 +333,7 @@ export default {
         },
         glanceCompany(id) {
             this.loadingInfo = true;
+
             this.$ajax
                 .get("/company/detail", {
                     params: {
@@ -360,6 +343,7 @@ export default {
                 })
                 .then(data => {
                     this.companyInfo = data.data.companyDetail;
+                    this.selectCompany = this.companyInfo.brand;
                     this.loadingInfo = false;
                 });
         },
@@ -373,9 +357,6 @@ export default {
     mounted() {
         if (this.userInfo.role != 1) {
             this.getBound();
-            this.station = this.stationList.find(element => {
-                return element.id === this.userInfo.station;
-            });
         } else {
             this.getBoundDis();
         }

@@ -136,7 +136,13 @@ export default {
                             })
                             .then(() => {
                                 this.loading = false;
-                                this.$router.push({ path: "/map" });
+                                if (this.user.device == "desktop") {
+                                    this.$router.push({ path: "/map" });
+                                } else {
+                                    this.$router.push({
+                                        path: "/mobile/map"
+                                    });
+                                }
                             });
                     });
             }

@@ -25,8 +25,9 @@
 
             </v-toolbar>
             <v-divider></v-divider>
-            <v-scroll-x-transition>
-                <v-list style="height:calc(100vh - 129px);overflow :auto" v-loading="loading" two-line>
+
+            <v-list style="height:calc(100vh - 110px);overflow :auto" v-loading="loading" two-line>
+                <v-scroll-x-transition group>
                     <template v-for="(item,index) in alertListShow">
                         <v-list-tile :key="index" avatar @click="showDetail(item.id)" ripple>
                             <v-list-tile-content>
@@ -44,17 +45,9 @@
                         </v-list-tile>
                         <v-divider></v-divider>
                     </template>
+                </v-scroll-x-transition>
 
-                </v-list>
-            </v-scroll-x-transition>
-        </v-flex>
-        <v-flex sm8>
-            <router-view @updatealertlist='refreshAlertList' v-if="this.$route.params.id"></router-view>
-            <v-container v-else fluid fill-height>
-                <v-layout align-center justify-center>
-                    <div class="headline font-weight-light">请选择告警</div>
-                </v-layout>
-            </v-container>
+            </v-list>
         </v-flex>
     </v-layout>
 </template>
@@ -87,7 +80,7 @@ export default {
             });
         },
         showDetail(id) {
-            this.$router.push({ path: "/alert/" + id });
+            this.$router.push({ path: "/mobile/alert/" + id });
         },
         filter(id) {
             this.filted = true;
@@ -117,7 +110,7 @@ export default {
             });
             this.getAlertList({
                 type: "standard",
-                page: 1,
+                page: 1
                 // stationAlt: this.selectedStation
             }).then(() => {
                 this.alertListShow = this.alertList;
@@ -141,7 +134,7 @@ export default {
         } else {
             this.getAlertList({
                 type: "standard",
-                page: 1,
+                page: 1
             }).then(() => {
                 this.alertListShow = this.alertList;
                 // this.filter(this.userInfo.station);
