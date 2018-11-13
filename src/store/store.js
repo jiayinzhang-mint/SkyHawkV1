@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 import axios from 'axios'
 
 import vuexAlong from 'vuex-along'
-import { or } from 'ip';
 
 if (process.env.NODE_ENV === 'development') {
     Vue.use(Vuex)
@@ -82,6 +81,7 @@ export default new Vuex.Store({
             return new Promise((resolve, reject) => {
                 if (context.getters.alertList.length <= 1 || params.type == "force") {
                     if (context.getters.userInfo.role <= 1) {
+                        console.log(params.page)
                         axios.get("/alert/list", {
                             params: {
                                 token: context.getters.userInfo.token,
@@ -184,14 +184,7 @@ export default new Vuex.Store({
                     type: params.type,
                     id: context.getters.userInfo.id,
                     alert: params.alert,
-
                 }).then(data => {
-                    if (context.getters.userInfo.role >= 2 && context.getters.userInfo.role <= 3)
-                        context.dispatch("getAlertList", { type: "force", role: context.getters.userInfo.role, pages: 1, stationAlt: context.getters.userInfo.station })
-                    else {
-                        context.dispatch("getAlertList", { type: "force", role: context.getters.userInfo.role, pages: 1 })
-
-                    }
                     resolve()
                 })
             })

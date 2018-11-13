@@ -26,14 +26,14 @@
             </v-toolbar>
             <v-divider></v-divider>
 
-            <v-list style="height:calc(100vh - 129px);overflow :auto" v-loading="loading" two-line>
+            <v-list style="height:calc(100vh - 110px);overflow :auto" v-loading="loading" two-line>
                 <v-scroll-x-transition group>
                     <template v-for="(item,index) in alertListShow">
                         <div :key="index">
                             <v-list-tile avatar @click="showDetail(item.id)" ripple>
                                 <v-list-tile-content>
                                     <v-list-tile-title>
-                                        <v-icon color="red" style="font-size:16px;margin-bottom:2px" v-if="item.state !=5 && item.state!=6  && item.state!=9 ">lens</v-icon> <span class="font-weight-bold">{{item.brand.brand}}</span>
+                                        <v-icon color="red" style="font-size:16px;margin-bottom:2px" v-if="item.state !=5 && item.state!=6">lens</v-icon> <span class="font-weight-bold">{{item.brand.brand}}</span>
                                     </v-list-tile-title>
                                     <v-list-tile-sub-title class="font-weight-medium body-2">{{item.title}}</v-list-tile-sub-title>
                                     <v-list-tile-sub-title>{{item.create_time | moment("YYYY-MM-DD HH:mm:ss")}}</v-list-tile-sub-title>
@@ -48,16 +48,8 @@
                         </div>
                     </template>
                 </v-scroll-x-transition>
-            </v-list>
 
-        </v-flex>
-        <v-flex sm8>
-            <router-view @updatealertlist='refreshAlertList' v-if="this.$route.params.id"></router-view>
-            <v-container v-else fluid fill-height>
-                <v-layout align-center justify-center>
-                    <div class="headline font-weight-light">请选择告警</div>
-                </v-layout>
-            </v-container>
+            </v-list>
         </v-flex>
     </v-layout>
 </template>
@@ -90,7 +82,7 @@ export default {
             });
         },
         showDetail(id) {
-            this.$router.push({ path: "/alert/" + id });
+            this.$router.push({ path: "/mobile/alert/" + id });
         },
         filter(id) {
             this.filted = true;

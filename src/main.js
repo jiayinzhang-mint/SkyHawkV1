@@ -101,7 +101,7 @@ Vue.use(Viewer, {
 
 Vue.use(VueInitialsImg);
 Vue.use(require('vue-moment'));
-//axios.defaults.baseURL = 'http://monitor2.huilab.cn/api';
+
 axios.defaults.baseURL = 'http://skyhawkapi.huilab.cn/api';
 
 Vue.prototype.$ajax = axios;

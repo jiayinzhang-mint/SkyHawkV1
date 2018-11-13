@@ -85,7 +85,7 @@ export default {
                     parent: this.selectedOrganize.id
                 })
                 .then(data => {
-                    console.log(data.data);
+                    // console.log(data.data);
                     this.getOrganizeList({ type: "force" });
                 });
         },

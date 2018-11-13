@@ -133,10 +133,39 @@ export default {
                         this.getCompanyList()
                             .then(() => {
                                 this.getOrganizeList({ type: "force" });
+                                console.log(
+                                    "-----------------------Welcome---------------------\n",
+                                    "                      01 0101\n",
+                                    "                      10 101\n",
+                                    "                010101010101010101\n",
+                                    "             101010101010101010101010\n",
+                                    "            010101010101010101010101010\n",
+                                    "          10 1010101010101010101010101010\n",
+                                    "          0101010101  6      01 6     01\n",
+                                    "         10101010101         10       101\n",
+                                    "         0101010101010    0101010   1010 10\n",
+                                    "        101010       010101        0101    1\n",
+                                    "         01010       0101010101010101010   0\n",
+                                    "         101010     010101010     101010 0\n",
+                                    "           010101010101010101010101010101\n",
+                                    "              10101010101010101010101\n",
+                                    "             0101010101010101010101010\n",
+                                    "            10101010101010101010101010\n",
+                                    "           010101010101010101010101010\n",
+                                    "          10101010101010101010101010101\n",
+                                    "---------------------SandHawk----------------------\n",
+                                    "--------------------INSDIM INC.--------------------\n"
+                                );
                             })
                             .then(() => {
                                 this.loading = false;
-                                this.$router.push({ path: "/map" });
+                                if (this.user.device == "desktop") {
+                                    this.$router.push({ path: "/map" });
+                                } else {
+                                    this.$router.push({
+                                        path: "/mobile/map"
+                                    });
+                                }
                             });
                     });
             }
@@ -148,14 +177,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .background {
     background-image: url("/static/assets/Back.jpg") !important;
     background-size: 100% 100% !important;
 }
 .trans {
-    background-color: transparent;
-    color: white;
+    background-color: transparent !important;
+    color: white !important;
 }
 .jump :hover {
     cursor: pointer;

@@ -1,27 +1,24 @@
 <template>
     <v-layout row>
-        <v-flex xs12 sm4>
+        <v-flex xs12>
             <v-toolbar flat color="white">
                 <v-toolbar-title style="font-size:17px">企业列表</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-chip v-if="filted && userInfo.role<=1" close @input="reFill">{{selectedStation.name}}</v-chip>
-                <v-toolbar-items>
-                    <v-menu bottom left v-if="userInfo.role<=1">
-                        <v-btn slot="activator" icon>
-                            <v-icon>sort</v-icon>
-                        </v-btn>
-                        <v-list style="height:375px ;overflow :auto">
-                            <v-list-tile v-for="(item, i) in stationList" :key="i" @click="filter(item.id)">
-                                <v-list-tile-title>{{ item.name }}</v-list-tile-title>
-                            </v-list-tile>
-                        </v-list>
-                    </v-menu>
-
-                </v-toolbar-items>
+                <v-menu bottom left v-if="userInfo.role<=1">
+                    <v-btn slot="activator" icon>
+                        <v-icon>sort</v-icon>
+                    </v-btn>
+                    <v-list style="height:375px ;overflow :auto">
+                        <v-list-tile v-for="(item, i) in stationList" :key="i" @click="filter(item.id)">
+                            <v-list-tile-title>{{ item.name }}</v-list-tile-title>
+                        </v-list-tile>
+                    </v-list>
+                </v-menu>
 
             </v-toolbar>
             <v-divider></v-divider>
-            <v-list style="height:calc(100vh - 129px);overflow :auto" v-loading="loading">
+            <v-list style="height:calc(100vh - 110px);overflow :auto" v-loading="loading">
                 <v-scroll-x-transition group>
                     <template v-for="(item,index) in companyListShow">
                         <v-list-tile :key="index" avatar @click="showDetail(item.id)" ripple>
@@ -35,14 +32,6 @@
                     </template>
                 </v-scroll-x-transition>
             </v-list>
-        </v-flex>
-        <v-flex sm8>
-            <router-view v-if="this.$route.params.id"></router-view>
-            <v-container v-else fluid fill-height>
-                <v-layout align-center justify-center>
-                    <div class="headline font-weight-light">请选择企业</div>
-                </v-layout>
-            </v-container>
         </v-flex>
     </v-layout>
 </template>
@@ -59,7 +48,7 @@ export default {
     methods: {
         ...mapActions(["getCompanyList"]),
         showDetail(id) {
-            this.$router.push({ path: "/company/" + id });
+            this.$router.push({ path: "/mobile/company/" + id });
         },
         filter(id) {
             this.filted = true;
