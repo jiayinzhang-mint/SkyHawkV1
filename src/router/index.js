@@ -121,9 +121,18 @@ export default new VueRouter({
                 {
                     path: '/mobile/profile',
                     component: resolve => require(['@/components/mobile/user/Profile'], resolve),
-                }
+                },
+
             ]
-        }
+        },
+        {
+            path: '/wechat/bind',
+            component: resolve => require(['@/components/mobile/wechat/Bind'], resolve),
+        },
+        {
+            path: '/wechat/login',
+            component: resolve => require(['@/components/mobile/wechat/Login'], resolve),
+        },
 
     ]
 })
