@@ -38,7 +38,7 @@ export default {
     data: () => ({
         username: "",
         password: "",
-        loading: false,
+        loading: false
     }),
     methods: {
         bind() {
@@ -49,7 +49,8 @@ export default {
                     password: this.password
                 })
                 .then(data => {
-                    if (data.data.msg == 1) {
+                    data = data.data;
+                    if (data.msg == "success") {
                         this.$message({
                             message: "操作成功",
                             type: "success"

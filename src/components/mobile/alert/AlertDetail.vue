@@ -56,7 +56,9 @@
             <v-divider></v-divider>
             <v-tabs-items v-model="tab" style="height:calc(100vh - 160px);overflow :auto">
                 <v-tab-item key="1">
-                    <img :src="alertInfo.src" class="image" style="max-width: 100%;max-height: 100%;" v-viewer>
+                    <v-container>
+                        <img :src="alertInfo.src" class="image elevation-12" style="max-width: 100%;max-height: 100%;border-radius:3px" v-viewer>
+                    </v-container>
                     <v-list>
                         <v-subheader>告警详情</v-subheader>
                         <v-list-tile>
