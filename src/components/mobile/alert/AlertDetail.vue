@@ -133,6 +133,7 @@
                         <v-layout row>
                             <v-flex xs12 md10 offset-md2>
                                 <v-timeline align-top dense>
+
                                     <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=1">
                                         <v-layout pt-3>
                                             <v-flex xs4>
@@ -160,7 +161,7 @@
                                         </v-layout>
                                     </v-timeline-item>
 
-                                    <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=2">
+                                    <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=2 && alertInfo.auto==1">
                                         <v-layout wrap pt-3>
                                             <v-flex xs4>
                                                 <strong>{{alertInfo.repost_time | moment("YYYY-MM-DD HH:mm:ss")}}</strong>

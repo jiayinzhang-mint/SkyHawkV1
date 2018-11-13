@@ -53,7 +53,9 @@
             <v-divider></v-divider>
             <v-tabs-items v-model="tab" style="height:calc(100vh - 210px);overflow :auto">
                 <v-tab-item key="1">
-                    <img :src="alertInfo.src" class="image" style="max-width: 100%;max-height: 100%;" v-viewer>
+                    <v-container>
+                        <img :src="alertInfo.src" class="image elevation-12" style="max-width: 100%;max-height: 100%;border-radius:3px" v-viewer>
+                    </v-container>
                     <v-list>
                         <v-subheader>告警详情</v-subheader>
                         <v-list-tile>
@@ -159,12 +161,12 @@
                                         </v-layout>
                                     </v-timeline-item>
 
-                                    <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=2&&alertInfo.state<=8">
+                                    <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=2 && alertInfo.auto==1">
                                         <v-layout wrap pt-3>
-                                            <v-flex xs5>
+                                            <v-flex xs4>
                                                 <strong>{{alertInfo.repost_time | moment("YYYY-MM-DD HH:mm:ss")}}</strong>
                                             </v-flex>
-                                            <v-flex>
+                                            <v-flex xs8>
                                                 <strong>下发整改</strong>
                                                 <div class="caption mb-2">交由 {{station.name}}-{{group.name}} 处理</div>
                                                 <!-- <v-avatar>

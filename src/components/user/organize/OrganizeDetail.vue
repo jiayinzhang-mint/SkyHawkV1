@@ -16,6 +16,11 @@
                 </template>
             </v-data-table>
             <el-dialog :title="currentUser.name" :visible.sync="userInfoDialog" width="400px">
+                <v-img class="mb-5 elevation-12" style="border-radius:3px" contain :src="currentUser.avatar" lazy-src="/static/assets/lazy.jpg">
+                    <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
+                        <v-progress-linear indeterminate color="grey darken-1" :width="1"></v-progress-linear>
+                    </v-layout>
+                </v-img>
                 <v-list two-line>
                     <v-list-tile>
                         <v-list-tile-action>
@@ -104,5 +109,3 @@ export default {
 };
 </script>
 
-<style>
-</style>

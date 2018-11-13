@@ -158,7 +158,6 @@ export default {
                                 );
                             })
                             .then(() => {
-                                this.loading = false;
                                 if (this.user.device == "desktop") {
                                     this.$router.push({ path: "/map" });
                                 } else {

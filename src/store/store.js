@@ -188,6 +188,27 @@ export default new Vuex.Store({
                     resolve()
                 })
             })
+        },
+        getWechatUserInfo(context, params) {
+            return new Promise((resolve, reject) => {
+                axios.post("/user/wechatlogin", {
+                    token: params.token,
+                }).then(data => {
+                    data = data.data
+                    const user = {}
+                    user.username = data.username;
+                    user.id = data.id;
+                    user.name = data.name;
+                    user.role = data.role;
+                    user.company = data.company;
+                    user.organize = data.organize;
+                    user.station = data.station;
+                    user.index = data.index;
+                    user.token = data.token;
+                    context.commit("updateUserInfo", user)
+                    resolve()
+                })
+            })
         }
     },
     plugins: [vuexAlong]

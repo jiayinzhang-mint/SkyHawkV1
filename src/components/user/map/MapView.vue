@@ -371,7 +371,7 @@ export default {
         ...mapGetters(["userInfo", "companyList", "stationList"])
     },
     mounted() {
-        if (this.userInfo.role != 1) {
+        if (this.userInfo.role >= 1) {
             this.getBound();
             this.station = this.stationList.find(element => {
                 return element.id === this.userInfo.station;
