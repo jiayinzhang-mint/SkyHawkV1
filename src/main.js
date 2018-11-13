@@ -103,7 +103,7 @@ Vue.use(VueInitialsImg);
 Vue.use(require('vue-moment'));
 
 //axios.defaults.baseURL = 'http://skyhawkapi.huilab.cn/api';
-axios.defaults.baseURL = 'http://127.0.0.1/api'
+axios.defaults.baseURL = 'http://127.0.0.1:8000/api'
 
 Vue.prototype.$ajax = axios;
 
