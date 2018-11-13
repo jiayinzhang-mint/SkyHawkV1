@@ -45,7 +45,7 @@
                             </v-subheader>
                         </v-layout>
                         <v-divider v-else-if="item.divider" :key="i" dark class="my-3"></v-divider>
-                        <v-list-tile v-else :key="i" :to="item.route" ripple>
+                        <v-list-tile v-else-if="userInfo.role<=item.role" :key="i" :to="item.route" ripple>
                             <v-list-tile-action>
                                 <v-icon>{{ item.icon }}</v-icon>
                             </v-list-tile-action>
@@ -70,12 +70,12 @@
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <el-tooltip class="item" effect="dark" content="设置" placement="bottom">
-                <v-btn icon>
+                <v-btn icon @click="settingDialog=true">
                     <v-icon>settings</v-icon>
                 </v-btn>
             </el-tooltip>
             <el-tooltip class="item" effect="dark" content="帮助" placement="bottom">
-                <v-btn icon>
+                <v-btn icon @click.stop="userHelp = !userHelp">
                     <v-icon>help_outline</v-icon>
                 </v-btn>
             </el-tooltip>
@@ -85,6 +85,35 @@
                 </v-btn>
             </el-tooltip>
         </v-toolbar>
+
+        <el-dialog title="用户设置" ref="userProfileForm" :close-on-click-modal="false" :visible.sync="settingDialog" width="400px" center>
+            <span class="subheading font-weight-medium">修改密码</span>
+            <v-divider class="mb-4 mt-2"></v-divider>
+            <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
+                <el-form-item label="密码" prop="pass">
+                    <el-input type="password" v-model="ruleForm2.pass" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="确认密码" prop="checkPass">
+                    <el-input type="password" v-model="ruleForm2.checkPass" autocomplete="off"></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <v-btn round depressed flat @click="settingDialog = false">取 消</v-btn>
+                <v-btn round depressed color="primary" @click="submitForm('ruleForm2')">确 定</v-btn>
+            </div>
+        </el-dialog>
+
+        <v-navigation-drawer v-model="userHelp" temporary right fixed app>
+            <v-toolbar flat color="white">
+                <v-toolbar-title class="">
+                    <span class="hidden-sm-and-down">用户帮助</span>
+                </v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-btn icon @click="userHelp=!userHelp">
+                    <v-icon>clear</v-icon>
+                </v-btn>
+            </v-toolbar>
+        </v-navigation-drawer>
 
         <v-content>
 
@@ -96,52 +125,104 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
-    data: () => ({
-        drawer: true,
-        menuManage: [
-            { heading: "管理" },
-            {
-                icon: "business",
-                text: "企业管理",
-                route: "/manage/company"
-            },
-            {
-                icon: "people",
-                text: "组织管理",
-                route: "/manage/organize"
+    data() {
+        var checkAge = (rule, value, callback) => {
+            if (!value) {
+                return callback(new Error("年龄不能为空"));
             }
-        ],
-        menuCommon: [
-            { heading: "通用" },
-            {
-                icon: "map",
-                text: "地图视图",
-                route: "/map"
-            },
-            {
-                icon: "alarm",
-                text: "告警流转",
-                route: "/alert"
-            },
-            {
-                icon: "camera",
-                text: "定时抓拍",
-                route: "/gallery"
-            },
-            {
-                icon: "business",
-                text: "企业列表",
-                route: "/company"
-            },
-            {
-                icon: "people",
-                text: "组织信息",
-                route: "/organize"
+            setTimeout(() => {
+                if (!Number.isInteger(value)) {
+                    callback(new Error("请输入数字值"));
+                } else {
+                    if (value < 18) {
+                        callback(new Error("必须年满18岁"));
+                    } else {
+                        callback();
+                    }
+                }
+            }, 1000);
+        };
+        var validatePass = (rule, value, callback) => {
+            if (value === "") {
+                callback(new Error("请输入密码"));
+            } else {
+                if (this.ruleForm2.checkPass !== "") {
+                    this.$refs.ruleForm2.validateField("checkPass");
+                }
+                callback();
             }
-        ]
-    }),
+        };
+        var validatePass2 = (rule, value, callback) => {
+            if (value === "") {
+                callback(new Error("请再次输入密码"));
+            } else if (value !== this.ruleForm2.pass) {
+                callback(new Error("两次输入密码不一致!"));
+            } else {
+                callback();
+            }
+        };
+        return {
+            ruleForm2: {
+                pass: "",
+                checkPass: ""
+            },
+            userHelp: false,
+            rules2: {
+                pass: [{ validator: validatePass, trigger: "blur" }],
+                checkPass: [{ validator: validatePass2, trigger: "blur" }]
+            },
+            drawer: true,
+            menuManage: [
+                { heading: "管理" },
+                {
+                    icon: "business",
+                    text: "企业管理",
+                    route: "/manage/company"
+                },
+                {
+                    icon: "people",
+                    text: "组织管理",
+                    route: "/manage/organize"
+                }
+            ],
+            menuCommon: [
+                { heading: "通用" },
+                {
+                    icon: "map",
+                    text: "地图视图",
+                    route: "/map",
+                    role: 3
+                },
+                {
+                    icon: "alarm",
+                    text: "告警流转",
+                    route: "/alert",
+                    role: 4
+                },
+                {
+                    icon: "camera",
+                    text: "定时抓拍",
+                    route: "/gallery",
+                    role: 3
+                },
+                {
+                    icon: "business",
+                    text: "企业列表",
+                    route: "/company",
+                    role: 3
+                },
+                {
+                    icon: "people",
+                    text: "组织信息",
+                    route: "/organize",
+                    role: 2
+                }
+            ],
+            settingDialog: false
+        };
+    },
     methods: {
         goBack() {
             this.$router.go(-1);
@@ -156,6 +237,29 @@ export default {
                     this.$router.push({ path: "/" });
                 })
                 .catch(() => {});
+        },
+        submitForm(formName) {
+            this.$refs[formName].validate(valid => {
+                if (valid) {
+                    this.$ajax
+                        .post("/user/info", {
+                            token: this.userInfo.token,
+                            id: this.userInfo.id,
+                            password: this.ruleForm2.pass,
+                            changepasswd: true
+                        })
+                        .then(data => {
+                            data = data.data;
+                            if (data.msg == "success") {
+                                this.settingDialog = false;
+                                this.$message({
+                                    message: "操作成功",
+                                    type: "success"
+                                });
+                            }
+                        });
+                }
+            });
         }
     },
     computed: {
@@ -164,5 +268,3 @@ export default {
 };
 </script>
 
-<style>
-</style>

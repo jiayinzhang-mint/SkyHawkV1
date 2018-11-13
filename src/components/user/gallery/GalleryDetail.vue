@@ -38,7 +38,8 @@ export default {
                 sortable: false
             }
         ],
-        galleryList: []
+        galleryList: [],
+        companyInfo: []
     }),
     methods: {
         getGalleryList() {
@@ -54,17 +55,37 @@ export default {
                     this.galleryList = data.galleryList;
                     this.loading = false;
                 });
+        },
+        getCompanyInfo() {
+            this.$ajax
+                .get("/company/detail", {
+                    params: {
+                        token: this.userInfo.token,
+                        id: this.$route.params.id
+                    }
+                })
+                .then(data => {
+                    this.companyInfo = data.data.companyDetail;
+                    this.loading = false;
+                });
         }
     },
     mounted() {
-        this.getGalleryList;
+        this.getGalleryList();
+        this.getCompanyInfo();
     },
     computed: {
-        ...mapGetters(["userInfo", "organizeList", "stationList", "alertList"])
+        ...mapGetters([
+            "userInfo",
+            "organizeList",
+            "stationList",
+            "companyList"
+        ])
     },
     beforeRouteUpdate(to, from, next) {
         next();
         this.getGalleryList();
+        this.getCompanyInfo();
     }
 };
 </script>

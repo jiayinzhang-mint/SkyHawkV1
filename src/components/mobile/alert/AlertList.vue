@@ -29,21 +29,23 @@
             <v-list style="height:calc(100vh - 110px);overflow :auto" v-loading="loading" two-line>
                 <v-scroll-x-transition group>
                     <template v-for="(item,index) in alertListShow">
-                        <v-list-tile :key="index" avatar @click="showDetail(item.id)" ripple>
-                            <v-list-tile-content>
-                                <v-list-tile-title>
-                                    <v-icon color="red" style="font-size:16px;margin-bottom:2px" v-if="item.state !=5 && item.state!=6">lens</v-icon> <span class="font-weight-bold">{{item.brand.brand}}</span>
-                                </v-list-tile-title>
-                                <v-list-tile-sub-title class="font-weight-medium body-2">{{item.title}}</v-list-tile-sub-title>
-                                <v-list-tile-sub-title>{{item.create_time | moment("YYYY-MM-DD HH:mm:ss")}}</v-list-tile-sub-title>
-                            </v-list-tile-content>
-                            <v-list-tile-action>
-                                <v-chip color="info" text-color="white" small v-if="item.auto==0">手动</v-chip>
-                                <v-chip color="green" text-color="white" small v-if="item.auto==1">自动</v-chip>
-                                <v-chip color="warning" text-color="white" small v-if="item.uncertain==1">不确定</v-chip>
-                            </v-list-tile-action>                           
-                        </v-list-tile>
-                        <v-divider></v-divider>
+                        <div :key="index">
+                            <v-list-tile avatar @click="showDetail(item.id)" ripple>
+                                <v-list-tile-content>
+                                    <v-list-tile-title>
+                                        <v-icon color="red" style="font-size:16px;margin-bottom:2px" v-if="item.state !=5 && item.state!=6">lens</v-icon> <span class="font-weight-bold">{{item.brand.brand}}</span>
+                                    </v-list-tile-title>
+                                    <v-list-tile-sub-title class="font-weight-medium body-2">{{item.title}}</v-list-tile-sub-title>
+                                    <v-list-tile-sub-title>{{item.create_time | moment("YYYY-MM-DD HH:mm:ss")}}</v-list-tile-sub-title>
+                                </v-list-tile-content>
+                                <v-list-tile-action>
+                                    <v-chip color="info" text-color="white" small v-if="item.auto==0">手动</v-chip>
+                                    <v-chip color="green" text-color="white" small v-if="item.auto==1">自动</v-chip>
+                                    <v-chip color="warning" text-color="white" small v-if="item.uncertain==1">不确定</v-chip>
+                                </v-list-tile-action>
+                            </v-list-tile>
+                            <v-divider></v-divider>
+                        </div>
                     </template>
                 </v-scroll-x-transition>
 

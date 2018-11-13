@@ -8,8 +8,7 @@
             <v-card style="height:calc(100vh - 129px);overflow :auto" flat>
 
                 <v-container fluid v-loading="loading">
-                    <el-tree :data="organizeList" :props="defaultProps" @node-click="showDetail"></el-tree>
-
+                    <el-tree :data="organizeListShow" :props="defaultProps" @node-click="showDetail"></el-tree>
                 </v-container>
 
             </v-card>
@@ -27,7 +26,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
     data: () => ({
         organizeTree: [],
@@ -35,7 +34,8 @@ export default {
             children: "children",
             label: "name"
         },
-        loading: true
+        loading: true,
+        organizeListShow: []
     }),
     methods: {
         ...mapActions(["getOrganizeList"]),
@@ -44,11 +44,29 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(["organizeList"])
+        ...mapGetters(["organizeList", "userInfo"])
     },
     mounted() {
         this.getOrganizeList("standard");
         this.loading = false;
+        switch (this.userInfo.role) {
+            case 0:
+                this.organizeListShow = this.organizeList;
+                break;
+            case 1:
+                this.organizeListShow = this.organizeList;
+                break;
+            case 2:
+                this.organizeListShow = this.organizeList[1].children.find(
+                    element => {
+                        return element.id === this.userInfo.station;
+                    }
+                ).children;
+                break;
+            default:
+                break;
+        }
+        // console.log(this.organizeListShow)
     }
 };
 </script>

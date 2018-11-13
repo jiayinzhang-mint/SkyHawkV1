@@ -75,6 +75,8 @@
                                 <v-list-tile-title v-else-if="alertInfo.state == 2">企业整改中</v-list-tile-title>
                                 <v-list-tile-title v-else-if="alertInfo.state == 3">整改审核中</v-list-tile-title>
                                 <v-list-tile-title v-else-if="alertInfo.state == 4">已完成</v-list-tile-title>
+                                <v-list-tile-title v-else-if="alertInfo.state == 9">告警错误</v-list-tile-title>
+
                             </v-list-tile-content>
                         </v-list-tile>
                         <v-divider inset></v-divider>
@@ -130,7 +132,7 @@
                         <v-layout row>
                             <v-flex xs12 md10 offset-md2>
                                 <v-timeline align-top dense>
-                                    <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=1">
+                                    <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=1&&alertInfo.state<=8">
                                         <v-layout pt-3>
                                             <v-flex xs5>
                                                 <strong>{{alertInfo.create_time | moment("YYYY-MM-DD HH:mm:ss")}}</strong>
@@ -157,7 +159,7 @@
                                         </v-layout>
                                     </v-timeline-item>
 
-                                    <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=2">
+                                    <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=2&&alertInfo.state<=8">
                                         <v-layout wrap pt-3>
                                             <v-flex xs5>
                                                 <strong>{{alertInfo.repost_time | moment("YYYY-MM-DD HH:mm:ss")}}</strong>
@@ -172,7 +174,7 @@
                                         </v-layout>
                                     </v-timeline-item>
 
-                                    <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=3">
+                                    <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=3&&alertInfo.state<=8">
                                         <v-layout pt-3>
                                             <v-flex xs5>
                                                 <strong>{{alertInfo.rectify_time | moment("YYYY-MM-DD HH:mm:ss")}}</strong>
@@ -185,13 +187,24 @@
                                         </v-layout>
                                     </v-timeline-item>
 
-                                    <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=4">
+                                    <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=4&&alertInfo.state<=8">
                                         <v-layout pt-3>
                                             <v-flex xs5>
                                                 <strong>{{alertInfo.finish_time | moment("YYYY-MM-DD HH:mm:ss")}}</strong>
                                             </v-flex>
                                             <v-flex>
                                                 <strong>整改完成</strong>
+                                            </v-flex>
+                                        </v-layout>
+                                    </v-timeline-item>
+
+                                    <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state==9">
+                                        <v-layout pt-3>
+                                            <v-flex xs5>
+                                                <strong>{{alertInfo.finish_time | moment("YYYY-MM-DD HH:mm:ss")}}</strong>
+                                            </v-flex>
+                                            <v-flex>
+                                                <strong>告警错误</strong>
                                             </v-flex>
                                         </v-layout>
                                     </v-timeline-item>
