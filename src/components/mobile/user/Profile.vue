@@ -41,7 +41,9 @@ export default {
     computed: {
         ...mapGetters(["userInfo"])
     },
-    mounted() {}
+    mounted() {
+        this.$emit("updatetab", "user");
+    }
 };
 </script>
 

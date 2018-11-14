@@ -71,6 +71,7 @@ export default {
         ...mapGetters(["companyList", "stationList", "userInfo"])
     },
     mounted() {
+        this.$emit("updatetab", "company");
         this.loading = true;
         this.getCompanyList();
         this.companyListShow = this.companyList;

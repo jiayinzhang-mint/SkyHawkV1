@@ -27,7 +27,7 @@
             </v-navigation-drawer>
 
         </v-card> -->
-        <v-card class="elevation-12 " width="100%" style="z-index:1">
+        <v-card class="elevation-3" width="100%" style="z-index:1">
             <v-toolbar flat color="white">
                 <v-toolbar-title style="font-size:17px">辖区地图</v-toolbar-title>
                 <v-spacer></v-spacer>
@@ -258,7 +258,7 @@ export default {
                         this.map.setFitView();
                         this.center = this.map.getCenter();
                         this.zoom = this.map.getZoom();
-                   });
+                    });
                 });
         },
         clearMarkers() {
@@ -348,13 +348,15 @@ export default {
                 });
         },
         redirect(id) {
-            this.$router.push({ path: "/company/" + id });
+            this.$router.push({ path: "/mobile/company/" + id });
+            this.$emit("updatetab", "company");
         }
     },
     computed: {
         ...mapGetters(["userInfo", "companyList", "stationList"])
     },
     mounted() {
+        this.$emit("updatetab", "map");
         if (this.userInfo.role != 1) {
             this.getBound();
         } else {

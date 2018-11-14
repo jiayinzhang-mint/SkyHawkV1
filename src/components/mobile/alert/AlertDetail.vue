@@ -228,7 +228,7 @@ export default {
     methods: {
         ...mapActions(["updateAlert"]),
         goBack() {
-            this.$router.go(-1);
+            this.$router.push({ path: "/mobile/alert" });
         },
         getAlertInfo() {
             this.loading = true;
@@ -396,6 +396,7 @@ export default {
         }
     },
     mounted() {
+        this.$emit("updatetab", "alert");
         this.getAlertInfo();
     },
     computed: {

@@ -106,6 +106,7 @@ export default {
         ...mapGetters(["companyList", "alertList", "stationList", "userInfo"])
     },
     mounted() {
+        this.$emit("updatetab", "alert");
         if (this.userInfo.role <= 1) {
             this.selectedStation = this.stationList.find(element => {
                 return element.id === 10;

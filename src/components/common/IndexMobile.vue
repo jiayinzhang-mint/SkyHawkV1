@@ -1,13 +1,10 @@
 <template>
     <v-app id="inspire">
         <v-content>
-
-            <router-view></router-view>
-
+            <router-view @updatetab="updateTab()"></router-view>
         </v-content>
         <v-card>
-            <v-bottom-nav fixed app :value="true"  color="flat">
-
+            <v-bottom-nav fixed app :active.sync="bottomNav" :value="true" color="flat">
                 <v-btn flat color="info" value="map" to="/mobile/map">
                     <span>地图</span>
                     <v-icon>map</v-icon>
@@ -38,10 +35,18 @@
 import { mapGetters } from "vuex";
 export default {
     data: () => ({
+        bottomNav: "map"
     }),
-    methods: {},
+    methods: {
+        updateTab(tab) {
+            this.bottomNav = tab;
+        }
+    },
     computed: {
-        ...mapGetters(["userInfo"])
+        ...mapGetters(["userInfo"]),
+        currentTab: function() {
+            return this.bottomNav;
+        }
     },
     mounted() {}
 };
