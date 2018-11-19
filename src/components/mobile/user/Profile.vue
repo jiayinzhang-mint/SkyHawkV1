@@ -20,7 +20,7 @@
                             </v-flex>
                         </v-layout>
                     </v-container>
-                    <v-btn depressed block color="primary" dark @click="logOut">注销</v-btn>
+                    <!-- <v-btn depressed block color="primary" dark @click="logOut">注销</v-btn> -->
                 </v-card>
 
             </v-flex>

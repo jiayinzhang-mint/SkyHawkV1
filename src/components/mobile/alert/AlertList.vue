@@ -26,14 +26,14 @@
             </v-toolbar>
             <v-divider></v-divider>
 
-            <v-list style="height:calc(100vh - 110px);overflow :auto" v-loading="loading" two-line>
+            <v-list style="height:calc(100vh - 110px);overflow :auto" v-loading="loading" element-loading-background="rgba(0, 0, 0, 0)" two-line>
                 <v-scroll-x-transition group>
                     <template v-for="(item,index) in alertListShow">
                         <div :key="index">
                             <v-list-tile avatar @click="showDetail(item.id)" ripple>
                                 <v-list-tile-content>
                                     <v-list-tile-title>
-                                        <v-icon color="red" style="font-size:16px;margin-bottom:2px" v-if="item.state !=5 && item.state!=6">lens</v-icon> <span class="font-weight-bold">{{item.brand.brand}}</span>
+                                        <v-icon color="red" style="font-size:16px;margin-bottom:2px" v-if="item.state !=5 && item.state!=6  && item.state!=9 ">lens</v-icon> <span class="font-weight-bold">{{item.brand.brand}}</span>
                                     </v-list-tile-title>
                                     <v-list-tile-sub-title class="font-weight-medium body-2">{{item.title}}</v-list-tile-sub-title>
                                     <v-list-tile-sub-title>{{item.create_time | moment("YYYY-MM-DD HH:mm:ss")}}</v-list-tile-sub-title>
@@ -47,8 +47,16 @@
                             <v-divider></v-divider>
                         </div>
                     </template>
-                </v-scroll-x-transition>
 
+                </v-scroll-x-transition>
+                <v-list-tile>
+                    <v-layout justify-center>
+                        <v-btn block class="text-xs-center" depressed round :loading="loadAlert" :disabled="loadAlert" @click="getMoreAlert">
+                            加载更多
+                        </v-btn>
+                    </v-layout>
+
+                </v-list-tile>
             </v-list>
         </v-flex>
     </v-layout>
@@ -62,23 +70,26 @@ export default {
         alertListShow: [],
         page: 1,
         filted: false,
-        selectedStation: []
+        selectedStation: [],
+        loadAlert: false
     }),
     methods: {
-        ...mapActions(["getCompanyList", "getAlertList"]),
+        ...mapActions(["getCompanyList", "getAlertList", "restoreAlertPage"]),
         refreshAlertList() {
             this.loading = true;
             // console.log(this.selectedStation);
-            this.getAlertList({
-                type: "force",
-                page: 1,
-                stationAlt: this.selectedStation
-            }).then(() => {
-                this.alertListShow = this.alertList;
-                if (this.userInfo.role <= 1) {
-                    this.filter(this.selectedStation.id);
-                }
-                this.loading = false;
+            this.restoreAlertPage().then(() => {
+                this.getAlertList({
+                    type: "force",
+                    page: 1,
+                    stationAlt: this.selectedStation.id
+                }).then(() => {
+                    this.alertListShow = this.alertList;
+                    if (this.userInfo.role <= 1) {
+                        this.filter(this.selectedStation.id);
+                    }
+                    this.loading = false;
+                });
             });
         },
         showDetail(id) {
@@ -96,17 +107,44 @@ export default {
                     this.alertListShow.push(element);
                 }
             });
+            // console.log(this.alertListShow);
         },
         reFill() {
             this.alertListShow = this.alertList;
             this.filted = false;
+        },
+        getMoreAlert() {
+            this.loadAlert = true;
+            this.getAlertList({
+                type: "loadMore",
+                page: this.alertPage + 1
+            }).then(() => {
+                if (this.userInfo.role <= 1) {
+                    this.selectedStation = this.stationList.find(element => {
+                        return element.id === 10;
+                    });
+                    this.filter(this.selectedStation.id);
+                } else if (this.userInfo.role >= 1 && this.userInfo.role <= 3) {
+                    this.selectedStation = this.stationList.find(element => {
+                        return element.id === this.userInfo.station;
+                    });
+                    this.filter(this.selectedStation.id);
+                }
+
+                this.loadAlert = false;
+            });
         }
     },
     computed: {
-        ...mapGetters(["companyList", "alertList", "stationList", "userInfo"])
+        ...mapGetters([
+            "companyList",
+            "alertList",
+            "stationList",
+            "userInfo",
+            "alertPage"
+        ])
     },
     mounted() {
-        this.$emit("updatetab", "alert");
         if (this.userInfo.role <= 1) {
             this.selectedStation = this.stationList.find(element => {
                 return element.id === 10;
