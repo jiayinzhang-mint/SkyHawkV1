@@ -30,7 +30,7 @@
                 <v-scroll-x-transition group>
                     <template v-for="(item,index) in alertListShow">
                         <div :key="index">
-                            <v-list-tile avatar @click="showDetail(item.id)" ripple>
+                            <v-list-tile avatar :to=" '/alert/' +item.id" ripple>
                                 <v-list-tile-content>
                                     <v-list-tile-title>
                                         <v-icon color="red" style="font-size:16px;margin-bottom:2px" v-if="item.state !=5 && item.state!=6  && item.state!=9 ">lens</v-icon> <span class="font-weight-bold">{{item.brand.brand}}</span>
@@ -100,9 +100,6 @@ export default {
                     this.loading = false;
                 });
             });
-        },
-        showDetail(id) {
-            this.$router.push({ path: "/alert/" + id });
         },
         filter(id) {
             this.filted = true;

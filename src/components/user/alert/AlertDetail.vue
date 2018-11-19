@@ -287,7 +287,6 @@ export default {
                             message: "操作成功"
                         });
                         this.getAlertInfo();
-                        this.$emit("updatealertlist");
                     });
                 })
                 .catch(() => {});
@@ -312,7 +311,6 @@ export default {
                             message: "操作成功"
                         });
                         this.getAlertInfo();
-                        this.$emit("updatealertlist");
                     });
                 })
                 .catch(() => {});
@@ -345,7 +343,6 @@ export default {
                             message: "操作成功"
                         });
                         this.getAlertInfo();
-                        this.$emit("updatealertlist");
                     });
                 })
                 .catch(() => {});
@@ -370,7 +367,6 @@ export default {
                             message: "操作成功"
                         });
                         this.getAlertInfo();
-                        this.$emit("updatealertlist");
                     });
                 })
                 .catch(() => {});
@@ -395,7 +391,6 @@ export default {
                             message: "操作成功"
                         });
                         this.getAlertInfo();
-                        this.$emit("updatealertlist");
                     });
                 })
                 .catch(() => {});

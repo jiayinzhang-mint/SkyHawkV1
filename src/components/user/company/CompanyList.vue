@@ -24,7 +24,7 @@
             <v-list style="height:calc(100vh - 129px);overflow :auto" v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.3)">
                 <v-scroll-x-transition group>
                     <template v-for="(item,index) in companyListShow">
-                        <v-list-tile :key="index" avatar @click="showDetail(item.id)" ripple>
+                        <v-list-tile :key="index" avatar :to=" '/company/' +item.id" ripple>
                             <v-list-tile-avatar>
                                 <vue-initials-img :name="item.brand" />
                             </v-list-tile-avatar>
@@ -58,9 +58,6 @@ export default {
     }),
     methods: {
         ...mapActions(["getCompanyList"]),
-        showDetail(id) {
-            this.$router.push({ path: "/company/" + id });
-        },
         filter(id) {
             this.filted = true;
             this.selectedStation = this.stationList.find(element => {
