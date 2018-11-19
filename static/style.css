@@ -66,3 +66,12 @@
 .dashboard{
     background: linear-gradient(45deg, #756a8a, #2f323a)!important
 }
+
+.custom-tree-node {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    padding-right: 8px;
+}

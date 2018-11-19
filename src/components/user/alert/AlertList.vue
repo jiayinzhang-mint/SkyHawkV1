@@ -129,9 +129,7 @@ export default {
                 page: this.alertPage + 1
             }).then(() => {
                 if (this.userInfo.role <= 1) {
-                    this.selectedStation = this.stationList.find(element => {
-                        return element.id === 10;
-                    });
+                    this.selectedStation = this.selectedStation;
                 } else if (this.userInfo.role >= 1 && this.userInfo.role <= 3) {
                     this.selectedStation = this.stationList.find(element => {
                         return element.id === this.userInfo.station;
