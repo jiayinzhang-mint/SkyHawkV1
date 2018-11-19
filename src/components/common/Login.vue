@@ -13,7 +13,7 @@
                                         <v-text-field v-model="password" id="password" prepend-icon="lock" name="password" label="密码" type="password" @keyup.enter="login"></v-text-field>
                                     </v-card-text>
                                     <v-card-actions>
-                                        <v-btn dark class="primary" @click="login" block round>登录</v-btn>
+                                        <v-btn dark class="primary" depressed @click="login" block round>登录</v-btn>
                                     </v-card-actions>
                                 </v-container>
                             </v-card>
@@ -98,6 +98,7 @@ export default {
             if (this.username && this.password) {
                 this.loading = true;
                 this.loadingBox = true;
+                class LoginFail {}
                 this.$ajax
                     .post("/user/login", {
                         username: this.username,
@@ -109,12 +110,15 @@ export default {
                         if (data.msg == "wrongpasswd") {
                             this.$message.error("用户名或密码错误");
                             this.loading = false;
+                            throw new LoginFail();
                         } else if (data.msg == "nouser") {
                             this.$message.error("用户名或密码错误");
                             this.loading = false;
+                            throw new LoginFail();
                         } else if (data.msg == "close") {
                             this.$message.error("账号已被锁定，请联系管理员");
                             this.loading = false;
+                            throw new LoginFail();
                         } else {
                             this.user.username = data.username;
                             this.user.id = data.id;
@@ -166,6 +170,10 @@ export default {
                                     });
                                 }
                             });
+                    })
+                    .catch(LoginFail, () => {
+                        this.username = "";
+                        this.password = "";
                     });
             }
         }
