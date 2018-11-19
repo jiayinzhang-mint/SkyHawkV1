@@ -26,7 +26,7 @@
             </v-toolbar>
             <v-divider></v-divider>
 
-            <v-list style="height:calc(100vh - 129px);overflow :auto" v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.3)" two-line>
+            <v-list style="height:calc(100vh - 129px);overflow :auto" v-loading="loading" element-loading-background="rgba(0, 0, 0, 0)" two-line>
                 <v-scroll-x-transition group>
                     <template v-for="(item,index) in alertListShow">
                         <div :key="index">
