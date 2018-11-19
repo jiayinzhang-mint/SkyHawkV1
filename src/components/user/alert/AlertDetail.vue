@@ -1,7 +1,7 @@
 <template>
     <v-container>
-        <v-card v-loading="loading">
-            <v-toolbar flat color="white">
+        <v-card v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.3)">
+            <v-toolbar flat color="transparent">
                 <v-toolbar-title style="font-size:17px">{{alertInfo.title}}</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <div v-if="alertInfo.state==1">
@@ -41,7 +41,7 @@
                     <v-btn depressed round color="primary" v-if="userInfo.role==2" @click="finishAlert">完成</v-btn>
                 </div>
             </v-toolbar>
-            <v-tabs v-model="tab" color="white" centered>
+            <v-tabs v-model="tab" centered>
                 <v-tabs-slider></v-tabs-slider>
                 <v-tab key="1">
                     基本信息
@@ -161,12 +161,12 @@
                                         </v-layout>
                                     </v-timeline-item>
 
-                                    <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=2 && alertInfo.auto==1">
+                                    <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=2&&alertInfo.state<=8 && alertInfo.auto==1">
                                         <v-layout wrap pt-3>
-                                            <v-flex xs4>
+                                            <v-flex xs5>
                                                 <strong>{{alertInfo.repost_time | moment("YYYY-MM-DD HH:mm:ss")}}</strong>
                                             </v-flex>
-                                            <v-flex xs8>
+                                            <v-flex>
                                                 <strong>下发整改</strong>
                                                 <div class="caption mb-2">交由 {{station.name}}-{{group.name}} 处理</div>
                                                 <!-- <v-avatar>
@@ -203,7 +203,7 @@
                                     <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state==9">
                                         <v-layout pt-3>
                                             <v-flex xs5>
-                                                <strong>{{alertInfo.finish_time | moment("YYYY-MM-DD HH:mm:ss")}}</strong>
+                                                <strong>{{alertInfo.error_time | moment("YYYY-MM-DD HH:mm:ss")}}</strong>
                                             </v-flex>
                                             <v-flex>
                                                 <strong>告警错误</strong>

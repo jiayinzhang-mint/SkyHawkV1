@@ -1,10 +1,10 @@
 <template>
     <v-container>
-        <v-card v-loading="loading">
-            <v-toolbar flat color="white">
+        <v-card v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.3)">
+            <v-toolbar flat color="transparent">
                 <v-toolbar-title style="font-size:17px">{{companyInfo.brand}}</v-toolbar-title>
             </v-toolbar>
-            <v-tabs v-model="tab" color="white" centered>
+            <v-tabs v-model="tab" centered>
                 <v-tabs-slider></v-tabs-slider>
                 <v-tab key="1">
                     基本信息
@@ -61,7 +61,17 @@
                             </v-list-tile-content>
                         </v-list-tile>
                         <v-divider inset></v-divider>
-
+                        <v-subheader>安全等级</v-subheader>
+                        <v-list-tile>
+                            <v-list-tile-action>
+                                <v-icon color="primary">stars</v-icon>
+                            </v-list-tile-action>
+                            <v-list-tile-content>
+                                <v-icon v-if="companyInfo.level==3">sentiment_very_satisfied</v-icon>
+                                <v-icon v-if="companyInfo.level==2">sentiment_satisfied</v-icon>
+                                <v-icon v-if="companyInfo.level==1">sentiment_dissatisfied</v-icon>
+                            </v-list-tile-content>
+                        </v-list-tile>
                         <v-subheader>营业执照</v-subheader>
                         <v-list-tile>
                             <v-list-tile-action>
@@ -89,7 +99,7 @@
                                 <v-card>
                                     <v-img class="elevation-4 mb-1" style="border-radius:3px" contain :src="item.avatar" lazy-src="/static/assets/lazy.jpg">
                                         <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
-                                            <v-progress-linear indeterminate color="grey darken-1" :width="1"></v-progress-linear>
+                                            <v-progress-linear indeterminate color="primary" :width="1"></v-progress-linear>
                                         </v-layout>
                                     </v-img>
                                     <v-card-actions>
@@ -171,7 +181,7 @@ export default {
                         zoom: 40,
                         center: [121.476657, 31.252857],
                         mapStyle:
-                            "amap://styles/4c8496281f84dd2bdcf87b425e77844a"
+                            "amap://styles/393a749e1b6c87ab7352ecede1ba25a7"
                     });
                     const marker = new AMap.CircleMarker({
                         map: map,
@@ -232,6 +242,8 @@ export default {
     beforeRouteUpdate(to, from, next) {
         next();
         this.getCompanyInfo();
+        this.getSupervisor();
+        this.getAlertList();
         this.tab = 0;
     }
 };

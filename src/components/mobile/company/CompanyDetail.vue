@@ -92,7 +92,7 @@
                                 <v-card>
                                     <v-img class="elevation-4 mb-1" style="border-radius:3px" contain :src="item.avatar" lazy-src="/static/assets/lazy.jpg">
                                         <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
-                                            <v-progress-linear indeterminate color="grey darken-1" :width="1"></v-progress-linear>
+                                            <v-progress-linear indeterminate color="primary" :width="1"></v-progress-linear>
                                         </v-layout>
                                     </v-img>
                                     <v-card-actions>
@@ -228,6 +228,8 @@ export default {
     beforeRouteUpdate(to, from, next) {
         next();
         this.getCompanyInfo();
+        this.getSupervisor();
+        this.getAlertList();
         this.tab = 0;
     }
 };

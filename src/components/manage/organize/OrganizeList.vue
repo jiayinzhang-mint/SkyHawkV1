@@ -1,7 +1,7 @@
 <template>
     <v-layout row>
         <v-flex xs12 sm4>
-            <v-toolbar flat color="white">
+            <v-toolbar flat color="grey darken-3">
                 <v-toolbar-title style="font-size:17px">组织信息</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-btn icon @click="getOrganizeList('force')">
@@ -14,7 +14,7 @@
             </v-toolbar>
             <v-divider></v-divider>
             <v-card style="height:calc(100vh - 129px);overflow :auto" flat>
-                <v-container fluid v-loading="loading" class="block">
+                <v-container fluid v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.3)" class="block">
                     <el-tree :data="organizeList" :props="defaultProps" @node-click="showDetail" default-expand-all>
                         <!-- <span class="custom-tree-node" slot-scope="{ node, data }">
                             <span>{{ node.label }}</span>

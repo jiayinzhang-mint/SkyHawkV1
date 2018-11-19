@@ -5,12 +5,12 @@
         </v-content>
         <v-card>
             <v-bottom-nav fixed app :active.sync="bottomNav" :value="true" color="flat">
-                <v-btn flat color="info" value="map" to="/mobile/map">
+                <v-btn flat color="info" value="map" to="/mobile/map" v-if="userInfo.role<=3">
                     <span>地图</span>
                     <v-icon>map</v-icon>
                 </v-btn>
 
-                <v-btn flat color="info" value="company" to="/mobile/company">
+                <v-btn flat color="info" value="company" to="/mobile/company" v-if="userInfo.role<=3">
                     <span>企业</span>
                     <v-icon>work</v-icon>
                 </v-btn>

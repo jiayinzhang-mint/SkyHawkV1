@@ -35,7 +35,8 @@ import {
     VChip,
     transitions,
     VDialog,
-    VTimeline
+    VTimeline,
+    VHover
 } from 'vuetify'
 import { Ripple } from 'vuetify/lib/directives'
 
@@ -65,13 +66,14 @@ Vue.use(Vuetify, {
         VChip,
         transitions,
         VDialog,
-        VTimeline
+        VTimeline,
+        VHover
     },
     directives: {
         Ripple
     },
     theme: {
-        primary: colors.blue.lighten1, // #E53935
+        primary: colors.blue.lighten2, // #E53935
     }
 
 })
@@ -103,6 +105,7 @@ Vue.use(VueInitialsImg);
 Vue.use(require('vue-moment'));
 
 //axios.defaults.baseURL = 'http://skyhawkapi.huilab.cn/api';
+//axios.defaults.baseURL = 'http://monitor2.huilab.cn/api'
 axios.defaults.baseURL = 'http://127.0.0.1:8000/api'
 
 Vue.prototype.$ajax = axios;

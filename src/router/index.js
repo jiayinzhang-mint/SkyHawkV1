@@ -63,6 +63,10 @@ export default new VueRouter({
                     path: '/map',
                     component: resolve => require(['@/components/user/map/MapView'], resolve),
                 },
+                {
+                    path: '/today',
+                    component: resolve => require(['@/components/common/Today'], resolve),
+                },
 
             ]
         },
@@ -133,6 +137,17 @@ export default new VueRouter({
             path: '/wechat/login',
             component: resolve => require(['@/components/mobile/wechat/Login'], resolve),
         },
+        {
+            path: '/dashboard/analysis',
+            component: resolve => require(['@/components/dashboard/Analysis'], resolve),
+
+        },
+        {
+            path: '/dashboard/perdict',
+            component: resolve => require(['@/components/dashboard/Perdict'], resolve),
+        }
+
+
 
     ]
 })

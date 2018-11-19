@@ -1,7 +1,7 @@
 <template>
     <v-container style="height:calc(100vh - 129px);overflow :auto">
-        <v-card v-loading="loading">
-            <v-toolbar flat color="white">
+        <v-card v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.3)">
+            <v-toolbar flat color="transparent">
                 <v-toolbar-title style="font-size:17px">{{organizeInfo.name}}</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-btn round depressed color="primary" @click="newUserDialog=true">新建</v-btn>

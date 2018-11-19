@@ -163,7 +163,7 @@
                                         </v-layout>
                                     </v-timeline-item>
 
-                                    <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=2 && alertInfo.auto==1">
+                                    <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=2&&alertInfo.state<=8 && alertInfo.auto==1">
                                         <v-layout wrap pt-3>
                                             <v-flex xs4>
                                                 <strong>{{alertInfo.repost_time | moment("YYYY-MM-DD HH:mm:ss")}}</strong>
@@ -178,12 +178,12 @@
                                         </v-layout>
                                     </v-timeline-item>
 
-                                    <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=3">
+                                    <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=3&&alertInfo.state<=8">
                                         <v-layout pt-3>
-                                            <v-flex xs4>
+                                            <v-flex xs5>
                                                 <strong>{{alertInfo.rectify_time | moment("YYYY-MM-DD HH:mm:ss")}}</strong>
                                             </v-flex>
-                                            <v-flex xs8>
+                                            <v-flex>
                                                 <strong>企业反馈</strong>
                                                 <div class="caption mb-2">交由 {{station.name}}-{{group.name}} 审核</div>
 
@@ -191,13 +191,24 @@
                                         </v-layout>
                                     </v-timeline-item>
 
-                                    <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=4">
+                                    <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state>=4&&alertInfo.state<=8">
                                         <v-layout pt-3>
-                                            <v-flex xs4>
+                                            <v-flex xs5>
                                                 <strong>{{alertInfo.finish_time | moment("YYYY-MM-DD HH:mm:ss")}}</strong>
                                             </v-flex>
-                                            <v-flex xs8>
+                                            <v-flex>
                                                 <strong>整改完成</strong>
+                                            </v-flex>
+                                        </v-layout>
+                                    </v-timeline-item>
+
+                                    <v-timeline-item color="pink" fill-dot small v-if="alertInfo.state==9">
+                                        <v-layout pt-3>
+                                            <v-flex xs5>
+                                                <strong>{{alertInfo.finish_time | moment("YYYY-MM-DD HH:mm:ss")}}</strong>
+                                            </v-flex>
+                                            <v-flex>
+                                                <strong>告警错误</strong>
                                             </v-flex>
                                         </v-layout>
                                     </v-timeline-item>

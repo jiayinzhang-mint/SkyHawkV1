@@ -1,5 +1,5 @@
 <template>
-    <v-app id="inspire">
+    <v-app id="inspire" dark>
         <v-navigation-drawer fixed app v-model="drawer">
             <v-list class="pt-3">
                 <v-list-tile avatar class="pb-2">
@@ -57,10 +57,30 @@
                         </v-list-tile>
                     </template>
                 </v-list>
+                <v-list>
+                    <template v-for="(item, i) in menuData">
+                        <v-layout v-if="item.heading" :key="i" row align-center>
+                            <v-subheader v-if="item.heading">
+                                {{ item.heading }}
+                            </v-subheader>
+                        </v-layout>
+                        <v-divider v-else-if="item.divider" :key="i" dark class="my-3"></v-divider>
+                        <v-list-tile v-else-if="userInfo.role<=item.role" :key="i" :to="item.route" ripple>
+                            <v-list-tile-action>
+                                <v-icon>{{ item.icon }}</v-icon>
+                            </v-list-tile-action>
+                            <v-list-tile-content>
+                                <v-list-tile-title>
+                                    {{ item.text }}
+                                </v-list-tile-title>
+                            </v-list-tile-content>
+                        </v-list-tile>
+                    </template>
+                </v-list>
             </v-list>
         </v-navigation-drawer>
 
-        <v-toolbar color="white" app fixed>
+        <v-toolbar flat app fixed style="" class="aero">
             <v-btn icon class="hidden-md-and-down" @click="goBack" v-if="drawer">
                 <v-icon>arrow_back</v-icon>
             </v-btn>
@@ -104,7 +124,7 @@
         </el-dialog>
 
         <v-navigation-drawer v-model="userHelp" temporary right fixed app>
-            <v-toolbar flat color="white">
+            <v-toolbar flat color="transparent">
                 <v-toolbar-title class="">
                     <span class="hidden-sm-and-down">用户帮助</span>
                 </v-toolbar-title>
@@ -190,6 +210,12 @@ export default {
             menuCommon: [
                 { heading: "通用" },
                 {
+                    icon: "dashboard",
+                    text: "今日概览",
+                    role: 2,
+                    route: "/today"
+                },
+                {
                     icon: "map",
                     text: "地图视图",
                     route: "/map",
@@ -218,6 +244,21 @@ export default {
                     text: "组织信息",
                     route: "/organize",
                     role: 2
+                }
+            ],
+            menuData: [
+                { heading: "数据可视化" },
+                {
+                    icon: "data_usage",
+                    text: "告警统计",
+                    role: 2,
+                    route: "/dashboard/analysis"
+                },
+                {
+                    icon: "trending_up",
+                    text: "告警预测",
+                    role: 2,
+                    route: "/dashboard/perdict"
                 }
             ],
             settingDialog: false
@@ -268,3 +309,5 @@ export default {
 };
 </script>
 
+<style>
+</style>

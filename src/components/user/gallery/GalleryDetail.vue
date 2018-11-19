@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-card>
-            <v-toolbar flat color="white">
+            <v-toolbar flat color="transparent">
                 <v-toolbar-title style="font-size:17px">{{companyInfo.brand}}</v-toolbar-title>
             </v-toolbar>
 
@@ -11,7 +11,7 @@
                     <v-card>
                         <v-img contain :src="props.item.src" lazy-src="/static/assets/lazy.jpg">
                             <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
-                                <v-progress-linear indeterminate color="grey darken-1" :width="1"></v-progress-linear>
+                                <v-progress-linear indeterminate color="primary" :width="1"></v-progress-linear>
                             </v-layout>
                         </v-img>
 

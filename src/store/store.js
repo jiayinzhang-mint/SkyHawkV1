@@ -81,7 +81,7 @@ export default new Vuex.Store({
             return new Promise((resolve, reject) => {
                 if (context.getters.alertList.length <= 1 || params.type == "force") {
                     if (context.getters.userInfo.role <= 1) {
-                        console.log(params.page)
+                        // console.log(params.page)
                         axios.get("/alert/list", {
                             params: {
                                 token: context.getters.userInfo.token,
@@ -104,7 +104,7 @@ export default new Vuex.Store({
                             params: {
                                 token: context.getters.userInfo.token,
                                 station: context.getters.userInfo.station,
-                                stationAlt: params.stationAlt.id,
+                                stationAlt: params.stationAlt,
                                 page: params.page,
                                 role: context.getters.userInfo.role
                             }

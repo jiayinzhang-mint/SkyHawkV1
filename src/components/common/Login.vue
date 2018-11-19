@@ -1,5 +1,5 @@
 <template>
-    <v-app id="inspire" class="background">
+    <v-app id="inspire" dark class="background">
         <v-content>
             <v-container fluid fill-height>
                 <v-layout align-center justify-center>
@@ -31,7 +31,7 @@
             <div>Copyright &copy; {{ new Date().getFullYear() }} INSDIM Inc. 保留所有权利</div>
         </v-footer>
         <v-dialog v-model="loading" hide-overlay persistent width="300">
-            <v-card color="white">
+            <v-card>
                 <v-card-text>
                     正在加载数据
                     <v-progress-linear indeterminate color="primary" class="mb-0"></v-progress-linear>
@@ -162,7 +162,7 @@ export default {
                                     this.$router.push({ path: "/map" });
                                 } else {
                                     this.$router.push({
-                                        path: "/mobile/map"
+                                        path: "/mobile/alert"
                                     });
                                 }
                             });

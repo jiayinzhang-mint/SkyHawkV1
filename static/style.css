@@ -13,3 +13,56 @@
 .el-message-box--center{
     padding-bottom: 15px
 }
+
+.el-tree {
+    background: transparent !important;
+    color:#fff !important
+}
+
+.el-tree-node:focus>.el-tree-node__content{
+    background: #333333 !important
+}
+
+.el-tree-node__content:hover{
+    background:#333333 !important
+}
+
+.el-dialog{
+    background: #333333 !important
+}
+
+.el-dialog__body{
+    color:#fff !important
+}
+.el-form-item__label{
+    color:#fff !important
+}
+.el-dialog__title{
+    color:#fff !important
+}
+
+.aero {
+    /* Safari for macOS & iOS */
+    -webkit-backdrop-filter: blur(15px) !important;
+
+    /* Google Chrome */
+    backdrop-filter: blur(15px) !important;
+
+    /* 设置背景半透明黑色 */
+    background: rgba(33, 33, 33, 0.8) !important;
+}
+
+.aero-lighter {
+    /* Safari for macOS & iOS */
+    -webkit-backdrop-filter: blur(15px) !important;
+
+    /* Google Chrome */
+    backdrop-filter: blur(15px) !important;
+
+    /* 设置背景半透明黑色 */
+    background: rgba(33, 33, 33, 0.4) !important;
+}
+
+.dashboard{
+    background: linear-gradient(45deg, #756a8a, #2f323a)!important
+}

@@ -55,6 +55,8 @@ export default {
                             message: "操作成功",
                             type: "success"
                         });
+                    } else {
+                        alert(data);
                     }
                 });
         },

@@ -1,9 +1,9 @@
 <template>
     <v-container style="height:calc(100vh - 64px);overflow :auto">
 
-        <v-card v-loading="loading">
+        <v-card v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.3)">
 
-            <v-tabs v-model="tab" color="white" centered>
+            <v-tabs v-model="tab"  centered>
                 <v-tabs-slider></v-tabs-slider>
 
                 <v-tab key="1">
@@ -24,7 +24,7 @@
             <v-tabs-items v-model="tab">
                 <v-tab-item key="1">
 
-                    <v-toolbar flat color="white">
+                    <v-toolbar flat color="transparent">
                         <v-toolbar-title style="font-size:17px">企业信息</v-toolbar-title>
 
                         <v-spacer></v-spacer>
@@ -63,7 +63,7 @@
                 </v-tab-item>
                 <v-tab-item key="2">
 
-                    <v-toolbar flat color="white">
+                    <v-toolbar flat color="transparent">
                         <v-toolbar-title style="font-size:17px">企业用户</v-toolbar-title>
 
                         <v-spacer></v-spacer>
@@ -85,7 +85,7 @@
 
                 </v-tab-item>
                 <v-tab-item key="3">
-                    <v-toolbar flat color="white">
+                    <v-toolbar flat color="transparent">
                         <v-toolbar-title style="font-size:17px">监管人员</v-toolbar-title>
 
                         <v-spacer></v-spacer>
@@ -97,14 +97,10 @@
                         <v-layout wrap>
                             <v-flex v-for="(item,i) in companySupervisor" :key="i" xs6 md3>
                                 <v-card>
-                                    <v-img height="120px">
-                                        <v-container fill-height fluid pa-2>
-                                            <v-layout fill-height>
-                                                <v-flex xs12 align-end flexbox>
-                                                    <span class="headline white--text" v-text="item.name"></span>
-                                                </v-flex>
-                                            </v-layout>
-                                        </v-container>
+                                    <v-img class="elevation-4 mb-1" style="border-radius:3px" contain :src="item.avatar" lazy-src="/static/assets/lazy.jpg">
+                                        <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
+                                            <v-progress-linear indeterminate color="primary" :width="1"></v-progress-linear>
+                                        </v-layout>
                                     </v-img>
 
                                     <v-card-actions>
@@ -120,7 +116,7 @@
                     </v-container>
                 </v-tab-item>
                 <v-tab-item key="4">
-                    <v-toolbar flat color="white">
+                    <v-toolbar flat color="transparent">
                         <v-toolbar-title style="font-size:17px">监控点</v-toolbar-title>
                         <v-spacer></v-spacer>
                         <v-btn depressed class="primary" round @click="newMonitorDialog=true">

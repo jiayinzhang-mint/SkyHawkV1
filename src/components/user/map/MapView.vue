@@ -1,9 +1,9 @@
 <template>
     <div class="row">
-        <div class="mapview" id="markermap" style="height:calc(100vh - 64px);overflow :auto" v-loading="loadingMap">
-            <v-card v-if="userInfo.role==1" class="d-inline-block elevation-12 ml-5 mt-5" width="300px" style="z-index:1">
+        <div class="mapview" id="markermap" style="height:calc(100vh - 64px);overflow :auto" v-loading="loadingMap" element-loading-background="rgba(0, 0, 0, 0)">
+            <v-card v-if="userInfo.role==1" class="d-inline-block elevation-12 ml-5 mt-5 aero" width="300px" style="z-index:1">
 
-                <v-toolbar flat color="white">
+                <v-toolbar flat class="aero">
                     <v-btn icon @click="initTool" v-if="select">
                         <v-icon>arrow_back</v-icon>
                     </v-btn>
@@ -13,7 +13,7 @@
                 </v-toolbar>
                 <v-divider></v-divider>
                 <v-navigation-drawer floating permanent stateless value="true" v-if="!select">
-                    <v-list dense style="max-height:400px" class="pt-0 pb-0">
+                    <v-list dense style="max-height:400px" class="pt-0 pb-0 aero">
                         <v-list-group>
                             <v-list-tile slot="activator">
                                 <v-list-tile-title>查看全部</v-list-tile-title>
@@ -28,25 +28,25 @@
                 </v-navigation-drawer>
 
             </v-card>
-            <v-card v-else class="d-inline-block elevation-12 ml-5 mt-5" width="300px" style="z-index:1">
+            <v-card v-else class="d-inline-block elevation-12 ml-5 mt-5 aero" width="300px" style="z-index:1">
 
-                <v-toolbar flat color="white">
-                    <v-toolbar-title class="subheading" style="margin-left:-8px">{{station.name}}</v-toolbar-title>
+                <v-toolbar flat>
+                    <v-toolbar-title class="subheading" style="margin-left:-8px">请选择企业</v-toolbar-title>
                 </v-toolbar>
             </v-card>
-            <v-card class="elevation-12 ml-5 mt-2" width="300px" style="z-index:1" v-if="select && !selectCompany">
-                <v-toolbar flat color="white">
+            <v-card class="elevation-12 ml-5 mt-2 aero" width="300px" style="z-index:1" v-if="select && !selectCompany">
+                <v-toolbar flat class="aero">
                     <v-toolbar-title style="margin-left:-8px" class="subheading" v-html="highlightCompany">请选择企业</v-toolbar-title>
                 </v-toolbar>
                 <v-divider></v-divider>
                 <v-navigation-drawer floating permanent stateless value="true" v-if="!selectCompany">
-                    <v-list style="max-height:400px" class="pt-0 pb-0">
+                    <v-list style="max-height:400px" class="pt-0 pb-0 aero">
                         <v-list-group>
                             <v-list-tile slot="activator">
                                 <v-list-tile-title>查看全部</v-list-tile-title>
                             </v-list-tile>
 
-                            <v-list-tile v-for="(item,i) in companyListShow" :key="i" @click="glanceCompany(item.id)">
+                            <v-list-tile v-for="(item,i) in companyListShow" :key="i" ripple @click="glanceCompany(item.id);selectCompany = item.brand">
                                 <v-list-tile-avatar size="32px">
                                     <vue-initials-img :name="item.brand" />
                                 </v-list-tile-avatar>
@@ -61,10 +61,10 @@
                 </v-navigation-drawer>
 
             </v-card>
-            <v-scroll-y-transition >
-                <v-card class="elevation-12 ml-5 mt-2" width="300px" style="z-index:1" v-if="selectCompany" v-loading="loadingInfo">
+            <v-scroll-y-transition>
+                <v-card class="elevation-12 ml-5 mt-2 aero" width="300px" style="z-index:1" v-if="selectCompany" v-loading="loadingInfo" element-loading-background="rgba(0, 0, 0, 0.3)">
 
-                    <v-toolbar flat color="white">
+                    <v-toolbar class="aero" flat>
                         <v-toolbar-title style="margin-left:-8px" class="subheading" v-html="selectCompany"></v-toolbar-title>
                         <v-spacer></v-spacer>
                         <v-btn icon @click="backTool">
@@ -149,7 +149,7 @@ export default {
                         zoom: 40,
                         center: [121.476657, 31.252857],
                         mapStyle:
-                            "amap://styles/4c8496281f84dd2bdcf87b425e77844a"
+                            "amap://styles/393a749e1b6c87ab7352ecede1ba25a7"
                     });
                     this.polygon = new AMap.Polygon({
                         map: this.map,
@@ -157,14 +157,15 @@ export default {
                         strokeColor: "#000000",
                         strokeOpacity: 0.3,
                         strokeWeight: 3,
-                        fillColor: "#000000",
-                        fillOpacity: 0.4,
+                        fillColor: "#fff",
+                        fillOpacity: 0.2,
                         bubble: true
                     });
                     this.polygon.setMap(this.map);
                     this.map.setFitView();
                 })
                 .then(data => {
+                    // console.log(this.companyList);
                     this.companyList.forEach(element => {
                         if (
                             element.station == this.userInfo.station ||
@@ -218,7 +219,7 @@ export default {
                         zoom: 40,
                         center: [121.476657, 31.252857],
                         mapStyle:
-                            "amap://styles/4c8496281f84dd2bdcf87b425e77844a"
+                            "amap://styles/393a749e1b6c87ab7352ecede1ba25a7"
                     });
                     const that = this;
                     // console.log(data.data);
@@ -229,21 +230,21 @@ export default {
                             map: that.map,
                             path: element.bound,
                             strokeColor: "#000000",
-                            strokeOpacity: 0.3,
+                            strokeOpacity: 0.2,
                             strokeWeight: 3,
-                            fillColor: "#000000",
-                            fillOpacity: 0.4,
+                            fillColor: "#fff",
+                            fillOpacity: 0.2,
                             bubble: true
                         });
                         that.polygon[element.id].on("click", function() {
                             that.selectStation(element.id);
                             that.polygon[element.id].setOptions({
-                                fillColor: "#333333"
+                                fillOpacity: 0.5
                             });
                         });
                         that.polygon[element.id].on("mouseover", function() {
                             that.polygon[element.id].setOptions({
-                                fillColor: "#333333"
+                                fillOpacity: 0.5
                             });
                             if (that.select == "") {
                                 that.highlight = element.name;
@@ -251,7 +252,8 @@ export default {
                         });
                         that.polygon[element.id].on("mouseout", function() {
                             that.polygon[element.id].setOptions({
-                                fillColor: "#000000"
+                                fillColor: "#fff",
+                                fillOpacity: 0.2
                             });
                             if (that.select == "") {
                                 that.highlight = "请选择辖区";
@@ -371,7 +373,7 @@ export default {
         ...mapGetters(["userInfo", "companyList", "stationList"])
     },
     mounted() {
-        if (this.userInfo.role >= 1) {
+        if (this.userInfo.role > 1) {
             this.getBound();
             this.station = this.stationList.find(element => {
                 return element.id === this.userInfo.station;

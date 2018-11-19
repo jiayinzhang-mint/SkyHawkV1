@@ -1,7 +1,7 @@
 <template>
     <v-layout row>
-        <v-flex xs12 sm4 style="background:white">
-            <v-toolbar flat color="white">
+        <v-flex xs12 sm4>
+            <v-toolbar flat color="grey darken-3">
                 <v-toolbar-title style="font-size:17px">告警流转</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-toolbar-items v-if="userInfo.role <=1">
@@ -26,7 +26,7 @@
             </v-toolbar>
             <v-divider></v-divider>
 
-            <v-list style="height:calc(100vh - 129px);overflow :auto" v-loading="loading" two-line>
+            <v-list style="height:calc(100vh - 129px);overflow :auto" v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.3)" two-line>
                 <v-scroll-x-transition group>
                     <template v-for="(item,index) in alertListShow">
                         <div :key="index">
@@ -80,7 +80,7 @@ export default {
             this.getAlertList({
                 type: "force",
                 page: 1,
-                stationAlt: this.selectedStation
+                stationAlt: this.selectedStation.id
             }).then(() => {
                 this.alertListShow = this.alertList;
                 if (this.userInfo.role <= 1) {
@@ -135,7 +135,7 @@ export default {
             this.getAlertList({
                 type: "standard",
                 page: 1,
-                stationAlt: this.selectedStation
+                stationAlt: this.userInfo.station
             }).then(() => {
                 this.alertListShow = this.alertList;
                 // this.filter(this.userInfo.station);

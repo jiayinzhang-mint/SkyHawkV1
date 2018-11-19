@@ -1,7 +1,7 @@
 <template>
     <v-layout row>
         <v-flex xs12 sm4>
-            <v-toolbar flat color="white">
+            <v-toolbar color="grey darken-3" flat>
                 <v-toolbar-title style="font-size:17px">定时抓拍</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-chip v-if="filted && userInfo.role<=1" close @input="reFill">{{selectedStation.name}}</v-chip>
@@ -21,7 +21,7 @@
 
             </v-toolbar>
             <v-divider></v-divider>
-            <v-list style="height:calc(100vh - 129px);overflow :auto" v-loading="loading">
+            <v-list style="height:calc(100vh - 129px);overflow :auto" v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.3)">
                 <v-scroll-x-transition group>
                     <template v-for="(item,index) in companyListShow">
                         <v-list-tile :key="index" avatar @click="showDetail(item.id)" ripple>

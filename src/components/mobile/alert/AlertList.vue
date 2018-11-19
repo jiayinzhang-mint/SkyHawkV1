@@ -1,6 +1,6 @@
 <template>
     <v-layout row>
-        <v-flex xs12 sm4 style="background:white">
+        <v-flex xs12 style="background:white">
             <v-toolbar flat color="white">
                 <v-toolbar-title style="font-size:17px">告警流转</v-toolbar-title>
                 <v-spacer></v-spacer>
@@ -128,7 +128,7 @@ export default {
             this.getAlertList({
                 type: "standard",
                 page: 1,
-                stationAlt: this.selectedStation
+                stationAlt: this.userInfo.station
             }).then(() => {
                 this.alertListShow = this.alertList;
                 // this.filter(this.userInfo.station);
