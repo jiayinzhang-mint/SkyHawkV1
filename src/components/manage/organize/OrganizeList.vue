@@ -126,7 +126,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .custom-tree-node {
     flex: 1;
     display: flex;
