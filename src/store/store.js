@@ -21,7 +21,8 @@ export default new Vuex.Store({
         companyList: [],
         organizeList: [],
         stationList: [],
-        alertList: []
+        alertList: [],
+        alertPage: 1,
     },
     getters: {
         userInfo: state => {
@@ -38,6 +39,9 @@ export default new Vuex.Store({
         },
         alertList: state => {
             return state.alertList
+        },
+        alertPage: state => {
+            return state.alertPage
         }
     },
     mutations: {
@@ -53,6 +57,15 @@ export default new Vuex.Store({
         },
         getAlertList: (state, alertList) => {
             state.alertList = alertList
+        },
+        restoreAlertPage: (state) => {
+            state.alertPage = 1
+        },
+        getMoreAlert: (state, alertList) => {
+            state.alertPage = state.alertPage + 1
+            alertList.forEach(element => {
+                state.alertList.push(element)
+            });
         }
     },
     actions: {
@@ -79,7 +92,7 @@ export default new Vuex.Store({
         },
         getAlertList(context, params) {
             return new Promise((resolve, reject) => {
-                if (context.getters.alertList.length <= 1 || params.type == "force") {
+                if (context.getters.alertList.length <= 1 || params.type == "force" || params.type == "loadMore") {
                     if (context.getters.userInfo.role <= 1) {
                         // console.log(params.page)
                         axios.get("/alert/list", {
@@ -96,7 +109,11 @@ export default new Vuex.Store({
                                     return company.id === element.company
                                 })
                             });
-                            context.commit("getAlertList", alertList)
+                            if (params.type == "loadMore") {
+                                context.commit("getMoreAlert", alertList)
+                            } else {
+                                context.commit("getAlertList", alertList)
+                            }
                             resolve()
                         })
                     } else if (context.getters.userInfo.role >= 1 && context.getters.userInfo.role <= 3) {
@@ -116,7 +133,11 @@ export default new Vuex.Store({
                                     return company.id === element.company
                                 })
                             });
-                            context.commit("getAlertList", alertList)
+                            if (params.type == "loadMore") {
+                                context.commit("getMoreAlert", alertList)
+                            } else {
+                                context.commit("getAlertList", alertList)
+                            }
                             resolve()
                         })
                     } else {
@@ -135,7 +156,11 @@ export default new Vuex.Store({
                                     return company.id === element.company
                                 })
                             });
-                            context.commit("getAlertList", alertList)
+                            if (params.type == "loadMore") {
+                                context.commit("getMoreAlert", alertList)
+                            } else {
+                                context.commit("getAlertList", alertList)
+                            }
                             resolve()
                         })
                     }
@@ -208,6 +233,12 @@ export default new Vuex.Store({
                     context.commit("updateUserInfo", user)
                     resolve()
                 })
+            })
+        },
+        restoreAlertPage(context) {
+            return new Promise((resolve, reject) => {
+                context.commit("restoreAlertPage")
+                resolve()
             })
         }
     },

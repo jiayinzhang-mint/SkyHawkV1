@@ -47,7 +47,16 @@
                             <v-divider></v-divider>
                         </div>
                     </template>
+
                 </v-scroll-x-transition>
+                <v-list-tile>
+                    <v-layout justify-center>
+                        <v-btn block class="text-xs-center" depressed round :loading="loadAlert" :disabled="loadAlert" dark @click="getMoreAlert">
+                            加载更多
+                        </v-btn>
+                    </v-layout>
+
+                </v-list-tile>
             </v-list>
 
         </v-flex>
@@ -70,23 +79,26 @@ export default {
         alertListShow: [],
         page: 1,
         filted: false,
-        selectedStation: []
+        selectedStation: [],
+        loadAlert: false
     }),
     methods: {
-        ...mapActions(["getCompanyList", "getAlertList"]),
+        ...mapActions(["getCompanyList", "getAlertList", "restoreAlertPage"]),
         refreshAlertList() {
             this.loading = true;
             // console.log(this.selectedStation);
-            this.getAlertList({
-                type: "force",
-                page: 1,
-                stationAlt: this.selectedStation.id
-            }).then(() => {
-                this.alertListShow = this.alertList;
-                if (this.userInfo.role <= 1) {
-                    this.filter(this.selectedStation.id);
-                }
-                this.loading = false;
+            this.restoreAlertPage().then(() => {
+                this.getAlertList({
+                    type: "force",
+                    page: 1,
+                    stationAlt: this.selectedStation.id
+                }).then(() => {
+                    this.alertListShow = this.alertList;
+                    if (this.userInfo.role <= 1) {
+                        this.filter(this.selectedStation.id);
+                    }
+                    this.loading = false;
+                });
             });
         },
         showDetail(id) {
@@ -104,14 +116,40 @@ export default {
                     this.alertListShow.push(element);
                 }
             });
+            // console.log(this.alertListShow);
         },
         reFill() {
             this.alertListShow = this.alertList;
             this.filted = false;
+        },
+        getMoreAlert() {
+            this.loadAlert = true;
+            this.getAlertList({
+                type: "loadMore",
+                page: this.alertPage + 1
+            }).then(() => {
+                if (this.userInfo.role <= 1) {
+                    this.selectedStation = this.stationList.find(element => {
+                        return element.id === 10;
+                    });
+                } else if (this.userInfo.role >= 1 && this.userInfo.role <= 3) {
+                    this.selectedStation = this.stationList.find(element => {
+                        return element.id === this.userInfo.station;
+                    });
+                }
+                this.filter(this.selectedStation.id);
+                this.loadAlert = false;
+            });
         }
     },
     computed: {
-        ...mapGetters(["companyList", "alertList", "stationList", "userInfo"])
+        ...mapGetters([
+            "companyList",
+            "alertList",
+            "stationList",
+            "userInfo",
+            "alertPage"
+        ])
     },
     mounted() {
         if (this.userInfo.role <= 1) {
