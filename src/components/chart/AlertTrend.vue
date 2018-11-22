@@ -1,9 +1,10 @@
 <template>
-    <ve-line :settings="alertTrendSettings" :extend="extend" :data="alertTrend" ref="alertTrend"></ve-line>
+    <ve-line :settings="alertTrendSettings" v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.3)" :extend="extend" :data="alertTrend" ref="alertTrend"></ve-line>
 </template>
 
 <script>
 import VeLine from "v-charts/lib/line.common";
+import { mapGetters } from "vuex";
 
 export default {
     components: { VeLine },
@@ -38,7 +39,7 @@ export default {
                 },
 
                 labelMap: {
-                    freq: "次数"
+                    count: "次数"
                 },
                 legendName: {
                     访问用户: "访问用户 total: 10000"
@@ -72,16 +73,10 @@ export default {
                 }
             },
             alertTrend: {
-                columns: ["date", "freq"],
-                rows: [
-                    { date: "01-01", freq: 123 },
-                    { date: "01-02", freq: 122 },
-                    { date: "01-03", freq: 212 },
-                    { date: "01-04", freq: 412 },
-                    { date: "01-05", freq: 312 },
-                    { date: "01-06", freq: 712 }
-                ]
-            }
+                columns: ["date", "count"],
+                rows: []
+            },
+            loading: true
         };
     },
     mounted() {
@@ -89,6 +84,22 @@ export default {
         setTimeout(() => {
             this.$refs["alertTrend"].echarts.resize();
         }, 500);
+        this.$ajax
+            .get("/alert/statistic", {
+                params: {
+                    token: this.userInfo.token,
+                    today: true
+                }
+            })
+            .then(data => {
+                data = data.data;
+                this.alertTrend.rows = data.week;
+                // console.log(data.week);
+                this.loading = false;
+            });
+    },
+    computed: {
+        ...mapGetters(["userInfo"])
     }
 };
 </script>

@@ -224,7 +224,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 export default {
     data: () => ({
         alertInfo: [],
@@ -236,6 +236,7 @@ export default {
     }),
     methods: {
         ...mapActions(["updateAlert"]),
+        ...mapMutations(["markError", "markUncertain", "markRepost"]),
         getAlertInfo() {
             this.loading = true;
             this.$ajax
@@ -287,6 +288,8 @@ export default {
                             message: "操作成功"
                         });
                         this.getAlertInfo();
+                        this.markUncertain({ alert: this.$route.params.id });
+                        this.$emit("updatealertlist");
                     });
                 })
                 .catch(() => {});
@@ -311,6 +314,8 @@ export default {
                             message: "操作成功"
                         });
                         this.getAlertInfo();
+                        this.markError({ alert: this.$route.params.id });
+                        this.$emit("updatealertlist");
                     });
                 })
                 .catch(() => {});
@@ -343,6 +348,8 @@ export default {
                             message: "操作成功"
                         });
                         this.getAlertInfo();
+                        this.markRepost({ alert: this.$route.params.id });
+                        this.$emit("updatealertlist");
                     });
                 })
                 .catch(() => {});

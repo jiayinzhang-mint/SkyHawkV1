@@ -121,6 +121,11 @@
                             <td class="text-xs-center" v-else-if="props.item.state == 2">企业整改中</td>
                             <td class="text-xs-center" v-else-if="props.item.state == 3">整改审核中</td>
                             <td class="text-xs-center" v-else-if="props.item.state == 4">已完成</td>
+                            <td class="text-xs-center" v-else-if="props.item.state == 9">告警错误</td>
+                            <td class="text-xs-center">
+                                <v-btn flat round color="primary" @click="showAlertDetail(props.item.id)">详情</v-btn>
+                            </td>
+
                         </template>
                     </v-data-table>
 
@@ -149,7 +154,7 @@ export default {
                 value: "username"
             },
             {
-                text: "时间",
+                text: "触发时间",
                 align: "center",
                 sortable: false,
                 value: "name"
@@ -157,6 +162,11 @@ export default {
             {
                 text: "状态",
                 value: "phone",
+                align: "center",
+                sortable: false
+            },
+            {
+                text: "操作",
                 align: "center",
                 sortable: false
             }
@@ -229,6 +239,9 @@ export default {
                     this.alertListShow.push(element);
                 }
             });
+        },
+        showAlertDetail(id) {
+            this.$router.push({ path: "/alert/" + id });
         }
     },
     mounted() {

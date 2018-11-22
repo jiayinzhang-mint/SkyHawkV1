@@ -33,7 +33,7 @@
                             <v-list-tile avatar :to=" '/alert/' +item.id" ripple>
                                 <v-list-tile-content>
                                     <v-list-tile-title>
-                                        <v-icon color="red" style="font-size:16px;margin-bottom:2px" v-if="item.state !=5 && item.state!=6  && item.state!=9 ">lens</v-icon> <span class="font-weight-bold">{{item.brand.brand}}</span>
+                                        <v-icon color="red" style="font-size:16px;margin-bottom:2px" v-if="item.state==1 && item.uncertain!=1">lens</v-icon> <span class="font-weight-bold">{{item.brand.brand}}</span>
                                     </v-list-tile-title>
                                     <v-list-tile-sub-title class="font-weight-medium body-2">{{item.title}}</v-list-tile-sub-title>
                                     <v-list-tile-sub-title>{{item.create_time | moment("YYYY-MM-DD HH:mm:ss")}}</v-list-tile-sub-title>
@@ -61,7 +61,7 @@
 
         </v-flex>
         <v-flex sm8>
-            <router-view @updatealertlist='refreshAlertList' v-if="this.$route.params.id"></router-view>
+            <router-view @updatealertlist='updateAlertList' v-if="this.$route.params.id"></router-view>
             <v-container v-else fluid fill-height>
                 <v-layout align-center justify-center>
                     <div class="headline font-weight-light">请选择告警</div>
@@ -109,7 +109,20 @@ export default {
             // console.log(this.selectedStation.id);
             this.alertListShow = [];
             this.alertList.forEach(element => {
-                if (element.brand.station == id) {
+                if (element.brand.station == id && element.state != 9) {
+                    this.alertListShow.push(element);
+                }
+            });
+            // console.log(this.alertListShow);
+        },
+        updateAlertList() {
+            // console.log(this.selectedStation.id);
+            this.alertListShow = [];
+            this.alertList.forEach(element => {
+                if (
+                    element.brand.station == this.selectedStation.id &&
+                    element.state != 9
+                ) {
                     this.alertListShow.push(element);
                 }
             });

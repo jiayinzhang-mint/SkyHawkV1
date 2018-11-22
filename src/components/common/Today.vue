@@ -16,8 +16,8 @@
                                 <v-card-title primary-title>
                                     <div>
                                         <h4 class="body-2">告警数</h4>
-                                        <h1 class="display-3 mb-0">120<span class="subheading"> 次</span></h1>
-                                        <h4 class="body-1">较昨日 100次</h4>
+                                        <h1 class="display-3 mb-0">{{today.totalCnt}}<span class="subheading"> 次</span></h1>
+                                        <h4 class="body-1">较昨日 {{yesterday.totalCnt}}次</h4>
                                     </div>
                                 </v-card-title>
                             </v-card>
@@ -30,8 +30,8 @@
                                 <v-card-title primary-title>
                                     <div>
                                         <h4 class="body-2">涉及企业</h4>
-                                        <h1 class="display-3 mb-0">120<span class="subheading"> 家</span></h1>
-                                        <h4 class="body-1">较昨日 100家</h4>
+                                        <h1 class="display-3 mb-0">{{today.companyCnt}}<span class="subheading"> 家</span></h1>
+                                        <h4 class="body-1">较昨日 {{yesterday.companyCnt}}家</h4>
                                     </div>
                                 </v-card-title>
                             </v-card>
@@ -43,8 +43,8 @@
                                 <v-card-title primary-title>
                                     <div>
                                         <h4 class="body-2">待处理</h4>
-                                        <h1 class="display-3 mb-0">120<span class="subheading"> 次</span></h1>
-                                        <h4 class="body-1">较昨日 100次</h4>
+                                        <h1 class="display-3 mb-0">{{today.stateCnt0}}<span class="subheading"> 次</span></h1>
+                                        <h4 class="body-1">较昨日 {{yesterday.stateCnt0}}次</h4>
                                     </div>
                                 </v-card-title>
                             </v-card>
@@ -56,8 +56,8 @@
                                 <v-card-title primary-title>
                                     <div>
                                         <h4 class="body-2">处理率</h4>
-                                        <h1 class="display-3 mb-0">80<span class="subheading"> %</span></h1>
-                                        <h4 class="body-1">较昨日 50%</h4>
+                                        <h1 class="display-3 mb-0">{{today.stateRate9}}<span class="subheading"> %</span></h1>
+                                        <h4 class="body-1">较昨日 {{yesterday.stateRate9}}%</h4>
                                     </div>
                                 </v-card-title>
                             </v-card>
@@ -119,12 +119,52 @@
 import AlertTrend from "@/components/chart/AlertTrend";
 import AlertDistribution from "@/components/chart/AlertDistribution";
 import AlertRank from "@/components/chart/AlertRank";
+import { mapGetters } from "vuex";
 
 export default {
     components: { AlertTrend, AlertDistribution, AlertRank },
-    data: () => ({}),
+    data: () => ({
+        today: {},
+        yesterday: {},
+        month: {}
+    }),
     watch: {},
-    methods: {}
+    methods: {
+        getStatistic() {
+            this.$ajax
+                .get("/alert/statistic", {
+                    params: {
+                        token: this.userInfo.token,
+                        day: "today"
+                    }
+                })
+                .then(data => {
+                    this.today = data.data;
+                    this.today.stateRate9 = (
+                        this.today.stateRate9 * 100
+                    ).toFixed(2);
+                });
+            this.$ajax
+                .get("/alert/statistic", {
+                    params: {
+                        token: this.userInfo.token,
+                        day: "yesterday"
+                    }
+                })
+                .then(data => {
+                    this.yesterday = data.data;
+                    this.yesterday.stateRate9 = (
+                        this.yesterday.stateRate9 * 100
+                    ).toFixed(2);
+                });
+        }
+    },
+    computed: {
+        ...mapGetters(["userInfo"])
+    },
+    mounted() {
+        this.getStatistic();
+    }
 };
 </script>
 

@@ -66,7 +66,29 @@ export default new Vuex.Store({
             alertList.forEach(element => {
                 state.alertList.push(element)
             });
-        }
+        },
+        markError: (state, params) => {
+            state.alertList.forEach(element => {
+                if (element.id == params.alert) {
+                    element.state = 9
+                }
+            });
+        },
+        markUncertain: (state, params) => {
+            state.alertList.forEach(element => {
+                if (element.id == params.alert) {
+                    element.uncertain = 1
+                }
+            });
+        },
+        markRepost: (state, params) => {
+            state.alertList.forEach(element => {
+                if (element.id == params.alert) {
+                    element.state += 1
+                }
+            });
+        },
+
     },
     actions: {
         getCompanyList(context) {
