@@ -4,38 +4,39 @@
             <v-toolbar flat color="transparent">
                 <v-toolbar-title style="font-size:17px">{{companyInfo.brand}}</v-toolbar-title>
             </v-toolbar>
+            <v-container fluid grid-list-lg>
+                <v-data-iterator style="padding:10px; height:calc(100vh - 160px);overflow :auto" :items="galleryList" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap no-data-text="暂无数据">
 
-            <v-data-iterator style="padding:10px; height:calc(100vh - 160px);overflow :auto" :items="galleryList" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap no-data-text="暂无数据">
+                    <v-flex slot="item" slot-scope="props" xs12 sm6 md6>
+                        <v-card class="elevation-5" color="">
+                            <v-img contain :src="props.item.src" lazy-src="/static/assets/lazy.jpg">
+                                <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
+                                    <v-progress-linear indeterminate color="primary" :width="1"></v-progress-linear>
+                                </v-layout>
+                            </v-img>
 
-                <v-flex slot="item" slot-scope="props" xs12 sm6 md6>
-                    <v-card>
-                        <v-img contain :src="props.item.src" lazy-src="/static/assets/lazy.jpg">
-                            <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
-                                <v-progress-linear indeterminate color="primary" :width="1"></v-progress-linear>
-                            </v-layout>
-                        </v-img>
+                            <div class="hidden viewer-box" v-viewer="{url: 'data-large', navbar: false, movable: false}" style="display:none">
+                                <img :data-large="props.item.src">
+                            </div>
 
-                        <div class="hidden viewer-box" v-viewer="{url: 'data-large', navbar: false, movable: false}" style="display:none">
-                            <img :data-large="props.item.src">
-                        </div>
+                            <v-card-actions ref="picture2">
+                                <span>{{props.item.time | moment("YYYY-MM-DD HH:mm:ss")}}</span>
+                                <v-spacer></v-spacer>
+                                <v-btn flat icon slot="activator" class="mr-2" @click="show">
+                                    <v-icon>fullscreen</v-icon>
+                                </v-btn>
 
-                        <v-card-actions ref="picture2">
-                            <span>{{props.item.time | moment("YYYY-MM-DD HH:mm:ss")}}</span>
-                            <v-spacer></v-spacer>
-                            <v-btn flat icon slot="activator" class="mr-2" @click="show">
-                                <v-icon>fullscreen</v-icon>
-                            </v-btn>
-
-                            <v-btn flat icon slot="activator" @click="alertDialog=true;alertForm.src=props.item.src">
-                                <v-icon>add_alert</v-icon>
-                            </v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </v-flex>
-                <template v-if="galleryList" slot="pageText" slot-scope="props">
-                    {{ props.pageStart }} - {{ props.pageStop }} 共 {{ props.itemsLength }} 项
-                </template>
-            </v-data-iterator>
+                                <v-btn flat icon slot="activator" @click="alertDialog=true;alertForm.src=props.item.src">
+                                    <v-icon>add_alert</v-icon>
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-flex>
+                    <template v-if="galleryList" slot="pageText" slot-scope="props">
+                        {{ props.pageStart }} - {{ props.pageStop }} 共 {{ props.itemsLength }} 项
+                    </template>
+                </v-data-iterator>
+            </v-container>
 
         </v-card>
 
@@ -58,8 +59,9 @@
 
             </el-form>
             <span slot="footer" class="dialog-footer">
-                <v-btn round depressed color="primary" @click="submitAlert('alertForm')">创建</v-btn>
                 <v-btn round flat @click="alertDialog=false">取消</v-btn>
+                <v-btn round depressed color="primary" @click="submitAlert('alertForm')">创建</v-btn>
+
             </span>
         </el-dialog>
     </v-container>
