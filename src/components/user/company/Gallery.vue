@@ -1,57 +1,55 @@
 <template>
   <div>
-    <v-container fluid grid-list-lg>
-      <v-data-iterator
-        style="padding:10px; height:calc(100vh - 188px);overflow :auto"
-        :items="galleryList"
-        :rows-per-page-items="rowsPerPageItems"
-        :pagination.sync="pagination"
-        content-tag="v-layout"
-        row
-        wrap
-        no-data-text="暂无数据"
-      >
-        <v-flex slot="item" slot-scope="props" xs12 sm6 md6>
-          <v-card class="elevation-5" color>
-            <v-img contain :src="props.item.src" lazy-src="/static/assets/lazy.jpg">
-              <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
-                <v-progress-linear indeterminate color="primary" :width="1"></v-progress-linear>
-              </v-layout>
-            </v-img>
+    <v-data-iterator
+      :items="galleryList"
+      :rows-per-page-items="rowsPerPageItems"
+      :pagination.sync="pagination"
+      content-tag="v-layout"
+      row
+      wrap
+      no-data-text="暂无数据"
+      class="mt-1"
+    >
+      <v-flex slot="item" slot-scope="props" xs12 sm6 md6>
+        <v-card class="elevation-5" color>
+          <v-img contain :src="props.item.src" lazy-src="/static/assets/lazy.jpg">
+            <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
+              <v-progress-linear indeterminate color="primary" :width="1"></v-progress-linear>
+            </v-layout>
+          </v-img>
 
-            <div
-              class="hidden viewer-box"
-              v-viewer="{url: 'data-large', navbar: false, movable: false}"
-              style="display:none"
+          <div
+            class="hidden viewer-box"
+            v-viewer="{url: 'data-large', navbar: false, movable: false}"
+            style="display:none"
+          >
+            <img :data-large="props.item.src">
+          </div>
+
+          <v-card-actions ref="picture2">
+            <span>{{props.item.time | moment("YYYY-MM-DD HH:mm:ss")}}</span>
+            <v-spacer></v-spacer>
+            <v-btn flat icon slot="activator" class="mr-2" @click="show">
+              <v-icon>search</v-icon>
+            </v-btn>
+
+            <v-btn
+              flat
+              icon
+              slot="activator"
+              @click="alertDialog=true;alertForm.src=props.item.src"
             >
-              <img :data-large="props.item.src">
-            </div>
-
-            <v-card-actions ref="picture2">
-              <span>{{props.item.time | moment("YYYY-MM-DD HH:mm:ss")}}</span>
-              <v-spacer></v-spacer>
-              <v-btn flat icon slot="activator" class="mr-2" @click="show">
-                <v-icon>search</v-icon>
-              </v-btn>
-
-              <v-btn
-                flat
-                icon
-                slot="activator"
-                @click="alertDialog=true;alertForm.src=props.item.src"
-              >
-                <v-icon>add_alert</v-icon>
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-flex>
-        <template
-          v-if="galleryList"
-          slot="pageText"
-          slot-scope="props"
-        >{{ props.pageStart }} - {{ props.pageStop }} 共 {{ props.itemsLength }} 项</template>
-      </v-data-iterator>
-    </v-container>
+              <v-icon>add_alert</v-icon>
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-flex>
+      <template
+        v-if="galleryList"
+        slot="pageText"
+        slot-scope="props"
+      >{{ props.pageStart }} - {{ props.pageStop }} 共 {{ props.itemsLength }} 项</template>
+    </v-data-iterator>
 
     <el-dialog title="新建告警" center :visible.sync="alertDialog" width="400px">
       <v-img
@@ -97,9 +95,9 @@ export default {
     companySupervisor: [],
     station: [],
     group: [],
-    rowsPerPageItems: [4],
+    rowsPerPageItems: [6],
     pagination: {
-      rowsPerPage: 4
+      rowsPerPage: 6
     },
     headers: [
       {
@@ -154,7 +152,7 @@ export default {
           parent =
             target.parentElement.parentElement.parentElement.parentElement;
         //console.log(parent);
-        console.log(parent.querySelector(".viewer-box"));
+        // console.log(parent.querySelector(".viewer-box"));
         let viewer = parent.querySelector(".viewer-box").$viewer;
         viewer.show();
       });

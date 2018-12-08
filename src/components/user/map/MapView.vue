@@ -13,7 +13,7 @@
                 </v-toolbar>
                 <v-divider></v-divider>
                 <v-navigation-drawer floating permanent stateless value="true" v-if="!select">
-                    <v-list dense style="max-height:400px" class="pt-0 pb-0 aero">
+                    <v-list dense style="max-height:400px" class="pt-0 pb-0">
                         <v-list-group>
                             <v-list-tile slot="activator">
                                 <v-list-tile-title>查看全部</v-list-tile-title>
@@ -40,7 +40,7 @@
                 </v-toolbar>
                 <v-divider></v-divider>
                 <v-navigation-drawer floating permanent stateless value="true" v-if="!selectCompany">
-                    <v-list style="max-height:400px" class="pt-0 pb-0 aero">
+                    <v-list style="max-height:400px" class="pt-0 pb-0">
                         <v-list-group>
                             <v-list-tile slot="activator">
                                 <v-list-tile-title>查看全部</v-list-tile-title>

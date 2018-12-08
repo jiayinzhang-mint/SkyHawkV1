@@ -73,7 +73,7 @@ Vue.use(Vuetify, {
         Ripple
     },
     theme: {
-        primary: colors.blue.lighten2, // #E53935
+        primary: colors.blue.lighten2, 
     }
 
 })
@@ -108,7 +108,7 @@ Vue.use(require('vue-moment'));
 //axios.defaults.baseURL = 'http://monitor2.huilab.cn/api'
 axios.defaults.baseURL = 'http://127.0.0.1:8000/api'
 
-Vue.prototype.$ajax = axios;
+Vue.prototype.$ajax = axios
 
 import store from './store/store'
 

@@ -22,20 +22,42 @@ export default new VueRouter({
                         {
                             path: '/company/:id',
                             component: resolve => require(['@/components/user/company/CompanyDetail'], resolve),
-
+                            children: [
+                                {
+                                    path: '/company/:id/info',
+                                    component: resolve => require(['@/components/user/company/Info'], resolve),
+                                },
+                                {
+                                    path: '/company/:id/supervisor',
+                                    component: resolve => require(['@/components/user/company/Supervisor'], resolve),
+                                },
+                                {
+                                    path: '/company/:id/alert',
+                                    component: resolve => require(['@/components/user/company/Alert'], resolve),
+                                },
+                                {
+                                    path: '/company/:id/gallery',
+                                    component: resolve => require(['@/components/user/company/Gallery'], resolve),
+                                },
+                                {
+                                    path: '/company/:id/temperature',
+                                    component: resolve => require(['@/components/user/company/Temperature'], resolve),
+                                },
+                                {
+                                    path: '/company/:id/humidity',
+                                    component: resolve => require(['@/components/user/company/Humidity'], resolve),
+                                },
+                                {
+                                    path: '/company/:id/device',
+                                    component: resolve => require(['@/components/user/company/Device'], resolve),
+                                }
+                            ]
                         }
                     ]
                 },
                 {
-                    path: '/gallery',
-                    component: resolve => require(['@/components/user/gallery/GalleryList'], resolve),
-                    children: [
-                        {
-                            path: '/gallery/:id',
-                            component: resolve => require(['@/components/user/gallery/GalleryDetail'], resolve),
-
-                        }
-                    ]
+                    path: '/gallery/:id',
+                    component: resolve => require(['@/components/user/gallery/GalleryDetail'], resolve),
                 },
                 {
                     path: '/organize',

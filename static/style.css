@@ -20,15 +20,15 @@
 }
 
 .el-tree-node:focus>.el-tree-node__content{
-    background: #333333 !important
+    background: #616161  !important
 }
 
 .el-tree-node__content:hover{
-    background:#333333 !important
+    background:#616161  !important
 }
 
 .el-dialog{
-    background: #333333 !important
+    background: #616161  !important
 }
 
 .el-dialog__body{
@@ -50,6 +50,17 @@
 
     /* 设置背景半透明黑色 */
     background: rgba(33, 33, 33, 0.8) !important;
+}
+
+.aero-light {
+    /* Safari for macOS & iOS */
+    -webkit-backdrop-filter: blur(15px) !important;
+
+    /* Google Chrome */
+    backdrop-filter: blur(15px) !important;
+
+    /* 设置背景半透明黑色 */
+    background: rgba(77, 77, 77, 0.8) !important;
 }
 
 .aero-lighter {
@@ -82,3 +93,38 @@
 .el-tabs__item.is-active{
     color:#409EFF !important
 }
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 4px;
+    background-color: rgb(48, 48, 48);
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: rgb(94, 94, 94);
+}
+
+::-webkit-scrollbar {
+    width: 2px;
+}
+
+::-webkit-scrollbar-track-piece {
+    background-color: transparent;
+} /* 滚动条的内层滑轨背景颜色 */
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+} /* 滚动条的外层滑轨背景颜色 */
+
+::-webkit-scrollbar-thumb {
+    background-color: #d4d8e2;
+} /* 滚动条的内层滑块颜色 */
+
+::-webkit-scrollbar-button {
+    background-color: #fff;
+    display: none;
+} /* 滑轨两头的监听按钮颜色 */

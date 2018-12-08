@@ -76,7 +76,7 @@
         <span class="hidden-sm-and-down">SkyHawk - 静安区</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <el-tooltip class="item" effect="dark" content="设置" placement="bottom">
+      <el-tooltip class="item" effect="light" content="设置" placement="bottom">
         <v-btn icon @click="settingDialog=true">
           <v-icon>settings</v-icon>
         </v-btn>
@@ -85,8 +85,8 @@
         <v-btn icon @click.stop="userHelp = !userHelp">
           <v-icon>help_outline</v-icon>
         </v-btn>
-      </el-tooltip> -->
-      <el-tooltip class="item" effect="dark" content="注销" placement="bottom">
+      </el-tooltip>-->
+      <el-tooltip class="item" effect="light" content="注销" placement="bottom">
         <v-btn icon @click="logOut">
           <v-icon>exit_to_app</v-icon>
         </v-btn>
@@ -239,22 +239,16 @@ export default {
           role: 4
         },
         {
-          icon: "camera",
-          text: "定时抓拍",
-          route: "/gallery",
-          role: 3
-        },
-        {
-          icon: "business",
-          text: "企业列表",
-          route: "/company",
-          role: 3
-        },
-        {
           icon: "people",
           text: "组织信息",
           route: "/organize",
           role: 2
+        },
+        {
+          icon: "business",
+          text: "企业信息",
+          route: "/company",
+          role: 3
         }
       ],
       menuData: [
@@ -284,12 +278,16 @@ export default {
       this.$confirm("确认注销吗?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
+        roundButton: true,
+        center: true,
+        showClose: false,
+        closeOnClickModal: false
       })
         .then(() => {
           this.$router.push({ path: "/" });
         })
-        .catch(() => { });
+        .catch(() => {});
     },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
