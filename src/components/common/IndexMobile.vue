@@ -35,7 +35,7 @@
 import { mapGetters } from "vuex";
 export default {
     data: () => ({
-        bottomNav: "map"
+        bottomNav: "alert"
     }),
     methods: {
         updateTab(tab) {

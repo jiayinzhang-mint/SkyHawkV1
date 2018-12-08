@@ -64,7 +64,11 @@ export default {
           );
         })
         .then(() => {
-          this.$router.push(this.url);
+          if (this.$route.query.url) {
+            this.$router.push(this.url);
+          } else {
+            this.$router.push({ path: "/mobile/alert" });
+          }
         });
     });
   }
