@@ -15,7 +15,9 @@
                 color="blue darken-2"
                 v-if="alertInfo.uncertain !=1"
                 @click="uncertainAlert"
-              >不确定</v-btn>
+              >
+                <v-icon class="mr-2">help_outline</v-icon>不确定
+              </v-btn>
               <v-btn
                 dark
                 round

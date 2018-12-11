@@ -36,12 +36,12 @@ export default {
             .get("/alert/statistic", {
                 params: {
                     token: this.userInfo.token,
-                    day: "month"
+                    day: "today"
                 }
             })
             .then(data => {
                 this.month = data.data;
-                console.log(this.month.companyRank);
+                // console.log(this.month.companyRank);
                 this.loading = false;
             });
     },

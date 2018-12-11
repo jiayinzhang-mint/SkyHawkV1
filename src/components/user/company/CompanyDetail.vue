@@ -76,12 +76,8 @@ export default {
         route: "gallery"
       },
       {
-        text: "温度监测",
-        route: "temperature"
-      },
-      {
-        text: "湿度监测",
-        route: "humidity"
+        text: "温湿度监测",
+        route: "humiture"
       }
     ]
   }),

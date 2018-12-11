@@ -28,7 +28,20 @@
 }
 
 .el-dialog{
-    background: #616161  !important
+    background: #424242  !important
+}
+
+.el-message-box__title{
+    color:white !important
+}
+
+.el-message-box__content{
+    color:white !important
+}
+
+.el-message-box{
+    background: #424242  !important;
+    border:none !important;
 }
 
 .el-dialog__body{

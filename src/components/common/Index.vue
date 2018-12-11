@@ -81,11 +81,11 @@
           <v-icon>settings</v-icon>
         </v-btn>
       </el-tooltip>
-      <!-- <el-tooltip class="item" effect="dark" content="帮助" placement="bottom">
+      <el-tooltip class="item" effect="light" content="帮助" placement="bottom">
         <v-btn icon @click.stop="userHelp = !userHelp">
           <v-icon>help_outline</v-icon>
         </v-btn>
-      </el-tooltip>-->
+      </el-tooltip>
       <el-tooltip class="item" effect="light" content="注销" placement="bottom">
         <v-btn icon @click="logOut">
           <v-icon>exit_to_app</v-icon>

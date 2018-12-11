@@ -40,12 +40,8 @@ export default new VueRouter({
                                     component: resolve => require(['@/components/user/company/Gallery'], resolve),
                                 },
                                 {
-                                    path: '/company/:id/temperature',
-                                    component: resolve => require(['@/components/user/company/Temperature'], resolve),
-                                },
-                                {
-                                    path: '/company/:id/humidity',
-                                    component: resolve => require(['@/components/user/company/Humidity'], resolve),
+                                    path: '/company/:id/humiture',
+                                    component: resolve => require(['@/components/user/company/Humiture'], resolve),
                                 },
                                 {
                                     path: '/company/:id/device',
