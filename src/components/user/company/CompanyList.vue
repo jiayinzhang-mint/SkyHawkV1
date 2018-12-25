@@ -3,7 +3,7 @@
     <v-flex sm3>
       <v-toolbar color="grey darken-3" flat>
         <v-scroll-x-transition>
-          <v-toolbar-title style="font-size:17px" v-if="!filted">企业列表</v-toolbar-title>
+          <v-toolbar-title style="font-size:17px" v-if="!filted || userInfo.role>1 ">企业列表</v-toolbar-title>
         </v-scroll-x-transition>
         <v-spacer></v-spacer>
         <v-scroll-x-transition>

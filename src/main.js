@@ -73,7 +73,7 @@ Vue.use(Vuetify, {
         Ripple
     },
     theme: {
-        primary: colors.blue.lighten2, 
+        primary: colors.blue.lighten2,
     }
 
 })
@@ -103,6 +103,16 @@ Vue.use(Viewer, {
 
 Vue.use(VueInitialsImg);
 Vue.use(require('vue-moment'));
+
+
+import SettingCenter from '@/components/sidebar/SettingCenter'
+import UserHelp from '@/components/sidebar/UserHelp'
+import NotificationCenter from '@/components/sidebar/NotificationCenter'
+import UserProfile from '@/components/sidebar/UserProfile'
+Vue.component('setting-center', SettingCenter)
+Vue.component('user-help', UserHelp)
+Vue.component('notification-center', NotificationCenter)
+Vue.component('user-profile', UserProfile)
 
 //axios.defaults.baseURL = 'http://skyhawkapi.huilab.cn/api';
 //axios.defaults.baseURL = 'http://monitor2.huilab.cn/api'

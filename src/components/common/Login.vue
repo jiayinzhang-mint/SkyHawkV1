@@ -1,48 +1,54 @@
 <template>
-  <v-app id="inspire" dark class="background">
+  <v-app id="inspire" dark>
     <v-content>
-      <v-container fluid fill-height>
-        <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md4 style="max-width:500px">
-            <v-scroll-y-transition>
-              <v-card class="elevation-12" v-if="!loading">
-                <v-container>
-                  <v-card-text>
-                    <p class="text-md-center headline mb-4">登录 SkyHawk</p>
-                    <v-text-field
-                      v-model="username"
-                      prepend-icon="person"
-                      name="login"
-                      label="用户名"
-                      type="text"
-                    ></v-text-field>
-                    <v-text-field
-                      v-model="password"
-                      id="password"
-                      prepend-icon="lock"
-                      name="password"
-                      label="密码"
-                      type="password"
-                      @keyup.enter="login"
-                    ></v-text-field>
-                  </v-card-text>
-                  <v-card-actions>
-                    <v-btn dark class="primary" depressed @click="login" block round>登录</v-btn>
-                  </v-card-actions>
-                </v-container>
-              </v-card>
-            </v-scroll-y-transition>
-          </v-flex>
-        </v-layout>
+      <v-container fluid fill-height style="padding:0 !important">
+        <v-scroll-y-transition>
+          <v-layout justify-center align-center>
+            <v-flex class="hidden-xs-and-down" style="background-color:#000; height:100%" md8>
+              <el-carousel>
+                <el-carousel-item>
+                  <v-img src=""></v-img>
+                </el-carousel-item>
+              </el-carousel>
+              <v-footer class="pa-4 trans">
+                <div @click="jump" class="jump">
+                  <img width="20px" style="margin-left:-5px" src="/static/assets/INSDIM.svg">
+                </div>
+                <v-spacer></v-spacer>
+                <div>Copyright &copy; {{ new Date().getFullYear() }} INSDIM Inc. 保留所有权利</div>
+              </v-footer>
+            </v-flex>
+            <v-flex xs12 md4 d-flex>
+              <v-container style="padding-right:120px !important">
+                <v-card-text>
+                  <p class="text-md-left headline font-weight-bold mb-4 pt-3">登录 SkyHawk</p>
+                  <v-text-field
+                    v-model="username"
+                    prepend-icon="person"
+                    name="login"
+                    label="用户名"
+                    type="text"
+                  ></v-text-field>
+                  <v-text-field
+                    v-model="password"
+                    id="password"
+                    prepend-icon="lock"
+                    name="password"
+                    label="密码"
+                    type="password"
+                    @keyup.enter="login"
+                  ></v-text-field>
+                </v-card-text>
+                <v-card-actions class="pb-5">
+                  <v-btn outline light color="primary" depressed @click="login" round>登录</v-btn>
+                </v-card-actions>
+              </v-container>
+            </v-flex>
+          </v-layout>
+        </v-scroll-y-transition>
       </v-container>
     </v-content>
-    <v-footer class="pa-4 trans">
-      <div @click="jump" class="jump">
-        <img width="20px" style="margin-left:-5px" src="/static/assets/INSDIM.svg">
-      </div>
-      <v-spacer></v-spacer>
-      <div>Copyright &copy; {{ new Date().getFullYear() }} INSDIM Inc. 保留所有权利</div>
-    </v-footer>
+
     <v-dialog v-model="loading" hide-overlay persistent width="300">
       <v-card>
         <v-card-text>正在加载数据
@@ -61,7 +67,21 @@ export default {
     username: "",
     password: "",
     loading: false,
-    user: {}
+    user: {},
+    items: [
+      {
+        src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg"
+      },
+      {
+        src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg"
+      },
+      {
+        src: "https://cdn.vuetifyjs.com/images/carousel/bird.jpg"
+      },
+      {
+        src: "https://cdn.vuetifyjs.com/images/carousel/planet.jpg"
+      }
+    ]
   }),
   methods: {
     ...mapMutations(["updateUserInfo"]),
@@ -71,25 +91,19 @@ export default {
     },
     detectDevice() {
       const isMobile = {
-        Android: function () {
+        Android: function() {
           return navigator.userAgent.match(/Android/i) ? true : false;
         },
-        BlackBerry: function () {
-          return navigator.userAgent.match(/BlackBerry/i)
-            ? true
-            : false;
+        BlackBerry: function() {
+          return navigator.userAgent.match(/BlackBerry/i) ? true : false;
         },
-        iOS: function () {
-          return navigator.userAgent.match(/iPhone|iPad|iPod/i)
-            ? true
-            : false;
+        iOS: function() {
+          return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
         },
-        Windows: function () {
-          return navigator.userAgent.match(/IEMobile/i)
-            ? true
-            : false;
+        Windows: function() {
+          return navigator.userAgent.match(/IEMobile/i) ? true : false;
         },
-        any: function () {
+        any: function() {
           return (
             isMobile.Android() ||
             isMobile.BlackBerry() ||
@@ -110,7 +124,7 @@ export default {
       if (this.username && this.password) {
         this.loading = true;
         this.loadingBox = true;
-        class LoginFail { }
+        class LoginFail {}
         this.$ajax
           .post("/user/login", {
             username: this.username,
@@ -198,14 +212,14 @@ export default {
 
 <style>
 .background {
-    background-image: url("/static/assets/Back.jpg") !important;
-    background-size: 100% 100% !important;
+  background-image: url("/static/assets/Back.jpg") !important;
+  background-size: 100% 100% !important;
 }
 .trans {
-    background-color: transparent !important;
-    color: white !important;
+  background-color: transparent !important;
+  color: white !important;
 }
 .jump :hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 </style>

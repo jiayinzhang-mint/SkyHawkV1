@@ -20,30 +20,36 @@ export default {
       legend: {
         textStyle: {
           color: "#fff"
-        }
+        },
+        selectedMode: false
       },
       textStyle: {
         color: "#fff"
       },
       xAxis: {
         axisLabel: {
-          color: "#fff"
+          color: "rgba(255,255,255,0.8)"
+        },
+        splitLine: {
+          lineStyle: {
+            opacity: 0.2
+          }
         }
       },
       yAxis: {
         axisLabel: {
-          color: "#fff"
+          color: "rgba(255,255,255,0.8)"
+        },
+        splitLine: {
+          lineStyle: {
+            opacity: 0.2
+          }
         }
       }
     };
     return {
       alertTrendSettings: {
         yAxisName: ["次数"],
-        xAxis: {
-          axisLabel: {
-            color: "red"
-          }
-        },
 
         labelMap: {
           count: "次数"

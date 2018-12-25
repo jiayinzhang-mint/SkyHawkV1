@@ -1,12 +1,15 @@
 <template>
-    <div id="app" dark>
-        <router-view />
-    </div>
+  <div id="app" dark>
+    <router-view/>
+  </div>
 </template>
 
 <script>
 export default {
-    name: "App"
+  name: "App",
+  data: () => ({}),
+  methods: {},
+  mounted() {}
 };
 </script>
 

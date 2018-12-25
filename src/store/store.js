@@ -7,7 +7,9 @@ import vuexAlong from 'vuex-along'
 if (process.env.NODE_ENV === 'development') {
     Vue.use(Vuex)
 }
-vuexAlong.onlySession(true)
+// vuexAlong.onlySession(true)
+vuexAlong.watchSession(['userInfo', 'companyList', 'organizeList', 'stationList', 'alertList', 'alertPage', 'statistic'])
+vuexAlong.watch(['userSetting'])
 
 export default new Vuex.Store({
     state: {
@@ -23,6 +25,22 @@ export default new Vuex.Store({
         stationList: [],
         alertList: [],
         alertPage: 1,
+        statistic: [
+            
+        ],
+        userSetting: [
+            { heading: "告警" },
+            {
+                title: "通知推送",
+                label: "notification",
+                value: true
+            },
+            {
+                title: "推送频率",
+                label: "alertFreq",
+                value: true
+            }
+        ]
     },
     getters: {
         userInfo: state => {
@@ -42,6 +60,12 @@ export default new Vuex.Store({
         },
         alertPage: state => {
             return state.alertPage
+        },
+        notificationList: state => {
+            return state.notificationList
+        },
+        userSetting: state => {
+            return state.userSetting
         }
     },
     mutations: {

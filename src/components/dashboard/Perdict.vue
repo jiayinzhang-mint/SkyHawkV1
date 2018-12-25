@@ -47,14 +47,12 @@ import AlertPerdict from "@/components/chart/AlertPerdict";
 import AlertHeat from "@/components/chart/AlertHeat";
 
 import CompanyDistribution from "@/components/chart/CompanyDistribution";
-import AlertRank from "@/components/chart/AlertRank";
 import NewAlert from "@/components/chart/NewAlert";
 import AlertDistribution from "@/components/chart/AlertDistribution";
 
 export default {
     components: {
         CompanyDistribution,
-        AlertRank,
         NewAlert,
         AlertDistribution,
         AlertTrend,

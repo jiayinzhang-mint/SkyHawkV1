@@ -20,16 +20,18 @@ export default {
       legend: {
         textStyle: {
           color: "#fff"
-        }
+        },
+        selectedMode: false
       }
     };
     return {
       alertDis: {
         columns: ["type", "count"],
         rows: [
-          { type: "鼠患", count: 1393 },
-          { type: "口罩", count: 3530 },
-          { type: "过热", count: 2923 }
+          { type: "鼠患", count: 0 },
+          { type: "口罩未戴", count: 0 },
+          { type: "温度超标", count: 0 },
+          { type: "帽子未戴", count: 0 }
         ]
       },
       alertDisSettings: {
@@ -49,17 +51,19 @@ export default {
       this.$refs["alertDis"].echarts.resize();
     }, 500);
     this.$ajax
-      .get("/alert/statistic", {
+      .get("/dashboard/alertdistribution", {
         params: {
           token: this.userInfo.token,
-          day: "today"
+          role: this.userInfo.role,
+          station: this.userInfo.station
         }
       })
       .then(data => {
-        this.today = data.data;
-        this.alertDis.rows[0].count = this.today.mouse + 1;
-        this.alertDis.rows[1].count = this.today.mask + 1;
-        this.alertDis.rows[2].count = this.today.humiture + 1;
+        data = data.data.alertDis;
+        this.alertDis.rows[0].count = data.mouse;
+        this.alertDis.rows[1].count = data.mask;
+        this.alertDis.rows[2].count = data.humiture;
+        this.alertDis.rows[3].count = data.hat;
       });
   }
 };

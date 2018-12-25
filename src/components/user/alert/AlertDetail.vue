@@ -15,9 +15,7 @@
                 color="blue darken-2"
                 v-if="alertInfo.uncertain !=1"
                 @click="uncertainAlert"
-              >
-                <v-icon class="mr-2">help_outline</v-icon>不确定
-              </v-btn>
+              >不确定</v-btn>
               <v-btn
                 dark
                 round
@@ -176,7 +174,7 @@
                   <v-timeline-item color="pink" fill-dot small v-if="alertInfo.uncertain==1">
                     <v-layout wrap pt-3>
                       <v-flex xs5>
-                        <strong>{{alertInfo.repost_time | moment("YYYY-MM-DD HH:mm:ss")}}</strong>
+                        <strong>{{alertInfo.uncertain_time | moment("YYYY-MM-DD HH:mm:ss")}}</strong>
                       </v-flex>
                       <v-flex>
                         <strong>转发处理</strong>
@@ -289,15 +287,15 @@ export default {
           this.loading = false;
           this.alertInfo = data.alertInfo;
           this.company = this.companyList.find(element => {
-            return element.id === this.alertInfo.company;
+            return element.id == this.alertInfo.company;
           });
 
           this.station = this.organizeList[1].children.find(element => {
-            return element.id === this.company.station;
+            return element.id == this.company.station;
           });
 
           this.group = this.station.children.find(element => {
-            return (element.id = this.company.besupervised);
+            return element.id == this.company.besupervised;
           });
         });
     },

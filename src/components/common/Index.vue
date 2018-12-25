@@ -1,21 +1,7 @@
 <template>
-  <v-app id="inspire" dark>
-    <v-navigation-drawer fixed app v-model="drawer">
-      <v-list class="pt-3">
-        <v-list-tile avatar class="pb-2">
-          <v-list-tile-avatar>
-            <v-avatar size="40px">
-              <vue-initials-img :name="userInfo.username"/>
-            </v-avatar>
-          </v-list-tile-avatar>
-        </v-list-tile>
-        <v-list-tile>
-          <v-list-tile-content>
-            <v-list-tile-title class="title" v-html="userInfo.username"></v-list-tile-title>
-            <v-list-tile-sub-title v-html="userInfo.name"></v-list-tile-sub-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-divider></v-divider>
+  <v-app id="inspire" dark @click.native="detectActive">
+    <v-navigation-drawer fixed app v-model="drawer" clipped>
+      <v-list>
         <v-list v-if="userInfo.role==0">
           <template v-for="(item, i) in menuManage">
             <v-layout v-if="item.heading" :key="i" row align-center>
@@ -67,17 +53,28 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar flat app fixed style class="aero">
-      <v-btn icon class="hidden-md-and-down" @click="goBack" v-if="drawer">
-        <v-icon>arrow_back</v-icon>
+    <v-toolbar clipped-left flat app fixed color="grey darken-4">
+      <v-btn icon @click="goBack">
+        <v-icon class="hidden-md-and-down">arrow_back</v-icon>
       </v-btn>
-      <v-toolbar-side-icon class="hidden-lg-and-up" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title class>
-        <span class="hidden-sm-and-down">SkyHawk - 静安区</span>
-      </v-toolbar-title>
+      <v-toolbar-side-icon class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-title class="ml-2" style="width:232px">SkyHawk</v-toolbar-title>
+      <v-text-field
+        flat
+        solo-inverted
+        hide-details
+        prepend-inner-icon="search"
+        label="搜索"
+        class="hidden-sm-and-down"
+      ></v-text-field>
       <v-spacer></v-spacer>
+      <el-tooltip class="item" effect="light" content="通知" placement="bottom">
+        <v-btn icon @click.stop="notificationCenter = !notificationCenter">
+          <v-icon>mail_outline</v-icon>
+        </v-btn>
+      </el-tooltip>
       <el-tooltip class="item" effect="light" content="设置" placement="bottom">
-        <v-btn icon @click="settingDialog=true">
+        <v-btn icon @click="settingCenter = !settingCenter">
           <v-icon>settings</v-icon>
         </v-btn>
       </el-tooltip>
@@ -86,11 +83,11 @@
           <v-icon>help_outline</v-icon>
         </v-btn>
       </el-tooltip>
-      <el-tooltip class="item" effect="light" content="注销" placement="bottom">
-        <v-btn icon @click="logOut">
-          <v-icon>exit_to_app</v-icon>
-        </v-btn>
-      </el-tooltip>
+      <v-btn icon @click.stop="userCenter = !userCenter">
+        <v-avatar size="32px">
+          <vue-initials-img :name="userInfo.username"/>
+        </v-avatar>
+      </v-btn>
     </v-toolbar>
 
     <el-dialog
@@ -124,29 +121,34 @@
       </div>
     </el-dialog>
 
-    <v-navigation-drawer v-model="userHelp" temporary right fixed app>
-      <v-toolbar flat color="transparent">
-        <v-toolbar-title>
-          <span class="hidden-sm-and-down">用户帮助</span>
-        </v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn icon @click="userHelp=!userHelp">
-          <v-icon>clear</v-icon>
-        </v-btn>
-      </v-toolbar>
-      <v-container>
-        <span class="subheading font-weight-medium">常见问题</span>
-        <v-divider class="mb-4 mt-2"></v-divider>
-        <span class="subheading font-weight-medium">仍有疑惑？</span>
-        <v-divider class="mb-4 mt-2"></v-divider>
-        <el-input
-          type="textarea"
-          v-model="feedBack"
-          :autosize="{ minRows: 8, maxRows: 10}"
-          placeholder="请提交反馈"
-        ></el-input>
-        <v-btn round depressed block class="mt-3">提交</v-btn>
-      </v-container>
+    <v-navigation-drawer class="aero no-scrollbar" v-model="userHelp" temporary right fixed app>
+      <user-help></user-help>
+    </v-navigation-drawer>
+
+    <v-navigation-drawer
+      class="aero no-scrollbar"
+      v-model="settingCenter"
+      temporary
+      right
+      fixed
+      app
+    >
+      <setting-center></setting-center>
+    </v-navigation-drawer>
+
+    <v-navigation-drawer
+      class="aero no-scrollbar"
+      v-model="notificationCenter"
+      temporary
+      right
+      fixed
+      app
+    >
+      <notification-center></notification-center>
+    </v-navigation-drawer>
+
+    <v-navigation-drawer class="aero no-scrollbar" v-model="userCenter" temporary right fixed app>
+      <user-profile></user-profile>
     </v-navigation-drawer>
 
     <v-content>
@@ -156,25 +158,11 @@
 </template>
 
 <script>
+import moment from "moment";
 import { mapGetters, mapActions } from "vuex";
+
 export default {
   data() {
-    var checkAge = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error("年龄不能为空"));
-      }
-      setTimeout(() => {
-        if (!Number.isInteger(value)) {
-          callback(new Error("请输入数字值"));
-        } else {
-          if (value < 18) {
-            callback(new Error("必须年满18岁"));
-          } else {
-            callback();
-          }
-        }
-      }, 1000);
-    };
     var validatePass = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入密码"));
@@ -195,6 +183,8 @@ export default {
       }
     };
     return {
+      mini: false,
+      value2: false,
       ruleForm2: {
         pass: "",
         checkPass: ""
@@ -267,27 +257,19 @@ export default {
         }
       ],
       settingDialog: false,
-      feedBack: ""
+      feedBack: "",
+      notificationCenter: false,
+      settingCenter: false,
+      alertListShow: [],
+      userCenter: false,
+      lTime: null, // 最后一次点击的时间
+      ctTime: null, //当前时间
+      tOut: 1000 * 60 * 60 //超时时间10min
     };
   },
   methods: {
     goBack() {
       this.$router.go(-1);
-    },
-    logOut() {
-      this.$confirm("确认注销吗?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-        roundButton: true,
-        center: true,
-        showClose: false,
-        closeOnClickModal: false
-      })
-        .then(() => {
-          this.$router.push({ path: "/" });
-        })
-        .catch(() => {});
     },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
@@ -311,13 +293,25 @@ export default {
             });
         }
       });
+    },
+    detectActive() {
+      if (moment().diff(this.lTime) > this.tOut) {
+        console.log("timeout");
+        this.lTime = moment();
+      } else {
+        this.lTime = moment();
+      }
     }
   },
   computed: {
-    ...mapGetters(["userInfo"])
+    ...mapGetters(["userInfo", "alertList"])
+  },
+  mounted() {
+    this.alertListShow = this.alertList.slice(0, 10);
+    this.lTime = moment();
   }
 };
 </script>
 
-<style>
+<style scoped>
 </style>
