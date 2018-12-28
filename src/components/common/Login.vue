@@ -1,15 +1,25 @@
 <template>
-  <v-app id="inspire" dark>
+  <v-app id="inspire" dark class="no-scrollbar">
     <v-content>
       <v-container fluid fill-height style="padding:0 !important">
         <v-scroll-y-transition>
           <v-layout justify-center align-center>
-            <v-flex class="hidden-xs-and-down" style="background-color:#000; height:100%" md8>
-              <el-carousel>
-                <el-carousel-item>
-                  <v-img src=""></v-img>
-                </el-carousel-item>
-              </el-carousel>
+            <v-flex
+              class="hidden-md-and-down background"
+              style="background-color:#000; height:100%"
+              md8
+            >
+              <v-layout align-center column justify-center fill-height>
+                <h1 class="display-3 font-weight-thin mb-2">
+                  SkyHawk
+                  <span class="subheading font-weight-black">天鹰系统</span>
+                </h1>
+                <div align-center>
+                  <v-divider></v-divider>
+                  <v-btn flat round>用户手册</v-btn>
+                  <v-btn flat round>反馈问题</v-btn>
+                </div>
+              </v-layout>
               <v-footer class="pa-4 trans">
                 <div @click="jump" class="jump">
                   <img width="20px" style="margin-left:-5px" src="/static/assets/INSDIM.svg">
@@ -19,7 +29,7 @@
               </v-footer>
             </v-flex>
             <v-flex xs12 md4 d-flex>
-              <v-container style="padding-right:120px !important">
+              <v-container style="padding-right:100px !important">
                 <v-card-text>
                   <p class="text-md-left headline font-weight-bold mb-4 pt-3">登录 SkyHawk</p>
                   <v-text-field
@@ -70,16 +80,7 @@ export default {
     user: {},
     items: [
       {
-        src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg"
-      },
-      {
-        src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg"
-      },
-      {
-        src: "https://cdn.vuetifyjs.com/images/carousel/bird.jpg"
-      },
-      {
-        src: "https://cdn.vuetifyjs.com/images/carousel/planet.jpg"
+        src: "/static/assets/Back.jpg"
       }
     ]
   }),
@@ -213,7 +214,7 @@ export default {
 <style>
 .background {
   background-image: url("/static/assets/Back.jpg") !important;
-  background-size: 100% 100% !important;
+  background-size: auto 100% !important;
 }
 .trans {
   background-color: transparent !important;
