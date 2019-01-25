@@ -10,10 +10,10 @@
                   <div>
                     <h4 class="body-2">告警数</h4>
                     <h1 class="display-2 mb-0">
-                      {{today.totalCnt}}
+                      {{today.alertCount}}
                       <span class="subheading">次</span>
                     </h1>
-                    <h4 class="body-1">较昨日 {{yesterday.totalCnt}}次</h4>
+                    <h4 class="body-1">较昨日 {{yesterday.alertCount}}次</h4>
                   </div>
                 </v-card-title>
               </v-card>
@@ -24,10 +24,10 @@
                   <div>
                     <h4 class="body-2">涉及企业</h4>
                     <h1 class="display-2 mb-0">
-                      {{today.companyCnt}}
+                      {{today.companyCount}}
                       <span class="subheading">家</span>
                     </h1>
-                    <h4 class="body-1">较昨日 {{yesterday.companyCnt}}家</h4>
+                    <h4 class="body-1">较昨日 {{yesterday.companyCount}}家</h4>
                   </div>
                 </v-card-title>
               </v-card>
@@ -38,10 +38,10 @@
                   <div>
                     <h4 class="body-2">待处理</h4>
                     <h1 class="display-2 mb-0">
-                      {{today.stateCnt0}}
+                      {{today.alertUnprocessed}}
                       <span class="subheading">次</span>
                     </h1>
-                    <h4 class="body-1">较昨日 {{yesterday.stateCnt0}}次</h4>
+                    <h4 class="body-1">较昨日 {{yesterday.alertUnprocessed}}次</h4>
                   </div>
                 </v-card-title>
               </v-card>
@@ -50,12 +50,12 @@
               <v-card flat class="aero-lighter">
                 <v-card-title primary-title>
                   <div>
-                    <h4 class="body-2">处理率</h4>
+                    <h4 class="body-2">完成率</h4>
                     <h1 class="display-2 mb-0">
-                      {{today.stateRate1}}
+                      {{today.finishRate}}
                       <span class="subheading">%</span>
                     </h1>
-                    <h4 class="body-1">较昨日 {{yesterday.stateRate1}}%</h4>
+                    <h4 class="body-1">较昨日 {{yesterday.finishRate}}%</h4>
                   </div>
                 </v-card-title>
               </v-card>
@@ -66,10 +66,10 @@
                   <div>
                     <h4 class="body-2">误报率</h4>
                     <h1 class="display-2 mb-0">
-                      {{today.stateRate9}}
+                      {{today.errorRate}}
                       <span class="subheading">%</span>
                     </h1>
-                    <h4 class="body-1">较昨日 {{yesterday.stateRate9}}%</h4>
+                    <h4 class="body-1">较昨日 {{yesterday.errorRate}}%</h4>
                   </div>
                 </v-card-title>
               </v-card>
@@ -80,10 +80,10 @@
                   <div>
                     <h4 class="body-2">转交率</h4>
                     <h1 class="display-2 mb-0">
-                      {{today.uncertainRate}}
+                      {{today.transRate}}
                       <span class="subheading">%</span>
                     </h1>
-                    <h4 class="body-1">较昨日 {{yesterday.uncertainRate}}%</h4>
+                    <h4 class="body-1">较昨日 {{yesterday.transRate}}%</h4>
                   </div>
                 </v-card-title>
               </v-card>
@@ -161,38 +161,16 @@ export default {
   methods: {
     getStatistic() {
       this.$ajax
-        .get("/alert/statistic", {
+        .get("/dashboard/alertstatistic", {
           params: {
-            token: this.userInfo.token,
-            day: "today"
+            token: this.userInfo.token
           }
         })
         .then(data => {
-          this.today = data.data;
-          this.today.stateRate9 = (this.today.stateRate9 * 100).toFixed(1);
-          this.today.stateRate1 = (this.today.stateRate1 * 100).toFixed(1);
-          this.today.uncertainRate = (this.today.uncertainRate * 100).toFixed(
-            1
-          );
-        });
-      this.$ajax
-        .get("/alert/statistic", {
-          params: {
-            token: this.userInfo.token,
-            day: "yesterday"
-          }
-        })
-        .then(data => {
-          this.yesterday = data.data;
-          this.yesterday.stateRate9 = (this.yesterday.stateRate9 * 100).toFixed(
-            1
-          );
-          this.yesterday.stateRate1 = (this.yesterday.stateRate1 * 100).toFixed(
-            1
-          );
-          this.yesterday.uncertainRate = (
-            this.yesterday.uncertainRate * 100
-          ).toFixed(1);
+          data = data.data.statistic;
+          console.log(data);
+          this.today = data[0];
+          this.yesterday = data[1];
         });
     }
   },
