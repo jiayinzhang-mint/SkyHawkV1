@@ -7,33 +7,39 @@
         <div v-if="alertInfo.state==1">
           <div v-if="alertInfo.auto==1">
             <div v-if="userInfo.role==1">
-              <v-btn
-                dark
-                round
-                depressed
-                class="hidden-md-and-down"
-                color="blue darken-2"
+              <el-tooltip
+                class="item"
+                effect="light"
+                content="请求食药监处理"
+                placement="bottom"
                 v-if="alertInfo.uncertain !=1"
-                @click="uncertainAlert"
-              >不确定</v-btn>
-              <v-btn
-                dark
-                round
-                depressed
-                class="hidden-md-and-down"
-                color="blue darken-1"
+              >
+                <v-btn icon @click.stop="uncertainAlert">
+                  <v-icon>flag</v-icon>
+                </v-btn>
+              </el-tooltip>
+              <el-tooltip
+                class="item"
+                effect="light"
+                content="标记误报"
+                placement="bottom"
                 v-if="alertInfo.uncertain !=1"
-                @click="errorAlert"
-              >误报</v-btn>
-              <v-btn
-                dark
-                round
-                depressed
-                class="hidden-md-and-down"
-                color="primary"
+              >
+                <v-btn icon @click.stop="errorAlert">
+                  <v-icon>delete</v-icon>
+                </v-btn>
+              </el-tooltip>
+              <el-tooltip
+                class="item"
+                effect="light"
+                content="下发"
+                placement="bottom"
                 v-if="alertInfo.uncertain !=1"
-                @click="repostAlert"
-              >下发</v-btn>
+              >
+                <v-btn icon @click.stop="repostAlert">
+                  <v-icon>redo</v-icon>
+                </v-btn>
+              </el-tooltip>
 
               <v-menu offset-y class="hidden-lg-and-up">
                 <v-btn slot="activator" color="info" dark depressed>处理

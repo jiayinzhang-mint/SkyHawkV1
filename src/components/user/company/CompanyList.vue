@@ -27,31 +27,30 @@
         style="height:calc(100vh - 129px);overflow :auto"
         v-loading="loading"
         element-loading-background="rgba(0, 0, 0, 0.3)"
-        class="content scrollbar"
       >
-        <v-scroll-x-transition group>
-          <template v-for="(item,index) in companyListShow">
-            <div :key="index">
-              <v-list-tile
-                v-if="$route.params.id==item.id"
-                :to=" '/company/' +item.id+'/info'"
-                ripple
-                class="grey darken-2"
-              >
-                <v-list-tile-content>
-                  <v-list-tile-title class="text-uppercase" style="color:white" v-html="item.brand"></v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
+        <el-scrollbar style="height:100%">
+          <v-scroll-x-transition group>
+            <template v-for="(item,index) in companyListShow">
+              <div :key="index">
+                <v-list-tile
+                  :to=" '/company/' +item.id+'/info'"
+                  ripple
+                  active-class="grey darken-2"
+                >
+                  <v-list-tile-content>
+                    <v-list-tile-title
+                      class="text-uppercase"
+                      style="color:white"
+                      v-html="item.brand"
+                    ></v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
 
-              <v-list-tile v-else :to=" '/company/' +item.id+'/info'" ripple>
-                <v-list-tile-content>
-                  <v-list-tile-title class="text-uppercase" v-html="item.brand"></v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
-              <v-divider></v-divider>
-            </div>
-          </template>
-        </v-scroll-x-transition>
+                <v-divider></v-divider>
+              </div>
+            </template>
+          </v-scroll-x-transition>
+        </el-scrollbar>
       </v-list>
     </v-flex>
     <v-flex sm9>

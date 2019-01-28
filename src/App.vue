@@ -9,7 +9,11 @@ export default {
   name: "App",
   data: () => ({}),
   methods: {},
-  mounted() {}
+  mounted() {
+    if (!sessionStorage.getItem("skyhawk")) {
+      this.$router.push({ path: "/" });
+    }
+  }
 };
 </script>
 

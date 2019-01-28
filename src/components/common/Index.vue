@@ -54,10 +54,10 @@
     </v-navigation-drawer>
 
     <v-toolbar clipped-left flat app fixed color="grey darken-4">
-      <v-btn icon @click="goBack">
-        <v-icon class="hidden-md-and-down">arrow_back</v-icon>
+      <v-btn icon @click="goBack" class="hidden-md-and-down">
+        <v-icon>arrow_back</v-icon>
       </v-btn>
-      <v-toolbar-side-icon class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon class="hidden-lg-and-up" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title class="ml-2" style="width:232px">SkyHawk</v-toolbar-title>
       <v-text-field
         flat
@@ -89,37 +89,6 @@
         </v-avatar>
       </v-btn>
     </v-toolbar>
-
-    <el-dialog
-      title="用户设置"
-      ref="userProfileForm"
-      :close-on-click-modal="false"
-      :visible.sync="settingDialog"
-      width="400px"
-      center
-    >
-      <span class="subheading font-weight-medium">修改密码</span>
-      <v-divider class="mb-4 mt-2"></v-divider>
-      <el-form
-        :model="ruleForm2"
-        status-icon
-        :rules="rules2"
-        ref="ruleForm2"
-        label-width="100px"
-        class="demo-ruleForm"
-      >
-        <el-form-item label="密码" prop="pass">
-          <el-input type="password" v-model="ruleForm2.pass" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="确认密码" prop="checkPass">
-          <el-input type="password" v-model="ruleForm2.checkPass" autocomplete="off"></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <v-btn round depressed flat @click="settingDialog = false">取 消</v-btn>
-        <v-btn round depressed color="primary" @click="submitForm('ruleForm2')">确 定</v-btn>
-      </div>
-    </el-dialog>
 
     <v-navigation-drawer class="aero no-scrollbar" v-model="userHelp" temporary right fixed app>
       <user-help></user-help>
@@ -163,37 +132,10 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   data() {
-    var validatePass = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入密码"));
-      } else {
-        if (this.ruleForm2.checkPass !== "") {
-          this.$refs.ruleForm2.validateField("checkPass");
-        }
-        callback();
-      }
-    };
-    var validatePass2 = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请再次输入密码"));
-      } else if (value !== this.ruleForm2.pass) {
-        callback(new Error("两次输入密码不一致!"));
-      } else {
-        callback();
-      }
-    };
     return {
       mini: false,
       value2: false,
-      ruleForm2: {
-        pass: "",
-        checkPass: ""
-      },
       userHelp: false,
-      rules2: {
-        pass: [{ validator: validatePass, trigger: "blur" }],
-        checkPass: [{ validator: validatePass2, trigger: "blur" }]
-      },
       drawer: true,
       menuManage: [
         { heading: "管理" },
@@ -256,7 +198,6 @@ export default {
           route: "/dashboard/perdict"
         }
       ],
-      settingDialog: false,
       feedBack: "",
       notificationCenter: false,
       settingCenter: false,
@@ -271,29 +212,7 @@ export default {
     goBack() {
       this.$router.go(-1);
     },
-    submitForm(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          this.$ajax
-            .post("/user/info", {
-              token: this.userInfo.token,
-              id: this.userInfo.id,
-              password: this.ruleForm2.pass,
-              changepasswd: true
-            })
-            .then(data => {
-              data = data.data;
-              if (data.msg == "success") {
-                this.settingDialog = false;
-                this.$message({
-                  message: "操作成功",
-                  type: "success"
-                });
-              }
-            });
-        }
-      });
-    },
+
     detectActive() {
       if (moment().diff(this.lTime) > this.tOut) {
         console.log("timeout");

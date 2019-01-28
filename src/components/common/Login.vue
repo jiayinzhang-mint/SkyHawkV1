@@ -189,6 +189,7 @@ export default {
                 );
               })
               .then(() => {
+                sessionStorage.setItem("skyhawk", "watching");
                 if (this.user.device == "desktop") {
                   this.$router.push({ path: "/map" });
                 } else {
