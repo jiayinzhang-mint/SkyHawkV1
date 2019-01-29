@@ -6,9 +6,11 @@
       </v-toolbar>
       <v-divider></v-divider>
       <v-card style="height:calc(100vh - 129px);overflow :auto" flat>
-        <v-container fluid v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.8)">
-          <el-tree :data="organizeListShow" :props="defaultProps" @node-click="showDetail"></el-tree>
-        </v-container>
+        <el-scrollbar style="height:100%">
+          <v-container fluid v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.8)">
+            <el-tree :data="organizeListShow" :props="defaultProps" @node-click="showDetail"></el-tree>
+          </v-container>
+        </el-scrollbar>
       </v-card>
     </v-flex>
     <v-flex xs9>
@@ -37,7 +39,6 @@ export default {
   methods: {
     ...mapActions(["getOrganizeList"]),
     showDetail(item) {
-      // console.log(item.id)
       this.$router.push({ path: "/organize/" + item.id });
     }
   },

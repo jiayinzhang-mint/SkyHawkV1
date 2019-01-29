@@ -161,7 +161,7 @@ export default {
             }
           })
           .then(data => {
-            this.getCompanyList()
+            this.getCompanyList({ type: "force" })
               .then(() => {
                 this.getOrganizeList({ type: "force" });
                 console.log(

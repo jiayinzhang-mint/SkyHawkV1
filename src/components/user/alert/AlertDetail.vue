@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container >
     <v-card v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.3)">
       <v-toolbar flat color="transparent">
         <v-toolbar-title style="font-size:17px">{{alertInfo.title}}</v-toolbar-title>
@@ -74,7 +74,7 @@
         <v-tab key="2">流转历史</v-tab>
       </v-tabs>
       <v-divider></v-divider>
-      <v-tabs-items v-model="tab" style="height:calc(100vh - 210px);overflow :auto">
+      <v-tabs-items class="no-scrollbar" v-model="tab" style="height:calc(100vh - 210px);overflow :auto">
         <v-tab-item key="1">
           <v-container v-if="alertInfo.title!='温度超上限'">
             <img

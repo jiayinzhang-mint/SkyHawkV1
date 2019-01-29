@@ -100,7 +100,7 @@ export default {
       this.$router.push({ path: "/manage/company/" + id });
     },
     newCompany() {
-      this.reFill();
+      // this.reFill();
       if (this.newCompanyForm.brand && this.selectedOrganize[2]) {
         this.newCompanyDialog = false;
         this.$ajax
@@ -119,6 +119,9 @@ export default {
               });
               this.getCompanyList({ type: "force" }).then(() => {
                 this.companyListShow = this.companyList;
+                if (this.filted) {
+                  this.filter(this.selectedStation.id);
+                }
                 this.newCompanyForm = {};
               });
             }
@@ -146,9 +149,12 @@ export default {
                   message: "操作成功",
                   type: "success"
                 });
-                this.reFill();
+                // this.reFill();
                 this.getCompanyList({ type: "force" }).then(() => {
                   this.companyListShow = this.companyList;
+                  if (this.filted) {
+                    this.filter(this.selectedStation.id);
+                  }
                   this.$router.push("/manage/company");
                 });
               }

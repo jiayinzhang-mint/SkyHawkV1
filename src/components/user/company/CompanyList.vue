@@ -99,7 +99,7 @@ export default {
   },
   mounted() {
     this.loading = true;
-    this.getCompanyList();
+    this.getCompanyList({ type: "standard" });
     this.companyListShow = this.companyList;
     if (this.userInfo.role > 1) {
       this.filter(this.userInfo.station);

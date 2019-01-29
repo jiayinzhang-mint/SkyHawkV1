@@ -39,41 +39,38 @@
         element-loading-background="rgba(0, 0, 0, 0)"
         two-line
       >
-        <v-scroll-x-transition group>
-          <template v-for="(item,index) in alertListShow">
-            <div :key="index">
-              <v-list-tile avatar :to=" '/alert/' +item.id" ripple active-class="grey darken-2">
-                <v-list-tile-content>
-                  <v-list-tile-title>
-                    <v-icon
-                      color="red"
-                      style="font-size:16px;margin-bottom:2px"
-                      v-if="item.state==1 && item.uncertain!=1"
-                    >lens</v-icon>
-                    <span class="font-weight-bold">{{item.brand.brand}}</span>
-                  </v-list-tile-title>
-                  <v-list-tile-sub-title class="font-weight-medium body-2">{{item.title}}</v-list-tile-sub-title>
-                  <v-list-tile-sub-title>{{item.create_time | moment("YYYY-MM-DD HH:mm")}}</v-list-tile-sub-title>
-                </v-list-tile-content>
-                <v-list-tile-action>
-                  <v-chip
-                    color="primary darken-1"
-                    text-color="white"
-                    small
-                    v-if="item.uncertain==1"
-                  >转发</v-chip>
-                  <v-chip
-                    color="red lighten-1"
-                    text-color="white"
-                    small
-                    v-if="item.state==9"
-                  >误报</v-chip>
-                </v-list-tile-action>
-              </v-list-tile>
-              <v-divider></v-divider>
-            </div>
-          </template>
-        </v-scroll-x-transition>
+        <el-scrollbar style="height:100%">
+          <v-scroll-x-transition group>
+            <template v-for="(item,index) in alertListShow">
+              <div :key="index">
+                <v-list-tile avatar :to=" '/alert/' +item.id" ripple active-class="grey darken-2">
+                  <v-list-tile-content>
+                    <v-list-tile-title>
+                      <v-icon
+                        color="red"
+                        style="font-size:16px;margin-bottom:2px"
+                        v-if="item.state==1 && item.uncertain!=1"
+                      >lens</v-icon>
+                      <span class="font-weight-bold">{{item.brand.brand}}</span>
+                    </v-list-tile-title>
+                    <v-list-tile-sub-title class="font-weight-medium body-2">{{item.title}}</v-list-tile-sub-title>
+                    <v-list-tile-sub-title>{{item.create_time | moment("YYYY-MM-DD HH:mm")}}</v-list-tile-sub-title>
+                  </v-list-tile-content>
+                  <v-list-tile-action>
+                    <v-chip
+                      color="primary darken-1"
+                      text-color="white"
+                      small
+                      v-if="item.uncertain==1"
+                    >转发</v-chip>
+                    <v-chip color="red lighten-1" text-color="white" small v-if="item.state==9">误报</v-chip>
+                  </v-list-tile-action>
+                </v-list-tile>
+                <v-divider></v-divider>
+              </div>
+            </template>
+          </v-scroll-x-transition>
+        </el-scrollbar>
         <v-list-tile>
           <v-layout justify-center>
             <v-btn

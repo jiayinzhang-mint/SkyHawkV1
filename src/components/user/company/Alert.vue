@@ -1,5 +1,11 @@
 <template>
-  <v-data-table :headers="headers" :items="alertListShow" hide-actions no-data-text="暂无数据">
+  <v-data-table
+    :headers="headers"
+    :items="alertListShow"
+    no-data-text="暂无数据"
+    rows-per-page-text="每页项数"
+    :rows-per-page-items="rowsPerPage"
+  >
     <template slot="items" slot-scope="props">
       <td class="text-xs-center">{{ props.item.title }}</td>
       <td class="text-xs-center">{{ props.item.create_time | moment("YYYY-MM-DD HH:mm:ss") }}</td>
@@ -12,6 +18,10 @@
         <v-btn flat round color="primary" @click="showAlertDetail(props.item.id)">详情</v-btn>
       </td>
     </template>
+    <template
+      slot="pageText"
+      slot-scope="props"
+    >{{ props.pageStart }} - {{ props.pageStop }} 共 {{ props.itemsLength }} 条记录</template>
   </v-data-table>
 </template>
 
@@ -21,6 +31,7 @@ import { mapGetters } from "vuex";
 export default {
   data: () => ({
     alertListShow: [],
+    rowsPerPage: [10, 25, { text: "全部", value: -1 }],
     headers: [
       {
         text: "标题",

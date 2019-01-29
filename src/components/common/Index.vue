@@ -57,7 +57,11 @@
       <v-btn icon @click="goBack" class="hidden-md-and-down">
         <v-icon>arrow_back</v-icon>
       </v-btn>
-      <v-toolbar-side-icon class="hidden-lg-and-up" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon
+        class="hidden-lg-and-up"
+        style="margin-left:-10px"
+        @click.stop="drawer = !drawer"
+      ></v-toolbar-side-icon>
       <v-toolbar-title class="ml-2" style="width:232px">SkyHawk</v-toolbar-title>
       <v-text-field
         flat

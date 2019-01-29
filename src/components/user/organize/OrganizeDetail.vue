@@ -24,6 +24,7 @@
           style="border-radius:3px"
           contain
           :src="currentUser.avatar"
+          v-if="currentUser.avatar"
           lazy-src="/static/assets/lazy.jpg"
         >
           <v-layout slot="placeholder" fill-height align-center justify-center ma-0>

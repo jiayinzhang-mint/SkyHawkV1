@@ -113,7 +113,11 @@
     color: #409EFF !important
 }
 
-.el-input__inner, .el-cascader__label, .el-cascader__label span {
+.el-input__inner, .el-cascader__label, .el-cascader__label, .el-textarea__inner {
     background-color: transparent !important;
     color: white !important;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none
 }
