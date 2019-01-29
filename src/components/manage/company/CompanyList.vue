@@ -100,7 +100,7 @@ export default {
       this.$router.push({ path: "/manage/company/" + id });
     },
     newCompany() {
-      this.refill()
+      this.reFill();
       if (this.newCompanyForm.brand && this.selectedOrganize[2]) {
         this.newCompanyDialog = false;
         this.$ajax
@@ -117,9 +117,10 @@ export default {
                 message: "操作成功",
                 type: "success"
               });
-              this.getCompanyList("force");
-              this.companyListShow = this.companyList
-              this.newCompanyForm = {};
+              this.getCompanyList({ type: "force" }).then(() => {
+                this.companyListShow = this.companyList;
+                this.newCompanyForm = {};
+              });
             }
           });
       }
@@ -145,12 +146,15 @@ export default {
                   message: "操作成功",
                   type: "success"
                 });
-                this.getCompanyList("force");
-                this.$router.push("/manage/company");
+                this.reFill();
+                this.getCompanyList({ type: "force" }).then(() => {
+                  this.companyListShow = this.companyList;
+                  this.$router.push("/manage/company");
+                });
               }
             });
         })
-        .catch(() => { });
+        .catch(() => {});
     },
     filter(id) {
       this.filted = true;
@@ -170,16 +174,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      "companyList",
-      "userInfo",
-      "organizeList",
-      "stationList"
-    ])
+    ...mapGetters(["companyList", "userInfo", "organizeList", "stationList"])
   },
   mounted() {
     this.loading = true;
-    this.getCompanyList();
+    this.getCompanyList({ type: "standard" });
     this.companyListShow = this.companyList;
     this.loading = false;
   }
