@@ -101,18 +101,19 @@ Vue.use(Viewer, {
 });
 
 Vue.use(VueInitialsImg);
-Vue.use(require("vue-moment"));
+Vue.use(require('vue-moment'));
 
-import SettingCenter from "@/components/sidebar/SettingCenter";
-import UserHelp from "@/components/sidebar/UserHelp";
-import NotificationCenter from "@/components/sidebar/NotificationCenter";
-import UserProfile from "@/components/sidebar/UserProfile";
-Vue.component("setting-center", SettingCenter);
-Vue.component("user-help", UserHelp);
-Vue.component("notification-center", NotificationCenter);
-Vue.component("user-profile", UserProfile);
 
-axios.defaults.baseURL = "http://skyhawkapi.huilab.cn/api";
+import SettingCenter from '@/components/sidebar/SettingCenter'
+import UserHelp from '@/components/sidebar/UserHelp'
+import NotificationCenter from '@/components/sidebar/NotificationCenter'
+import UserProfile from '@/components/sidebar/UserProfile'
+Vue.component('setting-center', SettingCenter)
+Vue.component('user-help', UserHelp)
+Vue.component('notification-center', NotificationCenter)
+Vue.component('user-profile', UserProfile)
+
+axios.defaults.baseURL = 'http://skyhawkapi.huilab.cn/api';
 //axios.defaults.baseURL = 'http://monitor2.huilab.cn/api'
 //axios.defaults.baseURL = 'http://127.0.0.1:8000/api'
 
