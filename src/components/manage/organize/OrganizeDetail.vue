@@ -13,8 +13,12 @@
           <td class="text-xs-center">{{ props.item.index }}</td>
           <td class="text-xs-center">{{ props.item.phone }}</td>
           <td class="text-xs-center">
-            <v-btn color="primary" round flat @click="userInfoDialog = true;userForm=props.item">编辑</v-btn>
-            <v-btn color="error" round flat @click="deleteUser(props.item.id)">删除</v-btn>
+            <v-btn color="primary" flat icon @click="userInfoDialog = true;userForm=props.item">
+              <v-icon>edit</v-icon>
+            </v-btn>
+            <v-btn color="error"  flat icon @click="deleteUser(props.item.id)">
+              <v-icon>delete</v-icon>
+            </v-btn>
           </td>
         </template>
       </v-data-table>

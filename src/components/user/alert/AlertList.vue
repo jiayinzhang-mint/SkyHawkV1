@@ -88,7 +88,11 @@
       </v-list>
     </v-flex>
     <v-flex xs9>
-      <router-view @updatealertlist="updateAlertList" v-if="this.$route.params.id"></router-view>
+      <router-view
+        @updatealertlist="updateAlertList"
+        @refreshalertlist="refreshAlertList"
+        v-if="this.$route.params.id"
+      ></router-view>
       <v-container v-else fluid fill-height>
         <v-layout align-center justify-center>
           <div class="headline font-weight-light">请选择告警</div>
@@ -158,7 +162,7 @@ export default {
           }
         });
       }
-      console.log(this.alertListShow);
+      // console.log(this.alertListShow);
     },
     reFill() {
       this.alertListShow = this.alertList;

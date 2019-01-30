@@ -1,5 +1,5 @@
 <template>
-  <v-container >
+  <v-container>
     <v-card v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.3)">
       <v-toolbar flat color="transparent">
         <v-toolbar-title style="font-size:17px">{{alertInfo.title}}</v-toolbar-title>
@@ -11,7 +11,7 @@
                 class="item"
                 effect="light"
                 content="请求食药监处理"
-                placement="bottom"
+                placement="top"
                 v-if="alertInfo.uncertain !=1"
               >
                 <v-btn icon @click.stop="uncertainAlert">
@@ -22,7 +22,7 @@
                 class="item"
                 effect="light"
                 content="标记误报"
-                placement="bottom"
+                placement="top"
                 v-if="alertInfo.uncertain !=1"
               >
                 <v-btn icon @click.stop="errorAlert">
@@ -33,7 +33,7 @@
                 class="item"
                 effect="light"
                 content="下发"
-                placement="bottom"
+                placement="top"
                 v-if="alertInfo.uncertain !=1"
               >
                 <v-btn icon @click.stop="repostAlert">
@@ -67,6 +67,11 @@
         <div v-else-if="alertInfo.state==3">
           <v-btn depressed round color="primary" v-if="userInfo.role==2" @click="finishAlert">完成</v-btn>
         </div>
+        <div v-if="userInfo.role==0">
+          <v-btn icon flat @click="deleteAlert">
+            <v-icon>clear</v-icon>
+          </v-btn>
+        </div>
       </v-toolbar>
       <v-tabs v-model="tab" centered>
         <v-tabs-slider></v-tabs-slider>
@@ -74,7 +79,11 @@
         <v-tab key="2">流转历史</v-tab>
       </v-tabs>
       <v-divider></v-divider>
-      <v-tabs-items class="no-scrollbar" v-model="tab" style="height:calc(100vh - 210px);overflow :auto">
+      <v-tabs-items
+        class="no-scrollbar"
+        v-model="tab"
+        style="height:calc(100vh - 210px);overflow :auto"
+      >
         <v-tab-item key="1">
           <v-container v-if="alertInfo.title!='温度超上限'">
             <img
@@ -434,6 +443,31 @@ export default {
               message: "操作成功"
             });
             this.getAlertInfo();
+          });
+        })
+        .catch(() => {});
+    },
+    deleteAlert() {
+      this.$confirm("确认确认删除?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "error",
+        roundButton: true,
+        center: true,
+        showClose: false,
+        closeOnClickModal: false
+      })
+        .then(() => {
+          this.updateAlert({
+            type: "delete",
+            alert: this.$route.params.id
+          }).then(() => {
+            this.$message({
+              type: "success",
+              message: "操作成功"
+            });
+            this.$emit("refreshalertlist");
+            this.$router.push({ path: "/alert" });
           });
         })
         .catch(() => {});
