@@ -209,7 +209,7 @@ export default {
       userCenter: false,
       lTime: null, // 最后一次点击的时间
       ctTime: null, //当前时间
-      tOut: 1000 * 60 * 60 //超时时间10min
+      tOut: 1000 * 10
     };
   },
   methods: {
@@ -232,6 +232,7 @@ export default {
   mounted() {
     this.alertListShow = this.alertList.slice(0, 10);
     this.lTime = moment();
+    this.detectActive();
   }
 };
 </script>

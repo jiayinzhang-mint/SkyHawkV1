@@ -24,7 +24,7 @@
                       {{today.alertCount}}
                       <span class="subheading font-weight-regular">次</span>
                     </h1>
-                    <h4 class="body-1">较昨日 {{yesterday.alertCount}}次</h4>
+                    <h4 class="body-1">较昨日 {{yesterday.alertCount}} 次</h4>
                   </div>
                 </v-card-title>
               </v-card>
@@ -40,7 +40,7 @@
                       {{today.companyCount}}
                       <span class="subheading font-weight-regular">家</span>
                     </h1>
-                    <h4 class="body-1">较昨日 {{yesterday.companyCount}}家</h4>
+                    <h4 class="body-1">较昨日 {{yesterday.companyCount}} 家</h4>
                   </div>
                 </v-card-title>
               </v-card>
@@ -57,7 +57,7 @@
                       <span class="subheading font-weight-regular">次</span>
                     </h1>
 
-                    <h4 class="body-1">较昨日 {{yesterday.alertUnprocessed}}次</h4>
+                    <h4 class="body-1">较昨日 {{yesterday.alertUnprocessed}} 次</h4>
                   </div>
                 </v-card-title>
               </v-card>
@@ -70,10 +70,10 @@
                   <div>
                     <h4 class="body-2 font-weight-black">处理率</h4>
                     <h1 class="display-3 mb-0 font-weight-light">
-                      {{today.finishRate}}
+                      {{today.opRate}}
                       <span class="subheading font-weight-regular">%</span>
                     </h1>
-                    <h4 class="body-1">较昨日 {{yesterday.finishRate}}%</h4>
+                    <h4 class="body-1">较昨日 {{yesterday.opRate}} %</h4>
                   </div>
                 </v-card-title>
               </v-card>

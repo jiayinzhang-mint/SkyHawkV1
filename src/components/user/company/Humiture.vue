@@ -150,7 +150,12 @@ export default {
             }
           },
           // max: 40,
-          min: 15
+          min: value => {
+            return value.min - 2;
+          },
+          max: value => {
+            return value.max + 2;
+          }
         }
       },
       settings: {

@@ -44,6 +44,17 @@ export default {
           lineStyle: {
             opacity: 0.2
           }
+        },
+        interval: 10,
+        min: value => {
+          if (value.min > 0) {
+            return value.min - 10;
+          } else {
+            return value.min;
+          }
+        },
+        max: value => {
+          return value.max + 10;
         }
       }
     };
