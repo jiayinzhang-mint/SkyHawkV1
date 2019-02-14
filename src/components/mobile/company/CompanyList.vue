@@ -2,7 +2,7 @@
   <v-layout row>
     <v-flex xs12>
       <v-toolbar flat color="white">
-        <v-toolbar-title style="font-size:17px">伝业列表</v-toolbar-title>
+        <v-toolbar-title style="font-size:17px">企业列表</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-chip v-if="filted && userInfo.role<=1" close @input="reFill">{{selectedStation.name}}</v-chip>
         <v-menu bottom left v-if="userInfo.role<=1">
