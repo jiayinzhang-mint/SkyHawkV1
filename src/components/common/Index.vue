@@ -63,30 +63,9 @@
         @click.stop="drawer = !drawer"
       ></v-toolbar-side-icon>
       <v-toolbar-title class="ml-2" style="width:232px">SkyHawk</v-toolbar-title>
-      <v-text-field
-        flat
-        solo-inverted
-        hide-details
-        prepend-inner-icon="search"
-        label="搜索"
-        class="hidden-sm-and-down"
-      ></v-text-field>
+
       <v-spacer></v-spacer>
-      <el-tooltip class="item" effect="light" content="通知" placement="bottom">
-        <v-btn icon @click.stop="notificationCenter = !notificationCenter">
-          <v-icon>mail_outline</v-icon>
-        </v-btn>
-      </el-tooltip>
-      <el-tooltip class="item" effect="light" content="设置" placement="bottom">
-        <v-btn icon @click="settingCenter = !settingCenter">
-          <v-icon>settings</v-icon>
-        </v-btn>
-      </el-tooltip>
-      <el-tooltip class="item" effect="light" content="帮助" placement="bottom">
-        <v-btn icon @click.stop="userHelp = !userHelp">
-          <v-icon>help_outline</v-icon>
-        </v-btn>
-      </el-tooltip>
+
       <v-btn icon @click.stop="userCenter = !userCenter">
         <v-avatar size="32px">
           <vue-initials-img :name="userInfo.username"/>

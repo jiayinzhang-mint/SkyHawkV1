@@ -1,75 +1,74 @@
 <template>
   <div v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.3)">
-      <div id="markermap" style="width: 100%;height: 400px;z-index:1!important;"></div>
-      <v-list class="transparent">
-        <v-subheader>企业信息</v-subheader>
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon color="primary">assignment_ind</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>{{companyInfo.name}}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-divider inset></v-divider>
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon color="primary">location_on</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>{{companyInfo.address}}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-divider inset></v-divider>
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon color="primary">person</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>{{companyInfo.legalperson}}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-divider inset></v-divider>
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon color="primary">group</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>{{station.name}} - {{group.name}}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-divider inset></v-divider>
-        <v-subheader>安全等级</v-subheader>
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon color="primary">stars</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-icon v-if="companyInfo.level==3" color="green lighten-2">sentiment_very_satisfied</v-icon>
-            <v-icon v-if="companyInfo.level==2" color="yellow lighten-2">sentiment_satisfied</v-icon>
-            <v-icon v-if="companyInfo.level==1" color="red lighten-2">sentiment_dissatisfied</v-icon>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-subheader>营业执照</v-subheader>
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon color="primary">assignment</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>{{companyInfo.license}}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-subheader>执照到期时间</v-subheader>
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon color="primary">av_timer</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>{{companyInfo.license_validity | moment("YYYY-MM-DD HH:mm:ss")}}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </el-scrollbar>
+    <div id="markermap" style="width: 100%;height: 400px;z-index:1!important;"></div>
+    <v-list class="transparent">
+      <v-subheader>企业信息</v-subheader>
+      <v-list-tile>
+        <v-list-tile-action>
+          <v-icon color="primary">assignment_ind</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title>{{companyInfo.name}}</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-divider inset></v-divider>
+      <v-list-tile>
+        <v-list-tile-action>
+          <v-icon color="primary">location_on</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title>{{companyInfo.address}}</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-divider inset></v-divider>
+      <v-list-tile>
+        <v-list-tile-action>
+          <v-icon color="primary">person</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title>{{companyInfo.legalperson}}</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-divider inset></v-divider>
+      <v-list-tile>
+        <v-list-tile-action>
+          <v-icon color="primary">group</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title>{{station.name}} - {{group.name}}</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-divider inset></v-divider>
+      <v-subheader>安全等级</v-subheader>
+      <v-list-tile>
+        <v-list-tile-action>
+          <v-icon color="primary">stars</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-icon v-if="companyInfo.level==3" color="green lighten-2">sentiment_very_satisfied</v-icon>
+          <v-icon v-if="companyInfo.level==2" color="yellow lighten-2">sentiment_satisfied</v-icon>
+          <v-icon v-if="companyInfo.level==1" color="red lighten-2">sentiment_dissatisfied</v-icon>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-subheader>营业执照</v-subheader>
+      <v-list-tile>
+        <v-list-tile-action>
+          <v-icon color="primary">assignment</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title>{{companyInfo.license}}</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-subheader>证照到期时间</v-subheader>
+      <v-list-tile>
+        <v-list-tile-action>
+          <v-icon color="primary">av_timer</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title>{{companyInfo.license_validity | moment("YYYY-MM-DD HH:mm:ss")}}</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+    </v-list>
   </div>
 </template>
 
