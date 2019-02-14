@@ -191,15 +191,4 @@ const router = new VueRouter({
   ]
 });
 
-// router.beforeEach((to, from, next) => {
-//   if (to.matched.some(m => m.meta.auth)) {
-//     if (sessionStorage.getItem("skyhawk")) {
-//       next();
-//     } else {
-//       next({ path: "/", query: { Rurl: to.fullPath } });
-//     }
-//   }
-//   next();
-// });
-
 export default router;
