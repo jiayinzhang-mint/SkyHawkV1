@@ -10,9 +10,9 @@ export default {
   data: () => ({}),
   methods: {},
   mounted() {
-    if (!sessionStorage.getItem("skyhawk")) {
-      this.$router.push({ path: "/" });
-    }
+    // if (!sessionStorage.getItem("skyhawk")) {
+    //   this.$router.push({ path: "/" });
+    // }
   }
 };
 </script>
