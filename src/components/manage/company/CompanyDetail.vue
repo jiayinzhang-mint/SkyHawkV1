@@ -74,6 +74,10 @@
               <td class="text-xs-center">{{ props.item.name }}</td>
               <td class="text-xs-center">{{ props.item.phone }}</td>
               <td class="text-xs-center">
+                <v-chip v-if="props.item.wechat" small text-color="white" color="green">在线</v-chip>
+                <v-chip v-else small text-color="white" color="red darken-3">离线</v-chip>
+              </td>
+              <td class="text-xs-center">
                 <v-btn color="primary" icon flat @click="userInfoDialog=true;userForm=props.item">
                   <v-icon>edit</v-icon>
                 </v-btn>
@@ -314,6 +318,12 @@ export default {
       {
         text: "移动电话",
         value: "phone",
+        align: "center",
+        sortable: false
+      },
+      {
+        text: "微信",
+        value: "wechat",
         align: "center",
         sortable: false
       },

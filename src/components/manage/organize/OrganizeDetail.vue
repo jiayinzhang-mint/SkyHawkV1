@@ -13,10 +13,14 @@
           <td class="text-xs-center">{{ props.item.index }}</td>
           <td class="text-xs-center">{{ props.item.phone }}</td>
           <td class="text-xs-center">
+            <v-chip v-if="props.item.wechat" small text-color="white" color="green">在线</v-chip>
+            <v-chip v-else small text-color="white" color="red darken-3">离线</v-chip>
+          </td>
+          <td class="text-xs-center">
             <v-btn color="primary" flat icon @click="userInfoDialog = true;userForm=props.item">
               <v-icon>edit</v-icon>
             </v-btn>
-            <v-btn color="error"  flat icon @click="deleteUser(props.item.id)">
+            <v-btn color="error" flat icon @click="deleteUser(props.item.id)">
               <v-icon>delete</v-icon>
             </v-btn>
           </td>
@@ -111,6 +115,12 @@ export default {
       {
         text: "移动电话",
         value: "phone",
+        align: "center",
+        sortable: false
+      },
+      {
+        text: "微信",
+        value: "wechat",
         align: "center",
         sortable: false
       },
