@@ -12,7 +12,7 @@
           <v-list class="transparent">
             <template v-for="(item, i) in menuCompany">
               <v-layout v-if="item.heading" :key="i" row align-center>
-                <v-subheader v-if="item.heading">{{ item.heading }}</v-subheader>
+                <v-subheader v-if="item.heading" class="grey--text">{{ item.heading }}</v-subheader>
               </v-layout>
               <v-divider v-else-if="item.divider" :key="i" dark class="my-2"></v-divider>
               <v-list-tile
