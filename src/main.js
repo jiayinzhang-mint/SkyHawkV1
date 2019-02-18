@@ -115,7 +115,7 @@ Vue.component('user-profile', UserProfile)
 
 //axios.defaults.baseURL = 'http://skyhawkapi.huilab.cn/api';
 axios.defaults.baseURL = 'http://monitor2.huilab.cn/api'
-//axios.defaults.baseURL = 'http://127.0.0.1:8000/api'
+//axios.defaults.baseURL = 'http://127.0.0.1:8001/api'
 
 Vue.prototype.$ajax = axios;
 
