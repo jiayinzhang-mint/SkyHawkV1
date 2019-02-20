@@ -50,12 +50,12 @@
               <v-card flat class="aero-lighter">
                 <v-card-title primary-title>
                   <div>
-                    <h4 class="body-2">完成率</h4>
+                    <h4 class="body-2">处理率</h4>
                     <h1 class="display-2 mb-0">
-                      {{today.finishRate}}
+                      {{today.opRate}}
                       <span class="subheading">%</span>
                     </h1>
-                    <h4 class="body-1">较昨日 {{yesterday.finishRate}}%</h4>
+                    <h4 class="body-1">较昨日 {{yesterday.opRate}}%</h4>
                   </div>
                 </v-card-title>
               </v-card>
