@@ -171,8 +171,8 @@ export default {
           console.log(data);
           this.today = data[0];
           this.yesterday = data[1];
-          this.today.errorRate = (this.today.errorRate / 10).toFixed(2);
-          this.yesterday.errorRate = (this.yesterday.errorRate / 10).toFixed(2);
+          this.today.errorRate = (this.today.errorRate).toFixed(2);
+          this.yesterday.errorRate = (this.yesterday.errorRate).toFixed(2);
         });
     }
   },
