@@ -1,6 +1,6 @@
 <template>
   <v-layout row>
-    <v-flex xs12 sm4>
+    <v-flex xs12 sm3>
       <v-toolbar flat color="grey darken-3">
         <v-toolbar-title style="font-size:17px">组织信息</v-toolbar-title>
         <v-spacer></v-spacer>
@@ -58,7 +58,7 @@
         </span>
       </el-dialog>
     </v-flex>
-    <v-flex sm8>
+    <v-flex sm9>
       <router-view v-if="this.$route.params.id"></router-view>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>

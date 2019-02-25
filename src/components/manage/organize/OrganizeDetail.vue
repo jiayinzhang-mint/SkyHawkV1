@@ -11,12 +11,22 @@
           <td class="text-xs-center">{{ props.item.username }}</td>
           <td class="text-xs-center">{{ props.item.name }}</td>
           <td class="text-xs-center">{{ props.item.index }}</td>
-          <td class="text-xs-center">{{ props.item.phone }}</td>
           <td class="text-xs-center">
             <v-chip v-if="props.item.wechat" small text-color="white" color="green">在线</v-chip>
             <v-chip v-else small text-color="white" color="red darken-3">离线</v-chip>
           </td>
           <td class="text-xs-center">
+            <el-upload
+              action="http://monitor2.huilab.cn/api/organize/picture"
+              :file-list="fileList"
+              :data="fileData"
+              :headers="fileHeaders"
+            >
+              <v-btn icon @click="fileData.userId=props.item.id">
+                <v-icon>cloud_upload</v-icon>
+              </v-btn>
+            </el-upload>
+
             <v-btn color="primary" flat icon @click="userInfoDialog = true;userForm=props.item">
               <v-icon>edit</v-icon>
             </v-btn>
@@ -113,12 +123,6 @@ export default {
         sortable: false
       },
       {
-        text: "移动电话",
-        value: "phone",
-        align: "center",
-        sortable: false
-      },
-      {
         text: "微信",
         value: "wechat",
         align: "center",
@@ -134,7 +138,10 @@ export default {
       username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
       name: [{ required: true, message: "请输入姓名", trigger: "blur" }],
       index: [{ required: true, message: "请输入工号", trigger: "blur" }]
-    }
+    },
+    fileList: [],
+    fileData: {},
+    fileHeaders: {}
   }),
   methods: {
     getOrganizeInfo() {
@@ -243,6 +250,10 @@ export default {
   },
   mounted() {
     this.getOrganizeInfo();
+    this.fileData = {
+      token: this.userInfo.token,
+      organizationId: this.$route.params.id
+    };
   },
   computed: {
     ...mapGetters(["userInfo"])
@@ -250,6 +261,10 @@ export default {
   beforeRouteUpdate(to, from, next) {
     next();
     this.getOrganizeInfo();
+    this.fileData = {
+      token: this.userInfo.token,
+      organizationId: this.$route.params.id
+    };
   }
 };
 </script>
