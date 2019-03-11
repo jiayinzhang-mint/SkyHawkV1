@@ -11,8 +11,8 @@
             >
               <v-layout align-center column justify-center fill-height>
                 <h1 class="display-3 font-weight-thin mb-2">
-                  SkyHawk
-                  <span class="subheading font-weight-black">天鹰系统</span>
+                  SkyHawk Demo
+                  <span class="subheading font-weight-black">天鹰系统 离线评估版</span>
                 </h1>
                 <div align-center>
                   <v-divider></v-divider>

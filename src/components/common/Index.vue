@@ -62,7 +62,7 @@
         style="margin-left:-10px"
         @click.stop="drawer = !drawer"
       ></v-toolbar-side-icon>
-      <v-toolbar-title class="ml-2" style="width:232px">SkyHawk</v-toolbar-title>
+      <v-toolbar-title class="ml-2" style="width:232px">SkyHawk 离线评估版</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
