@@ -5,7 +5,7 @@
       id="markermap"
       style="height:calc(100vh - 64px);overflow :auto"
       v-loading="loadingMap"
-      element-loading-background="rgba(0, 0, 0, 0)"
+      element-loading-background="rgba(16, 16, 16, 0.8)"
     >
       <v-card
         v-if="userInfo.role==1"

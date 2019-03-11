@@ -113,8 +113,8 @@ Vue.component('user-help', UserHelp)
 Vue.component('notification-center', NotificationCenter)
 Vue.component('user-profile', UserProfile)
 
-//axios.defaults.baseURL = 'http://skyhawkapi.huilab.cn/api';
-axios.defaults.baseURL = 'http://monitor2.huilab.cn/api'
+axios.defaults.baseURL = 'http://39.98.52.189:80/api';
+// axios.defaults.baseURL = 'http://monitor2.huilab.cn/api'
 // axios.defaults.baseURL = 'http://127.0.0.1:8000/api'
 
 Vue.prototype.$ajax = axios;
