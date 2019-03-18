@@ -176,12 +176,15 @@ export default {
       }).then(() => {
         if (this.userInfo.role <= 1 && this.filted) {
           this.selectedStation = this.selectedStation;
-        } else if (this.userInfo.role >= 1 && this.userInfo.role <= 3) {
+        } else if (this.userInfo.role > 1 && this.userInfo.role <= 3) {
           this.selectedStation = this.stationList.find(element => {
             return element.id === this.userInfo.station;
           });
         }
-        if (this.filted) {
+        if (
+          this.filted ||
+          (this.userInfo.role > 1 && this.userInfo.role <= 3)
+        ) {
           this.filter(this.selectedStation.id);
         }
         this.loadAlert = false;
