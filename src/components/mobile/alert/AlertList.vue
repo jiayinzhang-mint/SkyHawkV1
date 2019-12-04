@@ -4,14 +4,18 @@
       <v-toolbar flat color="white">
         <v-toolbar-title style="font-size:17px">告警流转</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-toolbar-items v-if="userInfo.role <=1">
+        <v-toolbar-items v-if="userInfo.role <= 1">
           <v-menu bottom left>
             <v-btn slot="activator" flat>
-              {{selectedStation.name}}
+              {{ selectedStation.name }}
               <v-icon>keyboard_arrow_down</v-icon>
             </v-btn>
             <v-list style="height:375px ;overflow :auto">
-              <v-list-tile v-for="(item, i) in stationList" :key="i" @click="filter(item.id)">
+              <v-list-tile
+                v-for="(item, i) in stationList"
+                :key="i"
+                @click="filter(item.id)"
+              >
                 <v-list-tile-title>{{ item.name }}</v-list-tile-title>
               </v-list-tile>
             </v-list>
@@ -31,7 +35,7 @@
         two-line
       >
         <v-scroll-x-transition group>
-          <template v-for="(item,index) in alertListShow">
+          <template v-for="(item, index) in alertListShow">
             <div :key="index">
               <v-list-tile avatar @click="showDetail(item.id)" ripple>
                 <v-list-tile-content>
@@ -39,17 +43,42 @@
                     <v-icon
                       color="red"
                       style="font-size:16px;margin-bottom:2px"
-                      v-if="item.state !=5 && item.state!=6  && item.state!=9 "
-                    >lens</v-icon>
-                    <span class="font-weight-bold">{{item.brand.brand}}</span>
+                      v-if="
+                        item.state != 5 && item.state != 6 && item.state != 9
+                      "
+                      >lens</v-icon
+                    >
+                    <span class="font-weight-bold">{{ item.brand.brand }}</span>
                   </v-list-tile-title>
-                  <v-list-tile-sub-title class="font-weight-medium body-2">{{item.title}}</v-list-tile-sub-title>
-                  <v-list-tile-sub-title>{{item.create_time | moment("YYYY-MM-DD HH:mm:ss")}}</v-list-tile-sub-title>
+                  <v-list-tile-sub-title class="font-weight-medium body-2">{{
+                    item.title
+                  }}</v-list-tile-sub-title>
+                  <v-list-tile-sub-title>{{
+                    item.create_time | moment("YYYY-MM-DD HH:mm:ss")
+                  }}</v-list-tile-sub-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
-                  <v-chip color="info" text-color="white" small v-if="item.auto==0">手动</v-chip>
-                  <v-chip color="green" text-color="white" small v-if="item.auto==1">自动</v-chip>
-                  <v-chip color="warning" text-color="white" small v-if="item.uncertain==1">不确定</v-chip>
+                  <v-chip
+                    color="info"
+                    text-color="white"
+                    small
+                    v-if="item.auto == 0"
+                    >手动</v-chip
+                  >
+                  <v-chip
+                    color="green"
+                    text-color="white"
+                    small
+                    v-if="item.auto == 1"
+                    >自动</v-chip
+                  >
+                  <v-chip
+                    color="warning"
+                    text-color="white"
+                    small
+                    v-if="item.uncertain == 1"
+                    >不确定</v-chip
+                  >
                 </v-list-tile-action>
               </v-list-tile>
               <v-divider></v-divider>
@@ -66,7 +95,8 @@
               :loading="loadAlert"
               :disabled="loadAlert"
               @click="getMoreAlert"
-            >加载更多</v-btn>
+              >加载更多</v-btn
+            >
           </v-layout>
         </v-list-tile>
       </v-list>
@@ -116,7 +146,15 @@ export default {
       this.alertListShow = [];
       this.alertList.forEach(element => {
         if (element.brand.station == id) {
-          this.alertListShow.push(element);
+          if (
+            this.userInfo.role > 1 &&
+            element.state > 1 &&
+            element.state != 9
+          ) {
+            this.alertListShow.push(element);
+          } else {
+            this.alertListShow.push(element);
+          }
         }
       });
       // console.log(this.alertListShow);
