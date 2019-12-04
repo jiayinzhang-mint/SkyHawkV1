@@ -11,8 +11,8 @@
             >
               <v-layout align-center column justify-center fill-height>
                 <h1 class="display-3 font-weight-thin mb-2">
-                  SkyHawk Demo
-                  <span class="subheading font-weight-black">天鹰系统 离线评估版</span>
+                  SkyHawk
+                  <span class="subheading font-weight-black">天鹰系统</span>
                 </h1>
                 <div align-center>
                   <v-divider></v-divider>
@@ -22,16 +22,25 @@
               </v-layout>
               <v-footer class="pa-4 trans">
                 <div @click="jump" class="jump">
-                  <img width="20px" style="margin-left:-5px" src="/static/assets/INSDIM.svg">
+                  <img
+                    width="20px"
+                    style="margin-left:-5px"
+                    src="/static/assets/INSDIM.svg"
+                  />
                 </div>
                 <v-spacer></v-spacer>
-                <div>Copyright &copy; {{ new Date().getFullYear() }} INSDIM Inc. 保留所有权利</div>
+                <div>
+                  Copyright &copy; {{ new Date().getFullYear() }} INSDIM Inc.
+                  保留所有权利
+                </div>
               </v-footer>
             </v-flex>
             <v-flex xs12 md4 d-flex>
               <v-container style="padding-right:100px !important">
                 <v-card-text>
-                  <p class="text-md-left headline font-weight-bold mb-4 pt-3">登录 SkyHawk</p>
+                  <p class="text-md-left headline font-weight-bold mb-4 pt-3">
+                    登录 SkyHawk
+                  </p>
                   <v-text-field
                     v-model="username"
                     prepend-icon="person"
@@ -50,7 +59,15 @@
                   ></v-text-field>
                 </v-card-text>
                 <v-card-actions class="pb-5">
-                  <v-btn outline light color="primary" depressed @click="login" round>登录</v-btn>
+                  <v-btn
+                    outline
+                    light
+                    color="primary"
+                    depressed
+                    @click="login"
+                    round
+                    >登录</v-btn
+                  >
                 </v-card-actions>
               </v-container>
             </v-flex>
@@ -61,8 +78,13 @@
 
     <v-dialog v-model="loading" hide-overlay persistent width="300">
       <v-card>
-        <v-card-text>正在加载数据
-          <v-progress-linear indeterminate color="primary" class="mb-0"></v-progress-linear>
+        <v-card-text
+          >正在加载数据
+          <v-progress-linear
+            indeterminate
+            color="primary"
+            class="mb-0"
+          ></v-progress-linear>
         </v-card-text>
       </v-card>
     </v-dialog>
