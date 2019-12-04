@@ -2,12 +2,17 @@
   <v-app id="inspire" dark @click.native="detectActive">
     <v-navigation-drawer fixed app v-model="drawer" clipped>
       <v-list>
-        <v-list v-if="userInfo.role==0">
+        <v-list v-if="userInfo.role == 0">
           <template v-for="(item, i) in menuManage">
             <v-layout v-if="item.heading" :key="i" row align-center>
               <v-subheader v-if="item.heading">{{ item.heading }}</v-subheader>
             </v-layout>
-            <v-divider v-else-if="item.divider" :key="i" dark class="my-3"></v-divider>
+            <v-divider
+              v-else-if="item.divider"
+              :key="i"
+              dark
+              class="my-3"
+            ></v-divider>
             <v-list-tile v-else :key="i" :to="item.route" ripple>
               <v-list-tile-action>
                 <v-icon>{{ item.icon }}</v-icon>
@@ -23,8 +28,18 @@
             <v-layout v-if="item.heading" :key="i" row align-center>
               <v-subheader v-if="item.heading">{{ item.heading }}</v-subheader>
             </v-layout>
-            <v-divider v-else-if="item.divider" :key="i" dark class="my-3"></v-divider>
-            <v-list-tile v-else-if="userInfo.role<=item.role" :key="i" :to="item.route" ripple>
+            <v-divider
+              v-else-if="item.divider"
+              :key="i"
+              dark
+              class="my-3"
+            ></v-divider>
+            <v-list-tile
+              v-else-if="userInfo.role <= item.role"
+              :key="i"
+              :to="item.route"
+              ripple
+            >
               <v-list-tile-action>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-tile-action>
@@ -39,8 +54,18 @@
             <v-layout v-if="item.heading" :key="i" row align-center>
               <v-subheader v-if="item.heading">{{ item.heading }}</v-subheader>
             </v-layout>
-            <v-divider v-else-if="item.divider" :key="i" dark class="my-3"></v-divider>
-            <v-list-tile v-else-if="userInfo.role<=item.role" :key="i" :to="item.route" ripple>
+            <v-divider
+              v-else-if="item.divider"
+              :key="i"
+              dark
+              class="my-3"
+            ></v-divider>
+            <v-list-tile
+              v-else-if="userInfo.role <= item.role"
+              :key="i"
+              :to="item.route"
+              ripple
+            >
               <v-list-tile-action>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-tile-action>
@@ -62,18 +87,27 @@
         style="margin-left:-10px"
         @click.stop="drawer = !drawer"
       ></v-toolbar-side-icon>
-      <v-toolbar-title class="ml-2" style="width:232px">SkyHawk 离线评估版</v-toolbar-title>
+      <v-toolbar-title class="ml-2" style="width:232px"
+        >SkyHawk</v-toolbar-title
+      >
 
       <v-spacer></v-spacer>
 
       <v-btn icon @click.stop="userCenter = !userCenter">
         <v-avatar size="32px">
-          <vue-initials-img :name="userInfo.username"/>
+          <vue-initials-img :name="userInfo.username" />
         </v-avatar>
       </v-btn>
     </v-toolbar>
 
-    <v-navigation-drawer class="aero no-scrollbar" v-model="userHelp" temporary right fixed app>
+    <v-navigation-drawer
+      class="aero no-scrollbar"
+      v-model="userHelp"
+      temporary
+      right
+      fixed
+      app
+    >
       <user-help></user-help>
     </v-navigation-drawer>
 
@@ -99,7 +133,14 @@
       <notification-center></notification-center>
     </v-navigation-drawer>
 
-    <v-navigation-drawer class="aero no-scrollbar" v-model="userCenter" temporary right fixed app>
+    <v-navigation-drawer
+      class="aero no-scrollbar"
+      v-model="userCenter"
+      temporary
+      right
+      fixed
+      app
+    >
       <user-profile></user-profile>
     </v-navigation-drawer>
 
