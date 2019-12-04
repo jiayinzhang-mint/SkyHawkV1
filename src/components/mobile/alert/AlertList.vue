@@ -146,12 +146,10 @@ export default {
       this.alertListShow = [];
       this.alertList.forEach(element => {
         if (element.brand.station == id) {
-          if (
-            this.userInfo.role > 1 &&
-            element.state > 1 &&
-            element.state != 9
-          ) {
-            this.alertListShow.push(element);
+          if (this.userInfo.role > 1) {
+            if (element.state > 1 && element.state != 9) {
+              this.alertListShow.push(element);
+            }
           } else {
             this.alertListShow.push(element);
           }
