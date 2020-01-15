@@ -37,7 +37,8 @@ import {
   VDialog,
   VTimeline,
   VHover,
-  VParallax
+  VParallax,
+  VDatePicker
 } from "vuetify";
 import { Ripple } from "vuetify/lib/directives";
 
@@ -69,7 +70,8 @@ Vue.use(Vuetify, {
     VDialog,
     VTimeline,
     VHover,
-    VParallax
+    VParallax,
+    VDatePicker
   },
   directives: {
     Ripple

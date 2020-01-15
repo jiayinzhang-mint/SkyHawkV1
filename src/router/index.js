@@ -90,6 +90,11 @@ const router = new VueRouter({
           ]
         },
         {
+          path: "/calendar",
+          component: resolve =>
+            require(["@/components/calendar/Calendar"], resolve)
+        },
+        {
           path: "/map",
           component: resolve =>
             require(["@/components/user/map/MapView"], resolve)

@@ -183,6 +183,12 @@ export default {
           route: "/today"
         },
         {
+          icon: "today",
+          text: "每日统计",
+          role: 2,
+          route: "/calendar"
+        },
+        {
           icon: "map",
           text: "地图视图",
           route: "/map",
