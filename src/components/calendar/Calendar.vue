@@ -62,7 +62,7 @@
           <v-card>
             <v-card-title>下发率</v-card-title>
             <v-card-text class="display-1 font-weight-black"
-              >{{ (statistic.countPush || 0).toFixed(2) }} %</v-card-text
+              >{{ (statistic.countPush * 100 || 0).toFixed(1) }} %</v-card-text
             >
           </v-card>
         </v-flex>
@@ -70,7 +70,7 @@
           <v-card>
             <v-card-title>错误率</v-card-title>
             <v-card-text class="display-1 font-weight-black"
-              >{{ (statistic.countErr || 0).toFixed(2) }} %</v-card-text
+              >{{ (statistic.countErr * 100 || 0).toFixed(1) }} %</v-card-text
             >
           </v-card>
         </v-flex>
@@ -78,7 +78,7 @@
           <v-card>
             <v-card-title>整改率</v-card-title>
             <v-card-text class="display-1 font-weight-black"
-              >{{ (statistic.countFix || 0).toFixed(2) }} %</v-card-text
+              >{{ (statistic.countFix * 100 || 0).toFixed(1) }} %</v-card-text
             >
           </v-card>
         </v-flex>
@@ -86,7 +86,10 @@
           <v-card>
             <v-card-title>完成率</v-card-title>
             <v-card-text class="display-1 font-weight-black"
-              >{{ (statistic.countFinish || 0).toFixed(2) }} %</v-card-text
+              >{{
+                (statistic.countFinish * 100 || 0).toFixed(1)
+              }}
+              %</v-card-text
             >
           </v-card>
         </v-flex>
